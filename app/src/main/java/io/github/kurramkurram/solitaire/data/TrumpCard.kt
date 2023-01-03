@@ -1,0 +1,33 @@
+package io.github.kurramkurram.solitaire.data
+
+import io.github.kurramkurram.solitaire.util.NUMBER
+import io.github.kurramkurram.solitaire.util.PATTERN
+import io.github.kurramkurram.solitaire.util.SIDE
+
+data class TrumpCard(
+    val number: NUMBER,
+    val pattern: PATTERN,
+    var side: SIDE
+) {
+    private val id: Int = (number.ordinal + 1) * (pattern.ordinal * 13 + 1)
+
+    override fun toString(): String {
+        return "id = " + id +
+                " \n number = " + number.ordinal +
+                " \n pattern = " + pattern.ordinal +
+                " \n side = " + side.ordinal
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val otherCard = other as TrumpCard
+        return number == otherCard.number && pattern == otherCard.pattern
+    }
+
+    override fun hashCode(): Int {
+        var result = number.hashCode()
+        result = 31 * result + pattern.hashCode()
+        result = 31 * result + side.hashCode()
+        result = 31 * result + id
+        return result
+    }
+}
