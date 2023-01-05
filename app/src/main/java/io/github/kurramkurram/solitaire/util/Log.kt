@@ -5,7 +5,7 @@ import android.util.Log
 class L {
     companion object {
         fun d(tag: String, msg: String) {
-            Log.d("Solitaire", "$tag:$msg")
+            Log.d("Solitaire", "$tag$msg")
         }
     }
 }
