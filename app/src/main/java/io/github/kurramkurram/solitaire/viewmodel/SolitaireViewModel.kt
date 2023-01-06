@@ -156,7 +156,7 @@ class SolitaireViewModel : ViewModel() {
                     start += size
                     size++
                     end = start + size
-                    add(list.subList(start, end))
+                    add(mutableList)
                     if (end > TOTAL_CARD_SIZE) {
                         return@run
                     }

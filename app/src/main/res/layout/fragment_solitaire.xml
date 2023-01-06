@@ -5,29 +5,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+    <ListView
+        android:id="@+id/listView0"
+        style="@style/SolitaireListStyle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@color/black" />
-    </androidx.cardview.widget.CardView>
+    <ListView
+        android:id="@+id/listView1"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView0"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ListView
+        android:id="@+id/listView2"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView1"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@android:color/holo_red_dark" />
-    </androidx.cardview.widget.CardView>
+    <ListView
+        android:id="@+id/listView3"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView4"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView5"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView6"
+        style="@style/SolitaireListStyle"
+        app:layout_constraintStart_toEndOf="@id/listView5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="30dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:src="@color/black" />-->
+    <!--    </androidx.cardview.widget.CardView>-->
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="30dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:src="@android:color/holo_red_dark" />-->
+    <!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

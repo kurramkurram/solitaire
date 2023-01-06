@@ -13,4 +13,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SolitaireListStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
 </resources>
