@@ -5,47 +5,126 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listView0"
-        style="@style/SolitaireListStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_stock_and_found"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ListView
-        android:id="@+id/listView1"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView0"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_found"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6">
 
-    <ListView
-        android:id="@+id/listView2"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView1"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/found_spade"
+                style="@style/SolitaireFoundationStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listView3"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView2"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/found_heart"
+                style="@style/SolitaireFoundationStyle"
+                app:layout_constraintStart_toEndOf="@id/found_spade"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listView4"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView3"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/found_clover"
+                style="@style/SolitaireFoundationStyle"
+                app:layout_constraintStart_toEndOf="@id/found_heart"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/listView5"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView4"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/found_diamond"
+                style="@style/SolitaireFoundationStyle"
+                app:layout_constraintStart_toEndOf="@id/found_clover"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/listView6"
-        style="@style/SolitaireListStyle"
-        app:layout_constraintStart_toEndOf="@id/listView5"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_stock"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/layout_found"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4">
+
+            <TextView
+                android:id="@+id/stock_front"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/stock_back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/stock_front"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintHeight_percent="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_stock_and_found">
+
+        <ListView
+            android:id="@+id/listView0"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView1"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView0"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView2"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView3"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView4"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView5"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/listView6"
+            style="@style/SolitaireListStyle"
+            app:layout_constraintStart_toEndOf="@id/listView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--    <androidx.cardview.widget.CardView-->
     <!--        android:layout_width="30dp"-->

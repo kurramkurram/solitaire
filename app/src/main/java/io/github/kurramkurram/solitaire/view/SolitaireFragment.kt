@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
@@ -66,7 +65,6 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
                         position
                     )
                 )
-
                 L.d(TAG, "#onItemClick view = ${listView.id} ret = $ret")
             }
         }

@@ -19,4 +19,11 @@
         <item name="layout_constraintWidth_percent">0.142</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
+    <style name="SolitaireFoundationStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="layout_constraintWidth_percent">0.25</item>
+        <item name="android:text">empty</item>
+    </style>
 </resources>

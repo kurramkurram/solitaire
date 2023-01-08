@@ -50,6 +50,9 @@ class SolitaireViewModel : ViewModel() {
         }
 
         for ((i, list) in layoutList.withIndex()) {
+            if (list.isEmpty()) {
+                return false
+            }
             val last = list.last()
 
             if (canMoveToLayout(card, last, list)) {

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import io.github.kurramkurram.solitaire.data.TrumpCard
+import io.github.kurramkurram.solitaire.util.L
+import io.github.kurramkurram.solitaire.util.SIDE
 
 class CardListAdapter(context: Context, list: List<TrumpCard>) :
     ArrayAdapter<TrumpCard>(context, 0, list) {
@@ -20,14 +22,33 @@ class CardListAdapter(context: Context, list: List<TrumpCard>) :
         }
 
         val data = getItem(position)
-        val text = "${data!!.number.ordinal}_${data.pattern.name[0]}_${data.side.name[0]}"
+        val text = "${data!!.number.ordinal} \n ${data.pattern.name}"
         view!!.findViewById<TextView>(android.R.id.text1).apply {
             this.text = text
-            if (data.pattern.ordinal % 2 != 0) {
-                setBackgroundColor(resources.getColor(android.R.color.holo_red_dark, null))
+            val backgroundColor: Int
+            val textColor: Int
+            when (data.side) {
+                SIDE.FRONT -> {
+                    backgroundColor = if (data.pattern.ordinal % 2 != 0) {
+                        android.R.color.holo_red_light
+                    } else {
+                        android.R.color.white
+                    }
+                    textColor = android.R.color.black
+                }
+                SIDE.BACK -> {
+                    backgroundColor = android.R.color.darker_gray
+                    textColor = android.R.color.darker_gray
+                }
             }
+            setBackgroundColor(resources.getColor(backgroundColor, null))
+            setTextColor(resources.getColor(textColor, null))
         }
 
         return view
+    }
+
+    companion object {
+        private const val TAG = "CardListAdapter"
     }
 }
