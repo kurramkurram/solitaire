@@ -1,15 +1,19 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
+import android.content.Context
+import android.widget.ArrayAdapter
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
+import io.github.kurramkurram.solitaire.view.CardListAdapter
 
 class SolitaireViewModel : ViewModel() {
 
     lateinit var layoutList: MutableList<MutableList<TrumpCard>>
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
+    private val adapterList = mutableListOf<ArrayAdapter<TrumpCard>>()
 
     /**
      * 初期化.
@@ -24,6 +28,16 @@ class SolitaireViewModel : ViewModel() {
         L.d(TAG, "#createStock size = " + layoutList.size)
     }
 
+    fun getAdapter(context: Context): List<ArrayAdapter<TrumpCard>> {
+        if (adapterList.isEmpty()) {
+            for (list in layoutList) {
+                adapterList.add(CardListAdapter(context, list))
+            }
+        }
+
+        return adapterList
+    }
+
     class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
 
     fun move(data: SelectData): Boolean {
@@ -35,7 +49,7 @@ class SolitaireViewModel : ViewModel() {
             return false
         }
 
-        for (list in layoutList) {
+        for ((i, list) in layoutList.withIndex()) {
             val last = list.last()
 
             if (canMoveToLayout(card, last, list)) {
@@ -48,9 +62,9 @@ class SolitaireViewModel : ViewModel() {
 
                     POSITION.LAYOUT -> {
                         val baseList = layoutList[column]
-                        val moveList = baseList.subList(index, baseList.size - 1)
+                        val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
-                        baseList.subList(index, baseList.size - 1).clear()
+                        baseList.removeAll(baseList.subList(index, baseList.size))
                     }
 
                     POSITION.STOCK -> {
@@ -59,6 +73,8 @@ class SolitaireViewModel : ViewModel() {
                     }
                 }
 
+                adapterList[i].notifyDataSetChanged()
+                adapterList[column].notifyDataSetChanged()
                 return true
             }
         }
@@ -67,7 +83,7 @@ class SolitaireViewModel : ViewModel() {
             return false
         }
 
-        for (list in foundList) {
+        for ((i, list) in foundList.withIndex()) {
             val last = list.last()
 
             if (canMoveToFound(card, last, list)) {
@@ -83,6 +99,8 @@ class SolitaireViewModel : ViewModel() {
                     }
                     else -> {}
                 }
+                adapterList[i].notifyDataSetChanged()
+                adapterList[column].notifyDataSetChanged()
 //                for ((num, list) in layoutList.withIndex()) {
 //                    L.d(TAG, "#move $num num = ${list.size}")
 //                }
@@ -157,6 +175,7 @@ class SolitaireViewModel : ViewModel() {
                     size++
                     end = start + size
                     add(mutableList)
+
                     if (end > TOTAL_CARD_SIZE) {
                         return@run
                     }

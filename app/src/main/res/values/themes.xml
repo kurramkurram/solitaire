@@ -15,7 +15,8 @@
     </style>
 
     <style name="SolitaireListStyle">
-        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintWidth_percent">0.142</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 </resources>
