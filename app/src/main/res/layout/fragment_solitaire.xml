@@ -23,27 +23,27 @@
             app:layout_constraintWidth_percent="0.6">
 
             <TextView
-                android:id="@+id/found_spade"
+                android:id="@+id/found0"
                 style="@style/SolitaireFoundationStyle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/found_heart"
+                android:id="@+id/found1"
                 style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found_spade"
+                app:layout_constraintStart_toEndOf="@id/found0"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/found_clover"
+                android:id="@+id/found2"
                 style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found_heart"
+                app:layout_constraintStart_toEndOf="@id/found1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/found_diamond"
+                android:id="@+id/found3"
                 style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found_clover"
+                app:layout_constraintStart_toEndOf="@id/found2"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

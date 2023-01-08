@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import io.github.kurramkurram.solitaire.R
@@ -21,6 +22,7 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
     private val solitaireViewModel by viewModels<SolitaireViewModel>()
 
     private lateinit var layoutList: MutableList<ListView>
+    private lateinit var foundLayoutList: MutableList<TextView>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,16 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         L.d(TAG, "#onViewCreated")
 
+        // found
+        foundLayoutList = mutableListOf(
+            found0,
+            found1,
+            found2,
+            found3
+        )
+        updateFound()
+
+        // layout
         layoutList = mutableListOf(
             listView0,
             listView1,
@@ -66,6 +78,23 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
                     )
                 )
                 L.d(TAG, "#onItemClick view = ${listView.id} ret = $ret")
+                if (ret) {
+                    updateFound()
+                }
+            }
+        }
+    }
+
+    private fun updateFound() {
+        for ((index, found) in foundLayoutList.withIndex()) {
+            found.apply {
+                val last = solitaireViewModel.foundList[index]
+                if (last.isNotEmpty()) {
+                    val card = last[last.size - 1]
+                    val name = card.number.ordinal.toString() + card.pattern.name[0]
+                    L.d(TAG, "#updateFound name = $name")
+                    text = name
+                }
             }
         }
     }

@@ -41,18 +41,49 @@ class SolitaireViewModel : ViewModel() {
     class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
 
     fun move(data: SelectData): Boolean {
+        L.d(TAG, "#move")
         val column = data.column
         val index = data.index
         val card = data.card
+        L.d(TAG, "#move card = $card")
 
-        if (card.side == SIDE.BACK) {
-            return false
+        if (card.side == SIDE.BACK) return false
+
+        for (list in foundList) {
+            if (list.size == 0) {
+                if (card.number == NUMBER.ACE) {
+                    list.add(card)
+                    val baseList = layoutList[column]
+                    baseList.removeAll(baseList.subList(index, baseList.size))
+                    changeToFront(baseList, index)
+                    adapterList[column].notifyDataSetChanged()
+                    return true
+                }
+            } else {
+                val last = list.last()
+                if (canMoveToFound(card, last, list)) {
+                    when (data.position) {
+                        POSITION.LAYOUT -> {
+                            list.add(card)
+                            val baseList = layoutList[column]
+                            baseList.removeAll(baseList.subList(index, baseList.size))
+                        }
+                        POSITION.STOCK -> {
+                            list.add(card)
+                            stockList.removeAt(index)
+                        }
+                        else -> {}
+                    }
+
+                    adapterList[column].notifyDataSetChanged()
+                    return true
+                }
+            }
+
         }
 
         for ((i, list) in layoutList.withIndex()) {
-            if (list.isEmpty()) {
-                return false
-            }
+            if (list.isEmpty()) return false
             val last = list.last()
 
             if (canMoveToLayout(card, last, list)) {
@@ -68,9 +99,7 @@ class SolitaireViewModel : ViewModel() {
                         val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
                         baseList.removeAll(baseList.subList(index, baseList.size))
-                        if (baseList.size > 0) {
-                            baseList[index - 1].side = SIDE.FRONT
-                        }
+                        changeToFront(baseList, index)
                     }
 
                     POSITION.STOCK -> {
@@ -84,36 +113,6 @@ class SolitaireViewModel : ViewModel() {
                 return true
             }
         }
-
-        if (card != layoutList[column].last()) {
-            return false
-        }
-
-        for ((i, list) in foundList.withIndex()) {
-            val last = list.last()
-
-            if (canMoveToFound(card, last, list)) {
-                when (data.position) {
-                    POSITION.LAYOUT -> {
-                        list.add(card)
-                        val baseList = layoutList[column]
-                        baseList.removeAt(index)
-                    }
-                    POSITION.STOCK -> {
-                        list.add(card)
-                        stockList.removeAt(index)
-                    }
-                    else -> {}
-                }
-                adapterList[i].notifyDataSetChanged()
-                adapterList[column].notifyDataSetChanged()
-//                for ((num, list) in layoutList.withIndex()) {
-//                    L.d(TAG, "#move $num num = ${list.size}")
-//                }
-                return true
-            }
-        }
-
         return false
     }
 
@@ -191,11 +190,18 @@ class SolitaireViewModel : ViewModel() {
 
     @VisibleForTesting
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
-        mutableListOf<MutableList<TrumpCard>>().apply {
-            PATTERN.values().forEach { pattern ->
-                add(mutableListOf(TrumpCard(NUMBER.NONE, pattern, SIDE.BACK)))
-            }
+        mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
+//        mutableListOf<MutableList<TrumpCard>>().apply {
+//            PATTERN.values().forEach { pattern ->
+//                add(mutableListOf(TrumpCard(NUMBER.NONE, pattern, SIDE.BACK)))
+//            }
+//        }
+
+    private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
+        if (baseList.size > 0) {
+            baseList[index - 1].side = SIDE.FRONT
         }
+    }
 
     companion object {
         private const val TAG = "SolitaireViewModel"
