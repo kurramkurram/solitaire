@@ -22,7 +22,7 @@ class CardListAdapter(context: Context, list: List<TrumpCard>) :
         }
 
         val data = getItem(position)
-        val text = "${data!!.number.ordinal} \n ${data.pattern.name}"
+        val text = "${data!!.number.ordinal} \n ${data.pattern.name[0]}"
         view!!.findViewById<TextView>(android.R.id.text1).apply {
             this.text = text
             val backgroundColor: Int
