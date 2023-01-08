@@ -9,13 +9,16 @@ data class TrumpCard(
     val pattern: PATTERN,
     var side: SIDE
 ) {
-    private val id: Int = (number.ordinal + 1) * (pattern.ordinal * 13 + 1)
+    private val id: Int = number.ordinal + 1 + pattern.ordinal * 13
 
     override fun toString(): String {
-        return "id = " + id +
+        return "--------------" +
+                " \nTrumpCard " +
+                " \nid = " + id +
                 " \n number = " + number.ordinal +
                 " \n pattern = " + pattern.ordinal +
-                " \n side = " + side.ordinal
+                " \n side = " + side.ordinal +
+                " \n --------------"
     }
 
     override fun equals(other: Any?): Boolean {
