@@ -65,6 +65,9 @@ class SolitaireViewModel : ViewModel() {
                         val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
                         baseList.removeAll(baseList.subList(index, baseList.size))
+                        if (baseList.size > 0) {
+                            baseList[index - 1].side = SIDE.FRONT
+                        }
                     }
 
                     POSITION.STOCK -> {
