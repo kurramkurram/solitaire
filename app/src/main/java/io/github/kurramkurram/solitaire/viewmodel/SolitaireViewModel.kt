@@ -191,11 +191,6 @@ class SolitaireViewModel : ViewModel() {
     @VisibleForTesting
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
         mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
-//        mutableListOf<MutableList<TrumpCard>>().apply {
-//            PATTERN.values().forEach { pattern ->
-//                add(mutableListOf(TrumpCard(NUMBER.NONE, pattern, SIDE.BACK)))
-//            }
-//        }
 
     private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
         if (baseList.size > 0) {
