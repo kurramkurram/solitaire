@@ -3,6 +3,7 @@ package io.github.kurramkurram.solitaire.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
@@ -17,7 +18,7 @@ import io.github.kurramkurram.solitaire.util.POSITION
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 import kotlinx.android.synthetic.main.fragment_solitaire.*
 
-class SolitaireFragment : Fragment(), OnItemClickListener {
+class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
 
     private val solitaireViewModel by viewModels<SolitaireViewModel>()
 
@@ -45,6 +46,16 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
             found3
         )
         updateFound()
+
+        // stock
+        stock_back.apply {
+            setBackgroundColor(resources.getColor(android.R.color.darker_gray, null))
+            setOnClickListener(this@SolitaireFragment)
+        }
+
+        stock_front.apply {
+            setOnClickListener(this@SolitaireFragment)
+        }
 
         // layout
         layoutList = mutableListOf(
@@ -85,18 +96,46 @@ class SolitaireFragment : Fragment(), OnItemClickListener {
         }
     }
 
+    override fun onClick(v: View?) {
+        when (v) {
+            stock_back -> {
+                solitaireViewModel.openStock()
+            }
+            stock_front -> {
+                solitaireViewModel.moveStock()
+            }
+        }
+
+        val index = solitaireViewModel.stockIndex
+        val card = solitaireViewModel.stockList[index]
+        val name = dataToDummyString(card)
+        stock_front.apply {
+            text = name
+            val backgroundColor = if (card.pattern.ordinal % 2 != 0) {
+                android.R.color.holo_red_light
+            } else {
+                android.R.color.white
+            }
+            setBackgroundColor(resources.getColor(backgroundColor, null))
+        }
+    }
+
     private fun updateFound() {
         for ((index, found) in foundLayoutList.withIndex()) {
             found.apply {
                 val last = solitaireViewModel.foundList[index]
                 if (last.isNotEmpty()) {
                     val card = last[last.size - 1]
-                    val name = card.number.ordinal.toString() + card.pattern.name[0]
+                    val name = dataToDummyString(card)
                     L.d(TAG, "#updateFound name = $name")
                     text = name
                 }
             }
         }
+    }
+
+    private fun dataToDummyString(data: TrumpCard): String {
+        return data.number.ordinal.toString() + data.pattern.name[0]
     }
 
     companion object {

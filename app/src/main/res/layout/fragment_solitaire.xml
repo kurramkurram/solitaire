@@ -59,6 +59,7 @@
                 android:id="@+id/stock_front"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:text="empty"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.5" />

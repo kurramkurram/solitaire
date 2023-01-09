@@ -14,6 +14,7 @@ class SolitaireViewModel : ViewModel() {
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
     private val adapterList = mutableListOf<ArrayAdapter<TrumpCard>>()
+    var stockIndex: Int = -1
 
     /**
      * 初期化.
@@ -71,6 +72,7 @@ class SolitaireViewModel : ViewModel() {
                         POSITION.STOCK -> {
                             list.add(card)
                             stockList.removeAt(index)
+                            stockIndex--
                         }
                         else -> {}
                     }
@@ -105,6 +107,7 @@ class SolitaireViewModel : ViewModel() {
                     POSITION.STOCK -> {
                         list.add(card)
                         stockList.removeAt(index)
+                        stockIndex--
                     }
                 }
 
@@ -114,6 +117,21 @@ class SolitaireViewModel : ViewModel() {
             }
         }
         return false
+    }
+
+    fun openStock() {
+        stockIndex++
+        if (stockList.size > 0) {
+            // 表に変更
+            if (stockIndex >= 0) {
+                stockList[stockIndex].side = SIDE.FRONT
+            }
+        }
+    }
+
+    fun moveStock() {
+        val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
+        move(data)
     }
 
     private fun canMove(
