@@ -103,6 +103,7 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             }
             stock_front -> {
                 solitaireViewModel.moveStock()
+                updateFound()
             }
         }
 
