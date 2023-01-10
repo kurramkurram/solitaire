@@ -53,16 +53,25 @@ class SolitaireViewModel : ViewModel() {
         for (list in foundList) {
             if (list.size == 0) {
                 if (card.number == NUMBER.ACE) {
-                    list.add(card)
-                    val baseList = layoutList[column]
-                    baseList.removeAll(baseList.subList(index, baseList.size))
-                    changeToFront(baseList, index)
-                    adapterList[column].notifyDataSetChanged()
+                    when (data.position) {
+                        POSITION.LAYOUT -> {
+                            list.add(card)
+                            val baseList = layoutList[column]
+                            baseList.removeAll(baseList.subList(index, baseList.size))
+                            changeToFront(baseList, index)
+                            adapterList[column].notifyDataSetChanged()
+                        }
+                        POSITION.STOCK -> {
+                            list.add(card)
+                            stockList.removeAt(index)
+                            stockIndex--
+                        }
+                        else -> {}
+                    }
                     return true
                 }
             } else {
-                val last = list.last()
-                if (canMoveToFound(card, last, list)) {
+                if (canMoveToFound(card,  list)) {
                     when (data.position) {
                         POSITION.LAYOUT -> {
                             list.add(card)
@@ -85,10 +94,7 @@ class SolitaireViewModel : ViewModel() {
         }
 
         for ((i, list) in layoutList.withIndex()) {
-            if (list.isEmpty()) return false
-            val last = list.last()
-
-            if (canMoveToLayout(card, last, list)) {
+            if (canMoveToLayout(card, list)) {
                 when (data.position) {
                     POSITION.FOUNDATION -> {
                         list.add(card)
@@ -136,15 +142,15 @@ class SolitaireViewModel : ViewModel() {
 
     private fun canMove(
         selectCard: TrumpCard,
-        lastCard: TrumpCard,
         first: NUMBER,
         list: MutableList<TrumpCard>
     ): Boolean {
         if (selectCard.number == first && list.size == 0) return true
 
-        if (selectCard.number.ordinal == (lastCard.number.ordinal - 1)
-            && ((selectCard.pattern.ordinal % 2 == 0 && lastCard.pattern.ordinal % 2 == 1)
-                    || (selectCard.pattern.ordinal % 2 == 1 && lastCard.pattern.ordinal % 2 == 0))
+        val last = list.last()
+        if (selectCard.number.ordinal == (last.number.ordinal - 1)
+            && ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1)
+                    || (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0))
         ) return true
 
         return false
@@ -152,15 +158,13 @@ class SolitaireViewModel : ViewModel() {
 
     private fun canMoveToFound(
         selectCard: TrumpCard,
-        lastCard: TrumpCard,
         list: MutableList<TrumpCard>
-    ): Boolean = canMove(selectCard, lastCard, NUMBER.ACE, list)
+    ): Boolean = canMove(selectCard, NUMBER.ACE, list)
 
     private fun canMoveToLayout(
         selectCard: TrumpCard,
-        lastCard: TrumpCard,
         list: MutableList<TrumpCard>
-    ): Boolean = canMove(selectCard, lastCard, NUMBER.KING, list)
+    ): Boolean = canMove(selectCard, NUMBER.KING, list)
 
     @VisibleForTesting
     fun shuffleTrump(): MutableList<TrumpCard> = mutableListOf<TrumpCard>().apply {

@@ -107,16 +107,18 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
         }
 
         val index = solitaireViewModel.stockIndex
-        val card = solitaireViewModel.stockList[index]
-        val name = dataToDummyString(card)
-        stock_front.apply {
-            text = name
-            val backgroundColor = if (card.pattern.ordinal % 2 != 0) {
-                android.R.color.holo_red_light
-            } else {
-                android.R.color.white
+        if (index >= 0) {
+            val card = solitaireViewModel.stockList[index]
+            val name = dataToDummyString(card)
+            stock_front.apply {
+                text = name
+                val backgroundColor = if (card.pattern.ordinal % 2 != 0) {
+                    android.R.color.holo_red_light
+                } else {
+                    android.R.color.white
+                }
+                setBackgroundColor(resources.getColor(backgroundColor, null))
             }
-            setBackgroundColor(resources.getColor(backgroundColor, null))
         }
     }
 
