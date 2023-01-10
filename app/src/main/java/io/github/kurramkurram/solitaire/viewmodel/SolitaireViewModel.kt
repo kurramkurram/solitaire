@@ -138,8 +138,7 @@ class SolitaireViewModel : ViewModel() {
             }
         } else {
             val last = list.last()
-            L.d(TAG, "#canMoveToFound last = $last select = $selectCard")
-            if (selectCard.number.ordinal == last.number.ordinal - 1
+            if (selectCard.number.ordinal == (last.number.ordinal + 1)
                 && selectCard.pattern == last.pattern
             ) return true
         }
