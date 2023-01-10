@@ -122,8 +122,10 @@ class SolitaireViewModel : ViewModel() {
     }
 
     fun moveStock() {
-        val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
-        move(data)
+        if (stockIndex >= 0) {
+            val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
+            move(data)
+        }
     }
 
     private fun canMoveToFound(
