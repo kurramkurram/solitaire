@@ -51,46 +51,26 @@ class SolitaireViewModel : ViewModel() {
         if (card.side == SIDE.BACK) return false
 
         for (list in foundList) {
-            if (list.size == 0) {
-                if (card.number == NUMBER.ACE) {
-                    when (data.position) {
-                        POSITION.LAYOUT -> {
-                            list.add(card)
-                            val baseList = layoutList[column]
-                            baseList.removeAll(baseList.subList(index, baseList.size))
-                            changeToFront(baseList, index)
-                            adapterList[column].notifyDataSetChanged()
-                        }
-                        POSITION.STOCK -> {
-                            list.add(card)
-                            stockList.removeAt(index)
-                            stockIndex--
-                        }
-                        else -> {}
-                    }
-                    return true
-                }
-            } else {
-                if (canMoveToFound(card,  list)) {
-                    when (data.position) {
-                        POSITION.LAYOUT -> {
-                            list.add(card)
-                            val baseList = layoutList[column]
-                            baseList.removeAll(baseList.subList(index, baseList.size))
-                        }
-                        POSITION.STOCK -> {
-                            list.add(card)
-                            stockList.removeAt(index)
-                            stockIndex--
-                        }
-                        else -> {}
+            if (canMoveToFound(card, list)) {
+                when (data.position) {
+                    POSITION.LAYOUT -> {
+                        list.add(card)
+                        val baseList = layoutList[column]
+                        baseList.removeAll(baseList.subList(index, baseList.size))
+                        changeToFront(baseList, index)
                     }
 
-                    adapterList[column].notifyDataSetChanged()
-                    return true
+                    POSITION.STOCK -> {
+                        list.add(card)
+                        stockList.removeAt(index)
+                        stockIndex--
+                    }
+                    else -> {}
                 }
+
+                adapterList[column].notifyDataSetChanged()
+                return true
             }
-
         }
 
         for ((i, list) in layoutList.withIndex()) {
@@ -140,12 +120,30 @@ class SolitaireViewModel : ViewModel() {
         move(data)
     }
 
-    private fun canMove(
+    private fun canMoveToFound(
         selectCard: TrumpCard,
-        first: NUMBER,
         list: MutableList<TrumpCard>
     ): Boolean {
-        if (selectCard.number == first && list.size == 0) return true
+        if (list.size == 0) {
+            if (selectCard.number == NUMBER.ACE) {
+                return true
+            }
+        } else {
+            val last = list.last()
+            L.d(TAG, "#canMoveToFound last = $last select = $selectCard")
+            if (selectCard.number.ordinal == last.number.ordinal - 1
+                && selectCard.pattern == last.pattern
+            ) return true
+        }
+
+        return false
+    }
+
+    private fun canMoveToLayout(
+        selectCard: TrumpCard,
+        list: MutableList<TrumpCard>
+    ): Boolean {
+        if (selectCard.number == NUMBER.KING && list.size == 0) return true
 
         val last = list.last()
         if (selectCard.number.ordinal == (last.number.ordinal - 1)
@@ -155,16 +153,6 @@ class SolitaireViewModel : ViewModel() {
 
         return false
     }
-
-    private fun canMoveToFound(
-        selectCard: TrumpCard,
-        list: MutableList<TrumpCard>
-    ): Boolean = canMove(selectCard, NUMBER.ACE, list)
-
-    private fun canMoveToLayout(
-        selectCard: TrumpCard,
-        list: MutableList<TrumpCard>
-    ): Boolean = canMove(selectCard, NUMBER.KING, list)
 
     @VisibleForTesting
     fun shuffleTrump(): MutableList<TrumpCard> = mutableListOf<TrumpCard>().apply {
