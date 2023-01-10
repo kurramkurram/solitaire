@@ -119,6 +119,11 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
                 }
                 setBackgroundColor(resources.getColor(backgroundColor, null))
             }
+        } else {
+            stock_front.apply {
+                text = "empty"
+                setBackgroundColor(resources.getColor(android.R.color.white, null))
+            }
         }
     }
 

@@ -107,10 +107,16 @@ class SolitaireViewModel : ViewModel() {
 
     fun openStock() {
         stockIndex++
-        if (stockList.size > 0) {
-            // 表に変更
-            if (stockIndex >= 0) {
-                stockList[stockIndex].side = SIDE.FRONT
+        when {
+            stockList.size > 0 && stockIndex < stockList.size -> {
+                // 表に変更
+                if (stockIndex >= 0) {
+                    stockList[stockIndex].side = SIDE.FRONT
+                }
+            }
+
+            stockIndex == stockList.size -> {
+                stockIndex = -1
             }
         }
     }
