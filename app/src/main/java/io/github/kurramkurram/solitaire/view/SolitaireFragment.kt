@@ -46,6 +46,9 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             found3
         )
         updateFound()
+        for (v in foundLayoutList) {
+            v.setOnClickListener(this@SolitaireFragment)
+        }
 
         // stock
         stock_back.apply {
@@ -100,13 +103,24 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
         when (v) {
             stock_back -> {
                 solitaireViewModel.openStock()
+                updateStock()
             }
             stock_front -> {
                 solitaireViewModel.moveStock()
+                updateStock()
                 updateFound()
             }
-        }
 
+            found0, found1, found2, found3 -> {
+                val ret = solitaireViewModel.moveFound(foundLayoutList.indexOf(v))
+                if (ret) {
+                    updateFound()
+                }
+            }
+        }
+    }
+
+    private fun updateStock() {
         val index = solitaireViewModel.stockIndex
         if (index >= 0) {
             val card = solitaireViewModel.stockList[index]

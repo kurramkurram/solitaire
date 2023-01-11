@@ -122,6 +122,16 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
+    fun moveFound(column: Int): Boolean {
+        val data = SelectData(
+            foundList[column].last(),
+            POSITION.FOUNDATION,
+            column,
+            foundList[column].size - 1
+        )
+        return move(data)
+    }
+
     private fun moveFromStock(card: TrumpCard, index: Int, list: MutableList<TrumpCard>) {
         list.add(card)
         stockList.removeAt(index)
