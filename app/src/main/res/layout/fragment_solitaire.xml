@@ -68,6 +68,7 @@
                 android:id="@+id/stock_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
                 app:layout_constraintStart_toEndOf="@id/stock_front"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.5" />

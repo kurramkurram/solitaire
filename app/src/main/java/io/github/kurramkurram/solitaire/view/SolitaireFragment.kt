@@ -30,7 +30,6 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        solitaireViewModel.initCard()
         return inflater.inflate(R.layout.fragment_solitaire, container, false)
     }
 
@@ -45,14 +44,12 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             found2,
             found3
         )
-        updateFound()
         for (v in foundLayoutList) {
             v.setOnClickListener(this@SolitaireFragment)
         }
 
         // stock
         stock_back.apply {
-            setBackgroundColor(resources.getColor(android.R.color.darker_gray, null))
             setOnClickListener(this@SolitaireFragment)
         }
 
@@ -71,12 +68,13 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             listView6
         )
 
-        for ((index, list) in layoutList.withIndex()) {
+        for (list in layoutList) {
             list.apply {
-                adapter = solitaireViewModel.getAdapter(requireContext())[index]
                 onItemClickListener = this@SolitaireFragment
             }
         }
+
+        initCard()
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, p3: Long) {
@@ -116,6 +114,16 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
                 if (ret) {
                     updateFound()
                 }
+            }
+        }
+    }
+
+    private fun initCard() {
+        solitaireViewModel.initCard()
+        updateFound()
+        for ((index, list) in layoutList.withIndex()) {
+            list.apply {
+                adapter = solitaireViewModel.getAdapter(requireContext())[index]
             }
         }
     }
