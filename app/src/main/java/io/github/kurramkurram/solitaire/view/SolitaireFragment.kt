@@ -74,6 +74,10 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             }
         }
 
+        restart_button.setOnClickListener {
+            initCard()
+        }
+
         initCard()
     }
 
@@ -121,6 +125,7 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
     private fun initCard() {
         solitaireViewModel.initCard()
         updateFound()
+        updateStock()
         for ((index, list) in layoutList.withIndex()) {
             list.apply {
                 adapter = solitaireViewModel.getAdapter(requireContext())[index]
@@ -154,11 +159,13 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
         for ((index, found) in foundLayoutList.withIndex()) {
             found.apply {
                 val last = solitaireViewModel.foundList[index]
-                if (last.isNotEmpty()) {
+                text = if (last.isNotEmpty()) {
                     val card = last[last.size - 1]
                     val name = dataToDummyString(card)
                     L.d(TAG, "#updateFound name = $name")
-                    text = name
+                    name
+                } else {
+                    "empty"
                 }
             }
         }

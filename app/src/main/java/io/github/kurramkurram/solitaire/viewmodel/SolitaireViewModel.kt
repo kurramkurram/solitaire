@@ -24,6 +24,8 @@ class SolitaireViewModel : ViewModel() {
         stockList = createStock(shuffleList)
         layoutList = createLayout(shuffleList)
         foundList = createFoundation()
+        stockIndex = -1
+        adapterList.clear()
 
         L.d(TAG, "#createStock size = " + stockList.size)
         L.d(TAG, "#createStock size = " + layoutList.size)
