@@ -150,13 +150,17 @@ class SolitaireViewModel : ViewModel() {
         selectCard: TrumpCard,
         list: MutableList<TrumpCard>
     ): Boolean {
-        if (selectCard.number == NUMBER.KING && list.size == 0) return true
-
-        val last = list.last()
-        if (selectCard.number.ordinal == (last.number.ordinal - 1)
-            && ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1)
-                    || (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0))
-        ) return true
+        if (list.size == 0) {
+            if (selectCard.number == NUMBER.KING) {
+                return true
+            }
+        } else {
+            val last = list.last()
+            if (selectCard.number.ordinal == (last.number.ordinal - 1)
+                && ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1)
+                        || (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0))
+            ) return true
+        }
 
         return false
     }
