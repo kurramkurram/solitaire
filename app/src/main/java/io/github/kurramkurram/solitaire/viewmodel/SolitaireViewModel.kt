@@ -54,10 +54,12 @@ class SolitaireViewModel : ViewModel() {
             if (canMoveToFound(card, list)) {
                 when (data.position) {
                     POSITION.LAYOUT -> {
-                        list.add(card)
                         val baseList = layoutList[column]
-                        baseList.removeAll(baseList.subList(index, baseList.size))
-                        changeToFront(baseList, index)
+                        if (baseList.size - 1 == index) {
+                            list.add(card)
+                            baseList.removeAll(baseList.subList(index, baseList.size))
+                            changeToFront(baseList, index)
+                        }
                     }
 
                     POSITION.STOCK -> {
