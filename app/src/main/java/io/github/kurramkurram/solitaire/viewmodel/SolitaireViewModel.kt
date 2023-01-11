@@ -62,11 +62,7 @@ class SolitaireViewModel : ViewModel() {
                         }
                     }
 
-                    POSITION.STOCK -> {
-                        list.add(card)
-                        stockList.removeAt(index)
-                        stockIndex--
-                    }
+                    POSITION.STOCK -> moveFromStock(card, index, list)
                     else -> {}
                 }
 
@@ -92,11 +88,7 @@ class SolitaireViewModel : ViewModel() {
                         changeToFront(baseList, index)
                     }
 
-                    POSITION.STOCK -> {
-                        list.add(card)
-                        stockList.removeAt(index)
-                        stockIndex--
-                    }
+                    POSITION.STOCK -> moveFromStock(card, index, list)
                 }
 
                 adapterList[i].notifyDataSetChanged()
@@ -128,6 +120,12 @@ class SolitaireViewModel : ViewModel() {
             val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
             move(data)
         }
+    }
+
+    private fun moveFromStock(card: TrumpCard, index: Int, list: MutableList<TrumpCard>) {
+        list.add(card)
+        stockList.removeAt(index)
+        stockIndex--
     }
 
     private fun canMoveToFound(
