@@ -107,10 +107,13 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
                 solitaireViewModel.openStock()
                 updateStock()
             }
+
             stock_front -> {
-                solitaireViewModel.moveStock()
-                updateStock()
-                updateFound()
+                val ret = solitaireViewModel.moveStock()
+                if (ret) {
+                    updateStock()
+                    updateFound()
+                }
             }
 
             found0, found1, found2, found3 -> {

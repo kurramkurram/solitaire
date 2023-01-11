@@ -117,11 +117,11 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
-    fun moveStock() {
-        if (stockIndex >= 0) {
-            val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
-            move(data)
-        }
+    fun moveStock() = if (stockIndex >= 0) {
+        val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
+        move(data)
+    } else {
+        false
     }
 
     fun moveFound(column: Int): Boolean {
