@@ -61,15 +61,17 @@ class SolitaireViewModel : ViewModel() {
                             list.add(card)
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
+                            adapterList[column].notifyDataSetChanged()
+                            return true
                         }
                     }
 
-                    POSITION.STOCK -> moveFromStock(card, index, list)
+                    POSITION.STOCK -> {
+                        moveFromStock(card, index, list)
+                        return true
+                    }
                     else -> {}
                 }
-
-                adapterList[column].notifyDataSetChanged()
-                return true
             }
         }
 
