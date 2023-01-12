@@ -126,12 +126,12 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
     }
 
     private fun initCard() {
-        solitaireViewModel.initCard()
+        solitaireViewModel.initCard(requireContext())
         updateFound()
         updateStock()
         for ((index, list) in layoutList.withIndex()) {
             list.apply {
-                adapter = solitaireViewModel.getAdapter(requireContext())[index]
+                adapter = solitaireViewModel.getAdapter()[index]
             }
         }
     }

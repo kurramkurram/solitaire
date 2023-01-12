@@ -10,7 +10,7 @@ import io.github.kurramkurram.solitaire.view.CardListAdapter
 
 class SolitaireViewModel : ViewModel() {
 
-    lateinit var layoutList: MutableList<MutableList<TrumpCard>>
+    private lateinit var layoutList: MutableList<MutableList<TrumpCard>>
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
     private val adapterList = mutableListOf<ArrayAdapter<TrumpCard>>()
@@ -19,7 +19,7 @@ class SolitaireViewModel : ViewModel() {
     /**
      * 初期化.
      */
-    fun initCard() {
+    fun initCard(context: Context) {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
         layoutList = createLayout(shuffleList)
@@ -27,19 +27,15 @@ class SolitaireViewModel : ViewModel() {
         stockIndex = -1
         adapterList.clear()
 
+        for (list in layoutList) {
+            adapterList.add(CardListAdapter(context, list))
+        }
+
         L.d(TAG, "#createStock size = " + stockList.size)
         L.d(TAG, "#createStock size = " + layoutList.size)
     }
 
-    fun getAdapter(context: Context): List<ArrayAdapter<TrumpCard>> {
-        if (adapterList.isEmpty()) {
-            for (list in layoutList) {
-                adapterList.add(CardListAdapter(context, list))
-            }
-        }
-
-        return adapterList
-    }
+    fun getAdapter(): List<ArrayAdapter<TrumpCard>> = adapterList
 
     class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
 
