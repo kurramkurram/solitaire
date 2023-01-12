@@ -1,10 +1,13 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.L
@@ -41,6 +44,16 @@ class CardListAdapter(context: Context, list: List<TrumpCard>) :
                     textColor = android.R.color.darker_gray
                 }
             }
+
+            parent as ListView
+            val height = if (parent.count - 1 == position) {
+                200
+            } else {
+                100
+            }
+            val param = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, height)
+            view.layoutParams = param
+
             setBackgroundColor(resources.getColor(backgroundColor, null))
             setTextColor(resources.getColor(textColor, null))
         }
