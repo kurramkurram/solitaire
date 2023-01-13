@@ -49,7 +49,7 @@ class CardListAdapter(context: Context, list: List<TrumpCard>) :
             val height = if (parent.count - 1 == position) {
                 200
             } else {
-                100
+                50
             }
             val param = LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, height)
             view.layoutParams = param
