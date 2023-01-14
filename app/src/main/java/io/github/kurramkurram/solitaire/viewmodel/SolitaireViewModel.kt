@@ -39,6 +39,9 @@ class SolitaireViewModel : ViewModel() {
 
     class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
 
+    /**
+     * カードの移動.
+     */
     fun move(data: SelectData): Boolean {
         L.d(TAG, "#move")
         val column = data.column
@@ -99,6 +102,9 @@ class SolitaireViewModel : ViewModel() {
         return false
     }
 
+    /**
+     * 山札をめくる.
+     */
     fun openStock() {
         stockIndex++
         when {
@@ -115,6 +121,9 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
+    /**
+     * めくった山札を移動する.
+     */
     fun moveStock() = if (stockIndex >= 0) {
         val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
         move(data)
@@ -122,6 +131,9 @@ class SolitaireViewModel : ViewModel() {
         false
     }
 
+    /**
+     * 組札を移動する.
+     */
     fun moveFound(column: Int): Boolean {
         val data = SelectData(
             foundList[column].last(),
@@ -132,12 +144,18 @@ class SolitaireViewModel : ViewModel() {
         return move(data)
     }
 
+    /**
+     * 山札からの移動処理を共通化.
+     */
     private fun moveFromStock(card: TrumpCard, index: Int, list: MutableList<TrumpCard>) {
         list.add(card)
         stockList.removeAt(index)
         stockIndex--
     }
 
+    /**
+     * 組札へ移動できるかの判定.
+     */
     private fun canMoveToFound(
         selectCard: TrumpCard,
         list: MutableList<TrumpCard>
@@ -156,6 +174,9 @@ class SolitaireViewModel : ViewModel() {
         return false
     }
 
+    /**
+     * 場札で移動できるかの判定.
+     */
     private fun canMoveToLayout(
         selectCard: TrumpCard,
         list: MutableList<TrumpCard>
@@ -175,6 +196,9 @@ class SolitaireViewModel : ViewModel() {
         return false
     }
 
+    /**
+     * 初期のカード配置のシャッフル.
+     */
     @VisibleForTesting
     fun shuffleTrump(): MutableList<TrumpCard> = mutableListOf<TrumpCard>().apply {
         NUMBER.values().forEach { number ->
@@ -187,10 +211,16 @@ class SolitaireViewModel : ViewModel() {
         shuffle()
     }
 
+    /**
+     * 山札を作成.
+     */
     @VisibleForTesting
     fun createStock(list: MutableList<TrumpCard>): MutableList<TrumpCard> =
         list.subList(0, STOCK_CARD_SIZE)
 
+    /**
+     * 場札を作成.
+     */
     @VisibleForTesting
     fun createLayout(list: MutableList<TrumpCard>): MutableList<MutableList<TrumpCard>> =
         mutableListOf<MutableList<TrumpCard>>().apply {
@@ -223,6 +253,9 @@ class SolitaireViewModel : ViewModel() {
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
         mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
 
+    /**
+     * 場札を表向きにする.
+     */
     private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
         if (baseList.size > 0) {
             baseList[index - 1].side = SIDE.FRONT
