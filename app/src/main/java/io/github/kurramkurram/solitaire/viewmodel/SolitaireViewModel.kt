@@ -1,6 +1,7 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
@@ -10,6 +11,8 @@ class SolitaireViewModel : ViewModel() {
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
     var stockIndex: Int = -1
+
+    val listLayout = MutableLiveData<List<List<TrumpCard>>>(emptyList())
 
     init {
         initCard()
@@ -269,7 +272,12 @@ class SolitaireViewModel : ViewModel() {
     }
 
     fun onRestartClick() {
-        initCard()
+//        initCard()
+
+        L.d(TAG, "#onRestartClick")
+        val item: List<List<TrumpCard>> =
+            listOf(listOf(TrumpCard(NUMBER.ACE, PATTERN.CLOVER, SIDE.BACK)))
+        listLayout.value = (listLayout.value ?: emptyList()) + item
     }
 
     companion object {

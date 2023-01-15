@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -32,12 +33,15 @@ class SolitaireFragment : Fragment(), OnClickListener {
     private val listAdapterList: MutableList<CardAdapter> = mutableListOf()
     private lateinit var foundLayoutList: MutableList<TextView>
 
+    private lateinit var binding: FragmentSolitaireBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return FragmentSolitaireBinding.inflate(inflater, container, false).apply {
+            this.viewModel = solitaireViewModel
             // layout
             layoutList = mutableListOf(
                 listView0,
@@ -58,13 +62,12 @@ class SolitaireFragment : Fragment(), OnClickListener {
                             DividerItemDecoration.VERTICAL
                         )
                     )
-                    adapter =
-                        CardAdapter(
-                            viewLifecycleOwner,
-                            this@SolitaireFragment.solitaireViewModel
-                        ).also {
-                            listAdapterList.add(it)
-                        }
+                    adapter = CardAdapter(
+                        viewLifecycleOwner,
+                        this@SolitaireFragment.solitaireViewModel
+                    ).also {
+                        listAdapterList.add(it)
+                    }
                 }
             }
         }.run { root }
@@ -97,7 +100,9 @@ class SolitaireFragment : Fragment(), OnClickListener {
         restart_button.setOnClickListener {}
 
         solitaireViewModel.run {
-
+            solitaireViewModel.listLayout.observe(viewLifecycleOwner) {
+                L.d(TAG, "#onViewCreated size = ${solitaireViewModel.listLayout.value!!.size}")
+            }
         }
     }
 

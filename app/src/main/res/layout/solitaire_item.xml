@@ -10,7 +10,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{trumpCard.number.ordinal() + trumpCard.pattern.name()[0]}"
+            android:text="@{trumpCard.number.ordinal() + trumpCard.pattern.name()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
