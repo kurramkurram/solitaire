@@ -101,7 +101,9 @@ class SolitaireFragment : Fragment(), OnClickListener {
 
         solitaireViewModel.run {
             solitaireViewModel.listLayout.observe(viewLifecycleOwner) {
-                L.d(TAG, "#onViewCreated size = ${solitaireViewModel.listLayout.value!!.size}")
+                for ((index, adapter) in listAdapterList.withIndex()) {
+                    adapter.submitList(it[index])
+                }
             }
         }
     }

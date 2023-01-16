@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
+
 class SolitaireViewModel : ViewModel() {
 
     private lateinit var layoutList: MutableList<MutableList<TrumpCard>>
@@ -12,7 +13,7 @@ class SolitaireViewModel : ViewModel() {
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
     var stockIndex: Int = -1
 
-    val listLayout = MutableLiveData<List<List<TrumpCard>>>(emptyList())
+    val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
 
     init {
         initCard()
@@ -24,7 +25,8 @@ class SolitaireViewModel : ViewModel() {
     private fun initCard() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
-        layoutList = createLayout(shuffleList)
+//        layoutList = createLayout(shuffleList)
+        createLayout(shuffleList)
         foundList = createFoundation()
         stockIndex = -1
     }
@@ -57,12 +59,14 @@ class SolitaireViewModel : ViewModel() {
                             list.add(card)
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
+                            listLayout.value = listLayout.value
                             return true
                         }
                     }
 
                     POSITION.STOCK -> {
                         moveFromStock(card, index, list)
+                        listLayout.value = listLayout.value
                         return true
                     }
                     else -> {}
@@ -70,7 +74,7 @@ class SolitaireViewModel : ViewModel() {
             }
         }
 
-        for ((i, list) in layoutList.withIndex()) {
+        for ((i, list) in listLayout.value!!.withIndex()) {
             if (canMoveToLayout(card, list)) {
                 when (data.position) {
                     POSITION.FOUNDATION -> {
@@ -89,6 +93,7 @@ class SolitaireViewModel : ViewModel() {
 
                     POSITION.STOCK -> moveFromStock(card, index, list)
                 }
+                listLayout.value = listLayout.value
                 return true
             }
         }
@@ -214,8 +219,8 @@ class SolitaireViewModel : ViewModel() {
      * 場札を作成.
      */
     @VisibleForTesting
-    fun createLayout(list: MutableList<TrumpCard>): MutableList<MutableList<TrumpCard>> =
-        mutableListOf<MutableList<TrumpCard>>().apply {
+    fun createLayout(list: MutableList<TrumpCard>) {
+        listLayout.value = mutableListOf<MutableList<TrumpCard>>().apply {
             var size = 1
             var start = STOCK_CARD_SIZE
             var end = start + size
@@ -234,12 +239,11 @@ class SolitaireViewModel : ViewModel() {
                     end = start + size
                     add(mutableList)
 
-                    if (end > TOTAL_CARD_SIZE) {
-                        return@run
-                    }
+                    if (end > TOTAL_CARD_SIZE) return@run
                 }
             }
         }
+    }
 
     @VisibleForTesting
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
@@ -272,12 +276,7 @@ class SolitaireViewModel : ViewModel() {
     }
 
     fun onRestartClick() {
-//        initCard()
-
-        L.d(TAG, "#onRestartClick")
-        val item: List<List<TrumpCard>> =
-            listOf(listOf(TrumpCard(NUMBER.ACE, PATTERN.CLOVER, SIDE.BACK)))
-        listLayout.value = (listLayout.value ?: emptyList()) + item
+        initCard()
     }
 
     companion object {
