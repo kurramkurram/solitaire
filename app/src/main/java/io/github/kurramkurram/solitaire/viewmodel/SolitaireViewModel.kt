@@ -54,7 +54,7 @@ class SolitaireViewModel : ViewModel() {
             if (canMoveToFound(card, list)) {
                 when (data.position) {
                     POSITION.LAYOUT -> {
-                        val baseList = layoutList[column]
+                        val baseList = listLayout.value!![column]
                         if (baseList.size - 1 == index) {
                             list.add(card)
                             baseList.removeAll(baseList.subList(index, baseList.size))
@@ -84,7 +84,7 @@ class SolitaireViewModel : ViewModel() {
                     }
 
                     POSITION.LAYOUT -> {
-                        val baseList = layoutList[column]
+                        val baseList = listLayout.value!![column]
                         val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
                         baseList.removeAll(baseList.subList(index, baseList.size))
@@ -265,7 +265,7 @@ class SolitaireViewModel : ViewModel() {
     }
 
     private fun getSelectData(card: TrumpCard): SelectData? {
-        for ((i, list) in foundList.withIndex()) {
+        for ((i, list) in listLayout.value!!.withIndex()) {
             for ((j, item) in list.withIndex()) {
                 if (item == card) {
                     return SelectData(card, POSITION.LAYOUT, i, j)

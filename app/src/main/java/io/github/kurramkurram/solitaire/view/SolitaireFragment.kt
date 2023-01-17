@@ -1,5 +1,6 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,8 +33,6 @@ class SolitaireFragment : Fragment(), OnClickListener {
     private lateinit var layoutList: MutableList<RecyclerView>
     private val listAdapterList: MutableList<CardAdapter> = mutableListOf()
     private lateinit var foundLayoutList: MutableList<TextView>
-
-    private lateinit var binding: FragmentSolitaireBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,6 +72,7 @@ class SolitaireFragment : Fragment(), OnClickListener {
         }.run { root }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         L.d(TAG, "#onViewCreated")
@@ -100,9 +100,9 @@ class SolitaireFragment : Fragment(), OnClickListener {
         restart_button.setOnClickListener {}
 
         solitaireViewModel.run {
-            solitaireViewModel.listLayout.observe(viewLifecycleOwner) {
+            listLayout.observe(viewLifecycleOwner) {
                 for ((index, adapter) in listAdapterList.withIndex()) {
-                    adapter.submitList(it[index])
+                    adapter.submitList(ArrayList(it[index]))
                 }
             }
         }
