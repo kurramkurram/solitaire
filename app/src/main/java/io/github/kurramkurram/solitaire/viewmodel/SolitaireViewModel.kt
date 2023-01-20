@@ -8,15 +8,22 @@ import io.github.kurramkurram.solitaire.util.*
 
 class SolitaireViewModel : ViewModel() {
 
-    private lateinit var layoutList: MutableList<MutableList<TrumpCard>>
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
+    var listFound: List<MutableLiveData<TrumpCard>>
+
+    val diamondFound = MutableLiveData<TrumpCard>()
+    val cloverFound = MutableLiveData<TrumpCard>()
+    val heartFound = MutableLiveData<TrumpCard>()
+    val spadeFound = MutableLiveData<TrumpCard>()
+
     var stockIndex: Int = -1
 
     val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
 
     init {
         initCard()
+        listFound = listOf(spadeFound, heartFound, cloverFound, diamondFound)
     }
 
     /**
@@ -41,7 +48,7 @@ class SolitaireViewModel : ViewModel() {
     /**
      * カードの移動.
      */
-    fun move(data: SelectData): Boolean {
+    private fun move(data: SelectData): Boolean {
         L.d(TAG, "#move")
         val column = data.column
         val index = data.index
@@ -50,13 +57,13 @@ class SolitaireViewModel : ViewModel() {
 
         if (card.side == SIDE.BACK) return false
 
-        for (list in foundList) {
-            if (canMoveToFound(card, list)) {
+        for (item in listFound) {
+            if (canMoveToFound(card, item)) {
                 when (data.position) {
                     POSITION.LAYOUT -> {
                         val baseList = listLayout.value!![column]
                         if (baseList.size - 1 == index) {
-                            list.add(card)
+                            item.value = card
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
                             listLayout.value = listLayout.value
@@ -65,7 +72,9 @@ class SolitaireViewModel : ViewModel() {
                     }
 
                     POSITION.STOCK -> {
-                        moveFromStock(card, index, list)
+                        item.value = card
+                        stockList.removeAt(index)
+                        stockIndex--
                         listLayout.value = listLayout.value
                         return true
                     }
@@ -91,7 +100,11 @@ class SolitaireViewModel : ViewModel() {
                         changeToFront(baseList, index)
                     }
 
-                    POSITION.STOCK -> moveFromStock(card, index, list)
+                    POSITION.STOCK -> {
+                        list.add(card)
+                        stockList.removeAt(index)
+                        stockIndex--
+                    }
                 }
                 listLayout.value = listLayout.value
                 return true
@@ -141,6 +154,7 @@ class SolitaireViewModel : ViewModel() {
         )
     )
 
+<<<<<<< HEAD
     /**
      * 山札からの移動処理を共通化.
      */
@@ -155,15 +169,16 @@ class SolitaireViewModel : ViewModel() {
      */
     private fun canMoveToFound(
         selectCard: TrumpCard,
-        list: MutableList<TrumpCard>
+        item: MutableLiveData<TrumpCard>
     ): Boolean {
-        if (list.size == 0) {
+        if (item.value == null) {
             if (selectCard.number == NUMBER.ACE) {
                 return true
             }
         } else {
-            val last = list.last()
-            if (selectCard.number.ordinal == (last.number.ordinal + 1)
+            val last = item.value
+            if (last != null
+                && selectCard.number.ordinal == (last.number.ordinal + 1)
                 && selectCard.pattern == last.pattern
             ) return true
         }
@@ -275,9 +290,7 @@ class SolitaireViewModel : ViewModel() {
         return null
     }
 
-    fun onRestartClick() {
-        initCard()
-    }
+    fun onRestartClick() = initCard()
 
     companion object {
         private const val TAG = "SolitaireViewModel"

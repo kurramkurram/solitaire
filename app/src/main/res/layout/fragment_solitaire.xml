@@ -33,24 +33,32 @@
                 <TextView
                     android:id="@+id/found0"
                     style="@style/SolitaireFoundationStyle"
+                    android:background="@color/white"
+                    android:text="@{viewModel.spadeFound == null ? `empty` : viewModel.spadeFound.number.name() + viewModel.spadeFound.pattern.name()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/found1"
                     style="@style/SolitaireFoundationStyle"
+                    android:background="@android:color/holo_red_dark"
+                    android:text="@{viewModel.heartFound == null ? `empty` :viewModel.heartFound.number.name() + viewModel.heartFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found0"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/found2"
                     style="@style/SolitaireFoundationStyle"
+                    android:background="@color/white"
+                    android:text="@{viewModel.cloverFound == null ? `empty` :viewModel.cloverFound.number.name() + viewModel.cloverFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found1"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/found3"
                     style="@style/SolitaireFoundationStyle"
+                    android:background="@android:color/holo_red_dark"
+                    android:text="@{viewModel.diamondFound == null ? `empty` : viewModel.diamondFound.number.name() + viewModel.diamondFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found2"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
