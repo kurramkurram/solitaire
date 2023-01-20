@@ -41,6 +41,7 @@ class SolitaireFragment : Fragment(), OnClickListener {
     ): View {
         return FragmentSolitaireBinding.inflate(inflater, container, false).apply {
             this.viewModel = solitaireViewModel
+            this.lifecycleOwner = viewLifecycleOwner
             // layout
             layoutList = mutableListOf(
                 listView0,
@@ -72,7 +73,6 @@ class SolitaireFragment : Fragment(), OnClickListener {
         }.run { root }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         L.d(TAG, "#onViewCreated")
@@ -96,8 +96,6 @@ class SolitaireFragment : Fragment(), OnClickListener {
         stock_front.apply {
             setOnClickListener(this@SolitaireFragment)
         }
-
-        restart_button.setOnClickListener {}
 
         solitaireViewModel.run {
             listLayout.observe(viewLifecycleOwner) {

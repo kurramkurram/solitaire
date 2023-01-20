@@ -3,12 +3,13 @@ package io.github.kurramkurram.solitaire.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.databinding.SolitaireItemBinding
+import io.github.kurramkurram.solitaire.util.SIDE
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 
 private object DiffCallback : DiffUtil.ItemCallback<TrumpCard>() {
@@ -33,6 +34,19 @@ class CardAdapter(
         ) {
             binding.run {
                 lifecycleOwner = viewLifecycleOwner
+
+                item.side.observe(viewLifecycleOwner) {
+                    val context = binding.root.context
+                    val color = if (item.side.value == SIDE.BACK) {
+                        android.R.color.darker_gray
+                    } else if (item.pattern.ordinal % 2 == 0) {
+                        R.color.white
+                    } else {
+                        android.R.color.holo_red_light
+                    }
+                    itemView.setBackgroundColor(context.getColor(color))
+                }
+
                 trumpCard = item
                 this.viewModel = viewModel
 
@@ -48,5 +62,9 @@ class CardAdapter(
 
     override fun onBindViewHolder(holder: TrumpViewHolder, position: Int) {
         holder.bind(getItem(position), viewLifecycleOwner, viewModel)
+    }
+
+    companion object {
+        private const val TAG = "CardAdapter"
     }
 }

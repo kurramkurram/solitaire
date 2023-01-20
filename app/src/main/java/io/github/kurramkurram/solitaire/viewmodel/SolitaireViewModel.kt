@@ -55,7 +55,7 @@ class SolitaireViewModel : ViewModel() {
         val card = data.card
         L.d(TAG, "#move card = $card")
 
-        if (card.side == SIDE.BACK) return false
+        if (card.side.value == SIDE.BACK) return false
 
         for (item in listFound) {
             if (canMoveToFound(card, item)) {
@@ -122,7 +122,7 @@ class SolitaireViewModel : ViewModel() {
             stockList.size > 0 && stockIndex < stockList.size -> {
                 // 表に変更
                 if (stockIndex >= 0) {
-                    stockList[stockIndex].side = SIDE.FRONT
+                    stockList[stockIndex].side.value = SIDE.FRONT
                 }
             }
 
@@ -216,7 +216,7 @@ class SolitaireViewModel : ViewModel() {
         NUMBER.values().forEach { number ->
             if (number != NUMBER.NONE) {
                 PATTERN.values().forEach { pattern ->
-                    add(TrumpCard(number, pattern, SIDE.BACK))
+                    add(TrumpCard(number, pattern, MutableLiveData(SIDE.BACK)))
                 }
             }
         }
@@ -245,7 +245,7 @@ class SolitaireViewModel : ViewModel() {
                     val mutableList = mutableListOf<TrumpCard>()
                     mutableList.addAll(list.subList(start, end))
                     mutableList.last().apply {
-                        side = SIDE.FRONT
+                        side.value = SIDE.FRONT
                         mutableList[mutableList.size - 1] = this
                     }
 
@@ -269,7 +269,7 @@ class SolitaireViewModel : ViewModel() {
      */
     private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
         if (baseList.size > 0) {
-            baseList[index - 1].side = SIDE.FRONT
+            baseList[index - 1].side.value = SIDE.FRONT
         }
     }
 

@@ -5,7 +5,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@{trumpCard.pattern.ordinal() % 2 == 1 ? @android:color/holo_red_dark : @color/white}"
         android:onClick="@{() -> viewModel.onItemClick(trumpCard)}">
 
         <TextView

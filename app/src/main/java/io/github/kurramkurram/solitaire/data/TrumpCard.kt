@@ -1,5 +1,8 @@
 package io.github.kurramkurram.solitaire.data
 
+import androidx.lifecycle.MutableLiveData
+import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NUMBER
 import io.github.kurramkurram.solitaire.util.PATTERN
 import io.github.kurramkurram.solitaire.util.SIDE
@@ -7,17 +10,17 @@ import io.github.kurramkurram.solitaire.util.SIDE
 data class TrumpCard(
     val number: NUMBER,
     val pattern: PATTERN,
-    var side: SIDE
+    var side: MutableLiveData<SIDE>
 ) {
     val id: Int = number.ordinal + 1 + pattern.ordinal * 13
 
     override fun toString(): String {
         return "--------------" +
-                " \nTrumpCard " +
-                " \nid = " + id +
+                " \n$TAG " +
+                " \n id = " + id +
                 " \n number = " + number.ordinal +
                 " \n pattern = " + pattern.ordinal +
-                " \n side = " + side.ordinal +
+                " \n side = " + side.value!!.ordinal +
                 " \n --------------"
     }
 
@@ -32,5 +35,9 @@ data class TrumpCard(
         result = 31 * result + side.hashCode()
         result = 31 * result + id
         return result
+    }
+
+    companion object {
+        private const val TAG = "TrumpCard"
     }
 }
