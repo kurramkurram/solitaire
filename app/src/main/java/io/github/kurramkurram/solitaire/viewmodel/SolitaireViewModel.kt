@@ -10,7 +10,7 @@ class SolitaireViewModel : ViewModel() {
 
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
-    var listFound: List<MutableLiveData<TrumpCard>>
+    private var listFound: List<MutableLiveData<TrumpCard>>
 
     val diamondFound = MutableLiveData<TrumpCard>()
     val cloverFound = MutableLiveData<TrumpCard>()
@@ -20,6 +20,7 @@ class SolitaireViewModel : ViewModel() {
     var stockIndex: Int = -1
 
     val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
+    var openCard = MutableLiveData<TrumpCard>()
 
     init {
         initCard()
@@ -32,7 +33,6 @@ class SolitaireViewModel : ViewModel() {
     private fun initCard() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
-//        layoutList = createLayout(shuffleList)
         createLayout(shuffleList)
         foundList = createFoundation()
         stockIndex = -1
@@ -75,7 +75,6 @@ class SolitaireViewModel : ViewModel() {
                         item.value = card
                         stockList.removeAt(index)
                         stockIndex--
-                        listLayout.value = listLayout.value
                         return true
                     }
                     else -> {}
@@ -123,6 +122,7 @@ class SolitaireViewModel : ViewModel() {
                 // 表に変更
                 if (stockIndex >= 0) {
                     stockList[stockIndex].side.value = SIDE.FRONT
+                    openCard.value = stockList[stockIndex]
                 }
             }
 

@@ -75,7 +75,8 @@
                     android:id="@+id/stock_front"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="empty"
+                    android:onClick="@{() -> viewModel.moveStock()}"
+                    android:text="@{viewModel.openCard.number.ordinal() + viewModel.openCard.pattern.name()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5" />
@@ -85,6 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/darker_gray"
+                    android:onClick="@{() -> viewModel.openStock()}"
                     app:layout_constraintStart_toEndOf="@id/stock_front"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5" />
