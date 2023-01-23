@@ -42,7 +42,7 @@ class SolitaireViewModel : ViewModel() {
         val card: TrumpCard,
         val position: POSITION,
         val column: Int,
-        val index: Int
+        val index: Int = -1
     )
 
     /**
@@ -85,13 +85,19 @@ class SolitaireViewModel : ViewModel() {
             }
         }
 
-        for ((i, list) in listLayout.value!!.withIndex()) {
+        for (list in listLayout.value!!) {
             if (canMoveToLayout(card, list)) {
                 when (data.position) {
                     POSITION.FOUNDATION -> {
                         list.add(card)
-                        val baseList = foundList[column]
-                        baseList.removeAt(index)
+                        val selected = listFound[column]
+                        if (selected.value!!.number.ordinal - 1 > 0) {
+                            selected.value = TrumpCard(
+                                NUMBER.getNumber(selected.value!!.number.ordinal - 1),
+                                selected.value!!.pattern,
+                                MutableLiveData(SIDE.FRONT)
+                            )
+                        }
                     }
 
                     POSITION.LAYOUT -> {
@@ -153,10 +159,9 @@ class SolitaireViewModel : ViewModel() {
      */
     fun moveFound(column: Int): Boolean = move(
         SelectData(
-            foundList[column].last(),
+            listFound[column].value!!,
             POSITION.FOUNDATION,
-            column,
-            foundList[column].size - 1
+            column
         )
     )
 
