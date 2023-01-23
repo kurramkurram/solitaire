@@ -75,6 +75,9 @@ class SolitaireViewModel : ViewModel() {
                         item.value = card
                         stockList.removeAt(index)
                         stockIndex--
+                        if (stockIndex >= 0 && stockList.size > 0) {
+                            openCard.value = stockList[stockIndex]
+                        }
                         return true
                     }
                     else -> {}
@@ -103,6 +106,9 @@ class SolitaireViewModel : ViewModel() {
                         list.add(card)
                         stockList.removeAt(index)
                         stockIndex--
+                        if (stockIndex >= 0 && stockList.size > 0) {
+                            openCard.value = stockList[stockIndex]
+                        }
                     }
                 }
                 listLayout.value = listLayout.value
