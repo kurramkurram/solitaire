@@ -299,6 +299,13 @@ class SolitaireViewModel : ViewModel() {
 
     fun onRestartClick() = initCard()
 
+    fun isLast(card: TrumpCard): Boolean {
+        for (list in listLayout.value!!) {
+            if (list.last() == card) return true
+        }
+        return false
+    }
+
     companion object {
         private const val TAG = "SolitaireViewModel"
         private const val TOTAL_CARD_SIZE = 52

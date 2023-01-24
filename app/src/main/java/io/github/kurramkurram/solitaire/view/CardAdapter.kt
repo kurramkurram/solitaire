@@ -1,7 +1,9 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.ActionBar
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.databinding.SolitaireItemBinding
+import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.SIDE
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 private object DiffCallback : DiffUtil.ItemCallback<TrumpCard>() {
     override fun areItemsTheSame(oldItem: TrumpCard, newItem: TrumpCard): Boolean =
@@ -45,6 +49,16 @@ class CardAdapter(
                         android.R.color.holo_red_light
                     }
                     itemView.setBackgroundColor(context.getColor(color))
+                }
+
+                val height = if (viewModel.isLast(item)) {
+                    200
+                } else {
+                    50
+                }
+                L.d(TAG, "#height = $height")
+                LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, height).apply {
+                    itemView.layoutParams = this
                 }
 
                 trumpCard = item
