@@ -8,23 +8,23 @@ import io.github.kurramkurram.solitaire.util.*
 
 class SolitaireViewModel : ViewModel() {
 
-    lateinit var stockList: MutableList<TrumpCard>
-    lateinit var foundList: MutableList<MutableList<TrumpCard>>
-    private var listFound: List<MutableLiveData<TrumpCard>>
+    private lateinit var stockList: MutableList<TrumpCard>
 
-    val diamondFound = MutableLiveData<TrumpCard>()
-    val cloverFound = MutableLiveData<TrumpCard>()
-    val heartFound = MutableLiveData<TrumpCard>()
     val spadeFound = MutableLiveData<TrumpCard>()
+    val heartFound = MutableLiveData<TrumpCard>()
+    val cloverFound = MutableLiveData<TrumpCard>()
+    val diamondFound = MutableLiveData<TrumpCard>()
 
-    var stockIndex: Int = -1
 
+    private var listFound: List<MutableLiveData<TrumpCard>> =
+        listOf(spadeFound, heartFound, cloverFound, diamondFound)
     val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
+
+    private var stockIndex: Int = -1
     var openCard = MutableLiveData<TrumpCard>()
 
     init {
         initCard()
-        listFound = listOf(spadeFound, heartFound, cloverFound, diamondFound)
     }
 
     /**
@@ -33,8 +33,13 @@ class SolitaireViewModel : ViewModel() {
     private fun initCard() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
+
+        spadeFound.value = TrumpCard(NUMBER.NONE, PATTERN.SPADE, MutableLiveData(SIDE.FRONT))
+        heartFound.value = TrumpCard(NUMBER.NONE, PATTERN.HEART, MutableLiveData(SIDE.FRONT))
+        cloverFound.value = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
+        diamondFound.value = TrumpCard(NUMBER.NONE, PATTERN.DIAMOND, MutableLiveData(SIDE.FRONT))
+
         createLayout(shuffleList)
-        foundList = createFoundation()
         stockIndex = -1
     }
 
@@ -182,18 +187,9 @@ class SolitaireViewModel : ViewModel() {
         selectCard: TrumpCard,
         item: MutableLiveData<TrumpCard>
     ): Boolean {
-        if (item.value == null) {
-            if (selectCard.number == NUMBER.ACE) {
-                return true
-            }
-        } else {
-            val last = item.value
-            if (last != null
-                && selectCard.number.ordinal == (last.number.ordinal + 1)
-                && selectCard.pattern == last.pattern
-            ) return true
-        }
-
+        val last = item.value ?: return false
+        if (selectCard.pattern != last.pattern) return false
+        if (selectCard.number.ordinal == (last.number.ordinal + 1)) return true
         return false
     }
 

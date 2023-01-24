@@ -35,7 +35,7 @@
                     style="@style/SolitaireFoundationStyle"
                     android:background="@color/white"
                     android:onClick="@{() -> viewModel.moveFound(0)}"
-                    android:text="@{viewModel.spadeFound == null ? `empty` : viewModel.spadeFound.number.name() + viewModel.spadeFound.pattern.name()}"
+                    android:text="@{viewModel.spadeFound.number.name() + `\n` + viewModel.spadeFound.pattern.name()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
                     style="@style/SolitaireFoundationStyle"
                     android:background="@android:color/holo_red_dark"
                     android:onClick="@{() -> viewModel.moveFound(1)}"
-                    android:text="@{viewModel.heartFound == null ? `empty` :viewModel.heartFound.number.name() + viewModel.heartFound.pattern.name()}"
+                    android:text="@{viewModel.heartFound.number.name() + `\n` + viewModel.heartFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found0"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,16 +53,16 @@
                     style="@style/SolitaireFoundationStyle"
                     android:background="@color/white"
                     android:onClick="@{() -> viewModel.moveFound(2)}"
-                    android:text="@{viewModel.cloverFound == null ? `empty` :viewModel.cloverFound.number.name() + viewModel.cloverFound.pattern.name()}"
+                    android:text="@{viewModel.cloverFound.number.name() + `\n` + viewModel.cloverFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found1"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/found3"
                     style="@style/SolitaireFoundationStyle"
-                    android:onClick="@{() -> viewModel.moveFound(3)}"
                     android:background="@android:color/holo_red_dark"
-                    android:text="@{viewModel.diamondFound == null ? `empty` : viewModel.diamondFound.number.name() + viewModel.diamondFound.pattern.name()}"
+                    android:onClick="@{() -> viewModel.moveFound(3)}"
+                    android:text="@{viewModel.diamondFound.number.name() + `\n` + viewModel.diamondFound.pattern.name()}"
                     app:layout_constraintStart_toEndOf="@id/found2"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
