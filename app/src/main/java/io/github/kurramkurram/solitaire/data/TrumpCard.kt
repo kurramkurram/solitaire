@@ -9,7 +9,7 @@ data class TrumpCard(
     val pattern: PATTERN,
     var side: SIDE
 ) {
-    private val id: Int = number.ordinal + 1 + pattern.ordinal * 13
+    val id: Int = number.ordinal + 1 + pattern.ordinal * 13
 
     override fun toString(): String {
         return "--------------" +
@@ -23,7 +23,7 @@ data class TrumpCard(
 
     override fun equals(other: Any?): Boolean {
         val otherCard = other as TrumpCard
-        return number == otherCard.number && pattern == otherCard.pattern
+        return id == otherCard.id
     }
 
     override fun hashCode(): Int {

@@ -7,30 +7,67 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
+import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
+import io.github.kurramkurram.solitaire.databinding.SolitaireItemBinding
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.POSITION
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 import kotlinx.android.synthetic.main.fragment_solitaire.*
 
-class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
+class SolitaireFragment : Fragment(), OnClickListener {
 
     private val solitaireViewModel by viewModels<SolitaireViewModel>()
 
-    private lateinit var layoutList: MutableList<ListView>
+    private lateinit var layoutList: MutableList<RecyclerView>
+    private val listAdapterList: MutableList<CardAdapter> = mutableListOf()
     private lateinit var foundLayoutList: MutableList<TextView>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_solitaire, container, false)
+    ): View {
+        return FragmentSolitaireBinding.inflate(inflater, container, false).apply {
+            // layout
+            layoutList = mutableListOf(
+                listView0,
+                listView1,
+                listView2,
+                listView3,
+                listView4,
+                listView5,
+                listView6
+            )
+
+            for (layout in layoutList) {
+                layout.run {
+                    layoutManager = LinearLayoutManager(context)
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            DividerItemDecoration.VERTICAL
+                        )
+                    )
+                    adapter =
+                        CardAdapter(
+                            viewLifecycleOwner,
+                            this@SolitaireFragment.solitaireViewModel
+                        ).also {
+                            listAdapterList.add(it)
+                        }
+                }
+            }
+        }.run { root }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,47 +94,10 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
             setOnClickListener(this@SolitaireFragment)
         }
 
-        // layout
-        layoutList = mutableListOf(
-            listView0,
-            listView1,
-            listView2,
-            listView3,
-            listView4,
-            listView5,
-            listView6
-        )
+        restart_button.setOnClickListener {}
 
-        for (list in layoutList) {
-            list.apply {
-                onItemClickListener = this@SolitaireFragment
-            }
-        }
+        solitaireViewModel.run {
 
-        restart_button.setOnClickListener {
-            initCard()
-        }
-
-        initCard()
-    }
-
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, p3: Long) {
-        when (val listView = parent as ListView) {
-            listView0, listView1, listView2, listView3, listView4, listView5, listView6 -> {
-                val card = listView.getItemAtPosition(position) as TrumpCard
-                val ret = solitaireViewModel.move(
-                    SolitaireViewModel.SelectData(
-                        card,
-                        POSITION.LAYOUT,
-                        layoutList.indexOf(listView),
-                        position
-                    )
-                )
-                L.d(TAG, "#onItemClick view = ${listView.id} ret = $ret")
-                if (ret) {
-                    updateFound()
-                }
-            }
         }
     }
 
@@ -121,17 +121,6 @@ class SolitaireFragment : Fragment(), OnItemClickListener, OnClickListener {
                 if (ret) {
                     updateFound()
                 }
-            }
-        }
-    }
-
-    private fun initCard() {
-        solitaireViewModel.initCard(requireContext())
-        updateFound()
-        updateStock()
-        for ((index, list) in layoutList.withIndex()) {
-            list.apply {
-                adapter = solitaireViewModel.getAdapter()[index]
             }
         }
     }

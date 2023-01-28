@@ -1,171 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_green"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_stock_and_found"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_found"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.6">
-
-            <TextView
-                android:id="@+id/found0"
-                style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/found1"
-                style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found0"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/found2"
-                style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found1"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/found3"
-                style="@style/SolitaireFoundationStyle"
-                app:layout_constraintStart_toEndOf="@id/found2"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/layout_found"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.4">
-
-            <TextView
-                android:id="@+id/stock_front"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="empty"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5" />
-
-            <TextView
-                android:id="@+id/stock_back"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintStart_toEndOf="@id/stock_front"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintHeight_percent="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_stock_and_found">
+        android:layout_height="match_parent"
+        android:background="@color/background_green"
+        android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/listView0"
-            style="@style/SolitaireListStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_stock_and_found"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintHeight_percent="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ListView
-            android:id="@+id/listView1"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView0"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_found"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6">
 
-        <ListView
-            android:id="@+id/listView2"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView1"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/found0"
+                    style="@style/SolitaireFoundationStyle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/listView3"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView2"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/found1"
+                    style="@style/SolitaireFoundationStyle"
+                    app:layout_constraintStart_toEndOf="@id/found0"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/listView4"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView3"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/found2"
+                    style="@style/SolitaireFoundationStyle"
+                    app:layout_constraintStart_toEndOf="@id/found1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/listView5"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView4"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/found3"
+                    style="@style/SolitaireFoundationStyle"
+                    app:layout_constraintStart_toEndOf="@id/found2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ListView
-            android:id="@+id/listView6"
-            style="@style/SolitaireListStyle"
-            app:layout_constraintStart_toEndOf="@id/listView5"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_stock"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/layout_found"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.4">
+
+                <TextView
+                    android:id="@+id/stock_front"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="empty"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/stock_back"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintStart_toEndOf="@id/stock_front"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_stock_and_found">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView0"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView1"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView0"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView2"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView3"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView4"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView5"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listView6"
+                style="@style/SolitaireListStyle"
+                app:layout_constraintStart_toEndOf="@id/listView5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/restart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:onClick="@{() -> viewModel.onRestartClick()}"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--    <androidx.cardview.widget.CardView-->
+        <!--        android:layout_width="30dp"-->
+        <!--        android:layout_height="50dp"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:src="@color/black" />-->
+        <!--    </androidx.cardview.widget.CardView>-->
+
+        <!--    <androidx.cardview.widget.CardView-->
+        <!--        android:layout_width="30dp"-->
+        <!--        android:layout_height="50dp"-->
+        <!--        android:layout_marginTop="20dp"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:src="@android:color/holo_red_dark" />-->
+        <!--    </androidx.cardview.widget.CardView>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/restart_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restart"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:layout_width="30dp"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:src="@color/black" />-->
-    <!--    </androidx.cardview.widget.CardView>-->
-
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:layout_width="30dp"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:src="@android:color/holo_red_dark" />-->
-    <!--    </androidx.cardview.widget.CardView>-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,43 +1,37 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
-import android.content.Context
-import android.widget.ArrayAdapter
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
-import io.github.kurramkurram.solitaire.view.CardListAdapter
-
 class SolitaireViewModel : ViewModel() {
 
     private lateinit var layoutList: MutableList<MutableList<TrumpCard>>
     lateinit var stockList: MutableList<TrumpCard>
     lateinit var foundList: MutableList<MutableList<TrumpCard>>
-    private val adapterList = mutableListOf<ArrayAdapter<TrumpCard>>()
     var stockIndex: Int = -1
+
+    init {
+        initCard()
+    }
 
     /**
      * 初期化.
      */
-    fun initCard(context: Context) {
+    private fun initCard() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
         layoutList = createLayout(shuffleList)
         foundList = createFoundation()
         stockIndex = -1
-        adapterList.clear()
-
-        for (list in layoutList) {
-            adapterList.add(CardListAdapter(context, list))
-        }
-
-        L.d(TAG, "#createStock size = " + stockList.size)
-        L.d(TAG, "#createStock size = " + layoutList.size)
     }
 
-    fun getAdapter(): List<ArrayAdapter<TrumpCard>> = adapterList
-
-    class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
+    data class SelectData(
+        val card: TrumpCard,
+        val position: POSITION,
+        val column: Int,
+        val index: Int
+    )
 
     /**
      * カードの移動.
@@ -60,7 +54,6 @@ class SolitaireViewModel : ViewModel() {
                             list.add(card)
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
-                            adapterList[column].notifyDataSetChanged()
                             return true
                         }
                     }
@@ -93,9 +86,6 @@ class SolitaireViewModel : ViewModel() {
 
                     POSITION.STOCK -> moveFromStock(card, index, list)
                 }
-
-                adapterList[i].notifyDataSetChanged()
-                adapterList[column].notifyDataSetChanged()
                 return true
             }
         }
@@ -134,15 +124,14 @@ class SolitaireViewModel : ViewModel() {
     /**
      * 組札を移動する.
      */
-    fun moveFound(column: Int): Boolean {
-        val data = SelectData(
+    fun moveFound(column: Int): Boolean = move(
+        SelectData(
             foundList[column].last(),
             POSITION.FOUNDATION,
             column,
             foundList[column].size - 1
         )
-        return move(data)
-    }
+    )
 
     /**
      * 山札からの移動処理を共通化.
@@ -262,6 +251,27 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
+    fun onItemClick(item: TrumpCard) {
+        getSelectData(item)?.let {
+            move(it)
+        }
+    }
+
+    private fun getSelectData(card: TrumpCard): SelectData? {
+        for ((i, list) in foundList.withIndex()) {
+            for ((j, item) in list.withIndex()) {
+                if (item == card) {
+                    return SelectData(card, POSITION.LAYOUT, i, j)
+                }
+            }
+        }
+        return null
+    }
+
+    fun onRestartClick() {
+        initCard()
+    }
+
     companion object {
         private const val TAG = "SolitaireViewModel"
         private const val TOTAL_CARD_SIZE = 52
@@ -269,3 +279,4 @@ class SolitaireViewModel : ViewModel() {
         private const val STOCK_CARD_SIZE = TOTAL_CARD_SIZE - LAYOUT_CARD_SIZE
     }
 }
+
