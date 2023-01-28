@@ -4,27 +4,40 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:onClick="@{() -> viewModel.onItemClick(trumpCard)}">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="1dp"
+        android:background="@color/background_green"
+        android:onClick="@{() -> viewModel.onItemClick(trumpCard)}"
+        app:layout_height="@{trumpCard.isLast ? 200 : 50}">
 
-        <TextView
+        <ImageView
+            android:id="@+id/trump_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{trumpCard.number.ordinal() + trumpCard.pattern.name()}"
+            android:background="@{trumpCard.side.ordinal == 0 ? @color/background_green : @android:color/darker_gray}"
+            android:paddingTop="@{trumpCard.isLast ? 0 : 50}"
+            android:scaleType="@{trumpCard.isLast ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP}"
+            android:src="@{trumpCard.side.ordinal == 0 ? viewModel.getCardId(context, trumpCard) : null}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_height="@{trumpCard.isLast ? 200 : 50}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
 
-        <variable
-            name="trumpCard"
-            type="io.github.kurramkurram.solitaire.data.TrumpCard" />
+        <import type="android.widget.ImageView" />
+
+        <import type="io.github.kurramkurram.solitaire.util.BindingAdapters" />
 
         <variable
             name="viewModel"
             type="io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel" />
+
+        <variable
+            name="trumpCard"
+            type="io.github.kurramkurram.solitaire.data.TrumpCard" />
     </data>
 </layout>
 

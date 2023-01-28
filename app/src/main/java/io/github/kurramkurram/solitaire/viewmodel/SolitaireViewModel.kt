@@ -68,6 +68,7 @@ class SolitaireViewModel : ViewModel() {
 
         if (card.side.value == SIDE.BACK) return false
 
+        // 組札へ移動
         for (item in listFound) {
             if (canMoveToFound(card, item)) {
                 when (data.position) {
@@ -83,7 +84,10 @@ class SolitaireViewModel : ViewModel() {
                     }
 
                     POSITION.STOCK -> {
-                        item.value = card
+                        item.apply {
+                            card.isLast.value = true
+                            value = card
+                        }
                         stockList.removeAt(index)
                         stockIndex--
                         if (stockIndex >= 0 && stockList.size > 0) {
@@ -96,8 +100,12 @@ class SolitaireViewModel : ViewModel() {
             }
         }
 
+        // 場札へ移動
         for (list in listLayout.value!!) {
             if (canMoveToLayout(card, list)) {
+                if (list.isNotEmpty()) {
+                    list.last().isLast.value = false
+                }
                 when (data.position) {
                     POSITION.FOUNDATION -> {
                         list.add(card)
@@ -106,7 +114,8 @@ class SolitaireViewModel : ViewModel() {
                             selected.value = TrumpCard(
                                 NUMBER.getNumber(selected.value!!.number.ordinal - 1),
                                 selected.value!!.pattern,
-                                MutableLiveData(SIDE.FRONT)
+                                MutableLiveData(SIDE.FRONT),
+                                MutableLiveData(true)
                             )
                         }
                     }
@@ -120,11 +129,16 @@ class SolitaireViewModel : ViewModel() {
                     }
 
                     POSITION.STOCK -> {
-                        list.add(card)
-                        stockList.removeAt(index)
-                        stockIndex--
-                        if (stockIndex >= 0 && stockList.size > 0) {
-                            openCard.value = stockList[stockIndex]
+                        card.apply {
+                            isLast.value = true
+                            list.add(this)
+                        }
+                        stockList.apply {
+                            removeAt(index)
+                            stockIndex--
+                            if (stockIndex >= 0 && stockList.size > 0) {
+                                openCard.value = stockList[stockIndex]
+                            }
                         }
                     }
                 }
@@ -264,6 +278,7 @@ class SolitaireViewModel : ViewModel() {
                     mutableList.addAll(list.subList(start, end))
                     mutableList.last().apply {
                         side.value = SIDE.FRONT
+                        isLast.value = true
                         mutableList[mutableList.size - 1] = this
                     }
 
@@ -289,6 +304,7 @@ class SolitaireViewModel : ViewModel() {
     private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
         if (baseList.size > 0) {
             baseList[index - 1].side.value = SIDE.FRONT
+            baseList[index - 1].isLast.value = true
         }
     }
 

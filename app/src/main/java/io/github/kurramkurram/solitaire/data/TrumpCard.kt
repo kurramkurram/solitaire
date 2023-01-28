@@ -10,7 +10,8 @@ import io.github.kurramkurram.solitaire.util.SIDE
 data class TrumpCard(
     val number: NUMBER,
     val pattern: PATTERN,
-    var side: MutableLiveData<SIDE>
+    var side: MutableLiveData<SIDE>,
+    var isLast: MutableLiveData<Boolean> = MutableLiveData(false)
 ) {
     val id: Int = number.ordinal - 1 + pattern.ordinal * 13
 
