@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
+import java.nio.file.Files.move
 
 class SolitaireViewModel : ViewModel() {
 
@@ -19,12 +20,12 @@ class SolitaireViewModel : ViewModel() {
     val cloverFound = MutableLiveData<TrumpCard>()
     val diamondFound = MutableLiveData<TrumpCard>()
 
-
     private var listFound: List<MutableLiveData<TrumpCard>> =
         listOf(spadeFound, heartFound, cloverFound, diamondFound)
     val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
 
     private var stockIndex: Int = -1
+    private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
     var openCard = MutableLiveData<TrumpCard>()
 
     init {
@@ -45,6 +46,7 @@ class SolitaireViewModel : ViewModel() {
 
         createLayout(shuffleList)
         stockIndex = -1
+        openCard.value = initialCard
     }
 
     data class SelectData(
@@ -147,8 +149,13 @@ class SolitaireViewModel : ViewModel() {
                 }
             }
 
+            stockList.size == 0 -> {
+                openCard.value = initialCard
+            }
+
             stockIndex == stockList.size -> {
                 stockIndex = -1
+                openCard.value = initialCard
             }
         }
     }
