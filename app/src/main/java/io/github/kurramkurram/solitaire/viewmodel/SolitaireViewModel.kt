@@ -1,8 +1,12 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.drawable.Drawable
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
 
@@ -267,6 +271,7 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
+<<<<<<< HEAD
     @VisibleForTesting
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
         mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
@@ -301,10 +306,21 @@ class SolitaireViewModel : ViewModel() {
 
     fun isLast(card: TrumpCard): Boolean {
         for (list in listLayout.value!!) {
-            if (list.last() == card) return true
+            if (list.isNotEmpty() && list.last() == card) return true
         }
         return false
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun getCardId(context: Context, card: TrumpCard): Drawable? =
+        if (card.number == NUMBER.NONE) {
+            context.resources.getDrawable(R.drawable.ic_launcher_foreground, null)
+        } else {
+            val array = context.resources.obtainTypedArray(R.array.trump_card_array)
+            val resourceId = array.getResourceId(card.id, 0)
+            array.recycle()
+            context.getDrawable(resourceId)
+        }
 
     companion object {
         private const val TAG = "SolitaireViewModel"

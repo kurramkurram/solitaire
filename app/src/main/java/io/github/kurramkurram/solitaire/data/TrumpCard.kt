@@ -12,7 +12,7 @@ data class TrumpCard(
     val pattern: PATTERN,
     var side: MutableLiveData<SIDE>
 ) {
-    val id: Int = number.ordinal + 1 + pattern.ordinal * 13
+    val id: Int = number.ordinal - 1 + pattern.ordinal * 13
 
     override fun toString(): String {
         return "--------------" +

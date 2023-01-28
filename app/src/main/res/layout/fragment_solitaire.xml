@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_green"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,39 +31,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.6">
 
-                <TextView
+                <ImageView
                     android:id="@+id/found0"
                     style="@style/SolitaireFoundationStyle"
                     android:background="@color/white"
                     android:onClick="@{() -> viewModel.moveFound(0)}"
-                    android:text="@{viewModel.spadeFound.number.name() + `\n` + viewModel.spadeFound.pattern.name()}"
+                    android:src="@{viewModel.getCardId(context, viewModel.spadeFound)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/found1"
                     style="@style/SolitaireFoundationStyle"
                     android:background="@android:color/holo_red_dark"
                     android:onClick="@{() -> viewModel.moveFound(1)}"
-                    android:text="@{viewModel.heartFound.number.name() + `\n` + viewModel.heartFound.pattern.name()}"
+                    android:src="@{viewModel.getCardId(context, viewModel.heartFound)}"
                     app:layout_constraintStart_toEndOf="@id/found0"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/found2"
                     style="@style/SolitaireFoundationStyle"
                     android:background="@color/white"
                     android:onClick="@{() -> viewModel.moveFound(2)}"
-                    android:text="@{viewModel.cloverFound.number.name() + `\n` + viewModel.cloverFound.pattern.name()}"
+                    android:src="@{viewModel.getCardId(context, viewModel.cloverFound)}"
                     app:layout_constraintStart_toEndOf="@id/found1"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/found3"
                     style="@style/SolitaireFoundationStyle"
-                    android:background="@android:color/holo_red_dark"
                     android:onClick="@{() -> viewModel.moveFound(3)}"
-                    android:text="@{viewModel.diamondFound.number.name() + `\n` + viewModel.diamondFound.pattern.name()}"
+                    android:src="@{viewModel.getCardId(context, viewModel.diamondFound)}"
                     app:layout_constraintStart_toEndOf="@id/found2"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
