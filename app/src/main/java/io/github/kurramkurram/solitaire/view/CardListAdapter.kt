@@ -30,7 +30,7 @@ class CardListAdapter(context: Context, list: List<TrumpCard>) :
             this.text = text
             val backgroundColor: Int
             val textColor: Int
-            when (data.side) {
+            when (data.side.value!!) {
                 SIDE.FRONT -> {
                     backgroundColor = if (data.pattern.ordinal % 2 != 0) {
                         android.R.color.holo_red_light

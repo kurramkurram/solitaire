@@ -1,5 +1,7 @@
 package io.github.kurramkurram.solitaire.util
 
+import android.content.res.Resources.NotFoundException
+
 enum class NUMBER {
     NONE,
     ACE,
@@ -14,7 +16,12 @@ enum class NUMBER {
     TEN,
     JACK,
     QUEEN,
-    KING
+    KING;
+
+    companion object {
+        fun getNumber(num: Int): NUMBER =
+            values().find { it.ordinal == num } ?: throw NotFoundException()
+    }
 }
 
 enum class PATTERN {

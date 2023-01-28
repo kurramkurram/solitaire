@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="trump_card_array">
+        <item>@drawable/a_spade</item>
+        <item>@drawable/two_spade</item>
+        <item>@drawable/three_spade</item>
+        <item>@drawable/four_spade</item>
+        <item>@drawable/five_spade</item>
+        <item>@drawable/six_spade</item>
+        <item>@drawable/seven_spade</item>
+        <item>@drawable/eight_spade</item>
+        <item>@drawable/nine_spade</item>
+        <item>@drawable/ten_spade</item>
+        <item>@drawable/j_spade</item>
+        <item>@drawable/q_spade</item>
+        <item>@drawable/k_spade</item>
+
+        <item>@drawable/a_heart</item>
+        <item>@drawable/two_heart</item>
+        <item>@drawable/three_heart</item>
+        <item>@drawable/four_heart</item>
+        <item>@drawable/five_heart</item>
+        <item>@drawable/six_heart</item>
+        <item>@drawable/seven_heart</item>
+        <item>@drawable/eight_heart</item>
+        <item>@drawable/nine_heart</item>
+        <item>@drawable/ten_heart</item>
+        <item>@drawable/j_heart</item>
+        <item>@drawable/q_heart</item>
+        <item>@drawable/k_heart</item>
+
+        <item>@drawable/a_clover</item>
+        <item>@drawable/two_clover</item>
+        <item>@drawable/three_clover</item>
+        <item>@drawable/four_clover</item>
+        <item>@drawable/five_clover</item>
+        <item>@drawable/six_clover</item>
+        <item>@drawable/seven_clover</item>
+        <item>@drawable/eight_clover</item>
+        <item>@drawable/nine_clover</item>
+        <item>@drawable/ten_clover</item>
+        <item>@drawable/j_clover</item>
+        <item>@drawable/q_clover</item>
+        <item>@drawable/k_clover</item>
+
+        <item>@drawable/a_diamond</item>
+        <item>@drawable/two_diamond</item>
+        <item>@drawable/three_diamond</item>
+        <item>@drawable/four_diamond</item>
+        <item>@drawable/five_diamond</item>
+        <item>@drawable/six_diamond</item>
+        <item>@drawable/seven_diamond</item>
+        <item>@drawable/eight_diamond</item>
+        <item>@drawable/nine_diamond</item>
+        <item>@drawable/ten_diamond</item>
+        <item>@drawable/j_diamond</item>
+        <item>@drawable/q_diamond</item>
+        <item>@drawable/k_diamond</item>
+    </integer-array>
+</resources>

@@ -1,72 +1,98 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.widget.ArrayAdapter
+import android.graphics.drawable.Drawable
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
-import io.github.kurramkurram.solitaire.view.CardListAdapter
+import java.nio.file.Files.move
 
 class SolitaireViewModel : ViewModel() {
 
-    private lateinit var layoutList: MutableList<MutableList<TrumpCard>>
-    lateinit var stockList: MutableList<TrumpCard>
-    lateinit var foundList: MutableList<MutableList<TrumpCard>>
-    private val adapterList = mutableListOf<ArrayAdapter<TrumpCard>>()
-    var stockIndex: Int = -1
+    private lateinit var stockList: MutableList<TrumpCard>
+
+    val spadeFound = MutableLiveData<TrumpCard>()
+    val heartFound = MutableLiveData<TrumpCard>()
+    val cloverFound = MutableLiveData<TrumpCard>()
+    val diamondFound = MutableLiveData<TrumpCard>()
+
+    private var listFound: List<MutableLiveData<TrumpCard>> =
+        listOf(spadeFound, heartFound, cloverFound, diamondFound)
+    val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
+
+    private var stockIndex: Int = -1
+    private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
+    var openCard = MutableLiveData<TrumpCard>()
+
+    init {
+        initCard()
+    }
 
     /**
      * 初期化.
      */
-    fun initCard(context: Context) {
+    private fun initCard() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
-        layoutList = createLayout(shuffleList)
-        foundList = createFoundation()
+
+        spadeFound.value = TrumpCard(NUMBER.NONE, PATTERN.SPADE, MutableLiveData(SIDE.FRONT))
+        heartFound.value = TrumpCard(NUMBER.NONE, PATTERN.HEART, MutableLiveData(SIDE.FRONT))
+        cloverFound.value = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
+        diamondFound.value = TrumpCard(NUMBER.NONE, PATTERN.DIAMOND, MutableLiveData(SIDE.FRONT))
+
+        createLayout(shuffleList)
         stockIndex = -1
-        adapterList.clear()
-
-        for (list in layoutList) {
-            adapterList.add(CardListAdapter(context, list))
-        }
-
-        L.d(TAG, "#createStock size = " + stockList.size)
-        L.d(TAG, "#createStock size = " + layoutList.size)
+        openCard.value = initialCard
     }
 
-    fun getAdapter(): List<ArrayAdapter<TrumpCard>> = adapterList
-
-    class SelectData(val card: TrumpCard, val position: POSITION, val column: Int, val index: Int)
+    data class SelectData(
+        val card: TrumpCard,
+        val position: POSITION,
+        val column: Int,
+        val index: Int = -1
+    )
 
     /**
      * カードの移動.
      */
-    fun move(data: SelectData): Boolean {
+    private fun move(data: SelectData): Boolean {
         L.d(TAG, "#move")
         val column = data.column
         val index = data.index
         val card = data.card
         L.d(TAG, "#move card = $card")
 
-        if (card.side == SIDE.BACK) return false
+        if (card.side.value == SIDE.BACK) return false
 
-        for (list in foundList) {
-            if (canMoveToFound(card, list)) {
+        // 組札へ移動
+        for (item in listFound) {
+            if (canMoveToFound(card, item)) {
                 when (data.position) {
                     POSITION.LAYOUT -> {
-                        val baseList = layoutList[column]
+                        val baseList = listLayout.value!![column]
                         if (baseList.size - 1 == index) {
-                            list.add(card)
+                            item.value = card
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
-                            adapterList[column].notifyDataSetChanged()
+                            listLayout.value = listLayout.value
                             return true
                         }
                     }
 
                     POSITION.STOCK -> {
-                        moveFromStock(card, index, list)
+                        item.apply {
+                            card.isLast.value = true
+                            value = card
+                        }
+                        stockList.removeAt(index)
+                        stockIndex--
+                        if (stockIndex >= 0 && stockList.size > 0) {
+                            openCard.value = stockList[stockIndex]
+                        }
                         return true
                     }
                     else -> {}
@@ -74,28 +100,49 @@ class SolitaireViewModel : ViewModel() {
             }
         }
 
-        for ((i, list) in layoutList.withIndex()) {
+        // 場札へ移動
+        for (list in listLayout.value!!) {
             if (canMoveToLayout(card, list)) {
+                if (list.isNotEmpty()) {
+                    list.last().isLast.value = false
+                }
                 when (data.position) {
                     POSITION.FOUNDATION -> {
                         list.add(card)
-                        val baseList = foundList[column]
-                        baseList.removeAt(index)
+                        val selected = listFound[column]
+                        if (selected.value!!.number.ordinal - 1 > 0) {
+                            selected.value = TrumpCard(
+                                NUMBER.getNumber(selected.value!!.number.ordinal - 1),
+                                selected.value!!.pattern,
+                                MutableLiveData(SIDE.FRONT),
+                                MutableLiveData(true)
+                            )
+                        }
                     }
 
                     POSITION.LAYOUT -> {
-                        val baseList = layoutList[column]
+                        val baseList = listLayout.value!![column]
                         val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
                         baseList.removeAll(baseList.subList(index, baseList.size))
                         changeToFront(baseList, index)
                     }
 
-                    POSITION.STOCK -> moveFromStock(card, index, list)
+                    POSITION.STOCK -> {
+                        card.apply {
+                            isLast.value = true
+                            list.add(this)
+                        }
+                        stockList.apply {
+                            removeAt(index)
+                            stockIndex--
+                            if (stockIndex >= 0 && stockList.size > 0) {
+                                openCard.value = stockList[stockIndex]
+                            }
+                        }
+                    }
                 }
-
-                adapterList[i].notifyDataSetChanged()
-                adapterList[column].notifyDataSetChanged()
+                listLayout.value = listLayout.value
                 return true
             }
         }
@@ -111,12 +158,18 @@ class SolitaireViewModel : ViewModel() {
             stockList.size > 0 && stockIndex < stockList.size -> {
                 // 表に変更
                 if (stockIndex >= 0) {
-                    stockList[stockIndex].side = SIDE.FRONT
+                    stockList[stockIndex].side.value = SIDE.FRONT
+                    openCard.value = stockList[stockIndex]
                 }
+            }
+
+            stockList.size == 0 -> {
+                openCard.value = initialCard
             }
 
             stockIndex == stockList.size -> {
                 stockIndex = -1
+                openCard.value = initialCard
             }
         }
     }
@@ -134,16 +187,15 @@ class SolitaireViewModel : ViewModel() {
     /**
      * 組札を移動する.
      */
-    fun moveFound(column: Int): Boolean {
-        val data = SelectData(
-            foundList[column].last(),
+    fun moveFound(column: Int): Boolean = move(
+        SelectData(
+            listFound[column].value!!,
             POSITION.FOUNDATION,
-            column,
-            foundList[column].size - 1
+            column
         )
-        return move(data)
-    }
+    )
 
+<<<<<<< HEAD
     /**
      * 山札からの移動処理を共通化.
      */
@@ -158,19 +210,11 @@ class SolitaireViewModel : ViewModel() {
      */
     private fun canMoveToFound(
         selectCard: TrumpCard,
-        list: MutableList<TrumpCard>
+        item: MutableLiveData<TrumpCard>
     ): Boolean {
-        if (list.size == 0) {
-            if (selectCard.number == NUMBER.ACE) {
-                return true
-            }
-        } else {
-            val last = list.last()
-            if (selectCard.number.ordinal == (last.number.ordinal + 1)
-                && selectCard.pattern == last.pattern
-            ) return true
-        }
-
+        val last = item.value ?: return false
+        if (selectCard.pattern != last.pattern) return false
+        if (selectCard.number.ordinal == (last.number.ordinal + 1)) return true
         return false
     }
 
@@ -204,7 +248,7 @@ class SolitaireViewModel : ViewModel() {
         NUMBER.values().forEach { number ->
             if (number != NUMBER.NONE) {
                 PATTERN.values().forEach { pattern ->
-                    add(TrumpCard(number, pattern, SIDE.BACK))
+                    add(TrumpCard(number, pattern, MutableLiveData(SIDE.BACK)))
                 }
             }
         }
@@ -222,8 +266,8 @@ class SolitaireViewModel : ViewModel() {
      * 場札を作成.
      */
     @VisibleForTesting
-    fun createLayout(list: MutableList<TrumpCard>): MutableList<MutableList<TrumpCard>> =
-        mutableListOf<MutableList<TrumpCard>>().apply {
+    fun createLayout(list: MutableList<TrumpCard>) {
+        listLayout.value = mutableListOf<MutableList<TrumpCard>>().apply {
             var size = 1
             var start = STOCK_CARD_SIZE
             var end = start + size
@@ -233,7 +277,8 @@ class SolitaireViewModel : ViewModel() {
                     val mutableList = mutableListOf<TrumpCard>()
                     mutableList.addAll(list.subList(start, end))
                     mutableList.last().apply {
-                        side = SIDE.FRONT
+                        side.value = SIDE.FRONT
+                        isLast.value = true
                         mutableList[mutableList.size - 1] = this
                     }
 
@@ -242,13 +287,13 @@ class SolitaireViewModel : ViewModel() {
                     end = start + size
                     add(mutableList)
 
-                    if (end > TOTAL_CARD_SIZE) {
-                        return@run
-                    }
+                    if (end > TOTAL_CARD_SIZE) return@run
                 }
             }
         }
+    }
 
+<<<<<<< HEAD
     @VisibleForTesting
     fun createFoundation(): MutableList<MutableList<TrumpCard>> =
         mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
@@ -258,9 +303,47 @@ class SolitaireViewModel : ViewModel() {
      */
     private fun changeToFront(baseList: MutableList<TrumpCard>, index: Int) {
         if (baseList.size > 0) {
-            baseList[index - 1].side = SIDE.FRONT
+            baseList[index - 1].side.value = SIDE.FRONT
+            baseList[index - 1].isLast.value = true
         }
     }
+
+    fun onItemClick(item: TrumpCard) {
+        getSelectData(item)?.let {
+            move(it)
+        }
+    }
+
+    private fun getSelectData(card: TrumpCard): SelectData? {
+        for ((i, list) in listLayout.value!!.withIndex()) {
+            for ((j, item) in list.withIndex()) {
+                if (item == card) {
+                    return SelectData(card, POSITION.LAYOUT, i, j)
+                }
+            }
+        }
+        return null
+    }
+
+    fun onRestartClick() = initCard()
+
+    fun isLast(card: TrumpCard): Boolean {
+        for (list in listLayout.value!!) {
+            if (list.isNotEmpty() && list.last() == card) return true
+        }
+        return false
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun getCardId(context: Context, card: TrumpCard): Drawable? =
+        if (card.number == NUMBER.NONE) {
+            context.resources.getDrawable(R.drawable.ic_launcher_foreground, null)
+        } else {
+            val array = context.resources.obtainTypedArray(R.array.trump_card_array)
+            val resourceId = array.getResourceId(card.id, 0)
+            array.recycle()
+            context.getDrawable(resourceId)
+        }
 
     companion object {
         private const val TAG = "SolitaireViewModel"
@@ -269,3 +352,4 @@ class SolitaireViewModel : ViewModel() {
         private const val STOCK_CARD_SIZE = TOTAL_CARD_SIZE - LAYOUT_CARD_SIZE
     }
 }
+
