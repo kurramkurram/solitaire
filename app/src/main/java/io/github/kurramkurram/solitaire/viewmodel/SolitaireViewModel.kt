@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.util.*
-import java.nio.file.Files.move
 
 class SolitaireViewModel : ViewModel() {
 
@@ -195,16 +194,6 @@ class SolitaireViewModel : ViewModel() {
         )
     )
 
-<<<<<<< HEAD
-    /**
-     * 山札からの移動処理を共通化.
-     */
-    private fun moveFromStock(card: TrumpCard, index: Int, list: MutableList<TrumpCard>) {
-        list.add(card)
-        stockList.removeAt(index)
-        stockIndex--
-    }
-
     /**
      * 組札へ移動できるかの判定.
      */
@@ -293,11 +282,6 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
-<<<<<<< HEAD
-    @VisibleForTesting
-    fun createFoundation(): MutableList<MutableList<TrumpCard>> =
-        mutableListOf(mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
-
     /**
      * 場札を表向きにする.
      */
@@ -308,12 +292,18 @@ class SolitaireViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 場札を選択.
+     */
     fun onItemClick(item: TrumpCard) {
         getSelectData(item)?.let {
             move(it)
         }
     }
 
+    /**
+     * 場札を検索.
+     */
     private fun getSelectData(card: TrumpCard): SelectData? {
         for ((i, list) in listLayout.value!!.withIndex()) {
             for ((j, item) in list.withIndex()) {
@@ -325,14 +315,10 @@ class SolitaireViewModel : ViewModel() {
         return null
     }
 
+    /**
+     * Restartボタン選択.
+     */
     fun onRestartClick() = initCard()
-
-    fun isLast(card: TrumpCard): Boolean {
-        for (list in listLayout.value!!) {
-            if (list.isNotEmpty() && list.last() == card) return true
-        }
-        return false
-    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun getCardId(context: Context, card: TrumpCard): Drawable? =

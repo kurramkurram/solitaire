@@ -1,8 +1,6 @@
 package io.github.kurramkurram.solitaire.data
 
 import androidx.lifecycle.MutableLiveData
-import io.github.kurramkurram.solitaire.R
-import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NUMBER
 import io.github.kurramkurram.solitaire.util.PATTERN
 import io.github.kurramkurram.solitaire.util.SIDE

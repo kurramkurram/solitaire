@@ -1,10 +1,7 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.databinding.SolitaireItemBinding
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
-import kotlinx.android.synthetic.main.solitaire_item.view.*
-
 
 private object DiffCallback : DiffUtil.ItemCallback<TrumpCard>() {
     override fun areItemsTheSame(oldItem: TrumpCard, newItem: TrumpCard): Boolean =
