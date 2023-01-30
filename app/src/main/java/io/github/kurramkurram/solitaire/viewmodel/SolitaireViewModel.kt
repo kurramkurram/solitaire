@@ -48,13 +48,6 @@ class SolitaireViewModel : ViewModel() {
         openCard.value = initialCard
     }
 
-    data class SelectData(
-        val card: TrumpCard,
-        val position: POSITION,
-        val column: Int,
-        val index: Int = -1
-    )
-
     /**
      * カードの移動.
      */
@@ -330,6 +323,13 @@ class SolitaireViewModel : ViewModel() {
             array.recycle()
             context.getDrawable(resourceId)
         }
+
+    private data class SelectData(
+        val card: TrumpCard,
+        val position: POSITION,
+        val column: Int,
+        val index: Int = -1
+    )
 
     companion object {
         private const val TAG = "SolitaireViewModel"
