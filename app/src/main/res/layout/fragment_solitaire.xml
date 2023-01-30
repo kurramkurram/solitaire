@@ -8,21 +8,6 @@
         android:background="@color/background_green"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/restart_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:onClick="@{() -> viewModel.onRestartClick()}"
-            android:text="Restart"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -156,31 +141,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--    <androidx.cardview.widget.CardView-->
-        <!--        android:layout_width="30dp"-->
-        <!--        android:layout_height="50dp"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--        <ImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:src="@color/black" />-->
-        <!--    </androidx.cardview.widget.CardView>-->
-
-        <!--    <androidx.cardview.widget.CardView-->
-        <!--        android:layout_width="30dp"-->
-        <!--        android:layout_height="50dp"-->
-        <!--        android:layout_marginTop="20dp"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--        <ImageView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:src="@android:color/holo_red_dark" />-->
-        <!--    </androidx.cardview.widget.CardView>-->
-
+        <TextView
+            android:id="@+id/restart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{() -> viewModel.onRestartClick()}"
+            android:text="Restart"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
