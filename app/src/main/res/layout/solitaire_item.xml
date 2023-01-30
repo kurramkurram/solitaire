@@ -5,8 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginHorizontal="5dp"
         android:background="@color/background_green"
         android:onClick="@{() -> viewModel.onItemClick(trumpCard)}"
         app:layout_height="@{trumpCard.isLast ? 200 : 50}">
@@ -16,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@{trumpCard.side.ordinal == 0 ? @color/background_green : @android:color/darker_gray}"
-            android:paddingTop="@{trumpCard.isLast ? 0 : 50}"
-            android:scaleType="@{trumpCard.isLast ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP}"
+            android:paddingTop="@{trumpCard.isLast ? 0 : 150}"
+            android:scaleType="@{trumpCard.isLast ? ImageView.ScaleType.FIT_XY : ImageView.ScaleType.CENTER_CROP}"
             android:src="@{trumpCard.side.ordinal == 0 ? viewModel.getCardId(context, trumpCard) : null}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
