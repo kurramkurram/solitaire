@@ -169,7 +169,7 @@ class SolitaireViewModel : ViewModel() {
     /**
      * めくった山札を移動する.
      */
-    fun moveStock() = if (stockIndex >= 0) {
+    fun moveStock() = if (stockIndex >= 0 && stockList.size > stockIndex) {
         val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
         move(data)
     } else {
