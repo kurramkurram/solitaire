@@ -51,14 +51,14 @@ class SolitaireViewModel : ViewModel() {
     /**
      * カードの移動.
      */
-    private fun move(data: SelectData): Boolean {
+    private fun move(data: SelectData) {
         L.d(TAG, "#move")
         val column = data.column
         val index = data.index
         val card = data.card
         L.d(TAG, "#move card = $card")
 
-        if (card.side.value == SIDE.BACK) return false
+        if (card.side.value == SIDE.BACK) return
 
         // 組札へ移動
         for (item in listFound) {
@@ -71,7 +71,7 @@ class SolitaireViewModel : ViewModel() {
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
                             listLayout.value = listLayout.value
-                            return true
+                            return
                         }
                     }
 
@@ -85,7 +85,7 @@ class SolitaireViewModel : ViewModel() {
                         if (stockIndex >= 0 && stockList.size > 0) {
                             openCard.value = stockList[stockIndex]
                         }
-                        return true
+                        return
                     }
                     else -> {}
                 }
@@ -102,14 +102,12 @@ class SolitaireViewModel : ViewModel() {
                     POSITION.FOUNDATION -> {
                         list.add(card)
                         val selected = listFound[column]
-                        if (selected.value!!.number.ordinal - 1 > 0) {
-                            selected.value = TrumpCard(
-                                NUMBER.getNumber(selected.value!!.number.ordinal - 1),
-                                selected.value!!.pattern,
-                                MutableLiveData(SIDE.FRONT),
-                                MutableLiveData(true)
-                            )
-                        }
+                        selected.value = TrumpCard(
+                            NUMBER.getNumber(selected.value!!.number.ordinal - 1),
+                            selected.value!!.pattern,
+                            MutableLiveData(SIDE.FRONT),
+                            MutableLiveData(true)
+                        )
                     }
 
                     POSITION.LAYOUT -> {
@@ -135,10 +133,10 @@ class SolitaireViewModel : ViewModel() {
                     }
                 }
                 listLayout.value = listLayout.value
-                return true
+                return
             }
         }
-        return false
+        return
     }
 
     /**
@@ -169,17 +167,17 @@ class SolitaireViewModel : ViewModel() {
     /**
      * めくった山札を移動する.
      */
-    fun moveStock() = if (stockIndex >= 0 && stockList.size > stockIndex) {
-        val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
-        move(data)
-    } else {
-        false
+    fun moveStock() {
+        if (stockIndex >= 0 && stockList.size > stockIndex) {
+            val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
+            move(data)
+        }
     }
 
     /**
      * 組札を移動する.
      */
-    fun moveFound(column: Int): Boolean = move(
+    fun moveFound(column: Int) = move(
         SelectData(
             listFound[column].value!!,
             POSITION.FOUNDATION,
