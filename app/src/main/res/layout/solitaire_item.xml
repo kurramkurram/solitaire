@@ -17,7 +17,7 @@
             android:background="@{trumpCard.side.ordinal == 0 ? @color/background_green : @android:color/darker_gray}"
             android:paddingTop="@{trumpCard.isLast ? 0 : 150}"
             android:scaleType="@{trumpCard.isLast ? ImageView.ScaleType.FIT_XY : ImageView.ScaleType.CENTER_CROP}"
-            android:src="@{trumpCard.side.ordinal == 0 ? viewModel.getCardId(context, trumpCard) : null}"
+            android:src="@{trumpCard.side.ordinal == 0 ? viewModel.getCardId(context, trumpCard) : viewModel.getCardId(context, trumpCard)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_height="@{trumpCard.isLast ? 200 : 50}" />
