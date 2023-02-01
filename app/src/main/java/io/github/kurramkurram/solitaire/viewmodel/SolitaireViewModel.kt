@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.solitaire.R
@@ -14,18 +15,35 @@ class SolitaireViewModel : ViewModel() {
 
     private lateinit var stockList: MutableList<TrumpCard>
 
-    val spadeFound = MutableLiveData<TrumpCard>()
-    val heartFound = MutableLiveData<TrumpCard>()
-    val cloverFound = MutableLiveData<TrumpCard>()
-    val diamondFound = MutableLiveData<TrumpCard>()
+    private val _spadeFound = MutableLiveData<TrumpCard>()
+    val spadeFound: LiveData<TrumpCard>
+        get() = _spadeFound
+
+    private val _heartFound = MutableLiveData<TrumpCard>()
+    val heartFound: LiveData<TrumpCard>
+        get() = _heartFound
+
+    private val _cloverFound = MutableLiveData<TrumpCard>()
+    val cloverFound: LiveData<TrumpCard>
+        get() = _cloverFound
+
+    private val _diamondFound = MutableLiveData<TrumpCard>()
+    val diamondFound: LiveData<TrumpCard>
+        get() = _diamondFound
 
     private var listFound: List<MutableLiveData<TrumpCard>> =
-        listOf(spadeFound, heartFound, cloverFound, diamondFound)
-    val listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
+        listOf(_spadeFound, _heartFound, _cloverFound, _diamondFound)
+
+    private val _listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
+    val listLayout: LiveData<MutableList<MutableList<TrumpCard>>>
+        get() = _listLayout
 
     private var stockIndex: Int = -1
     private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
-    var openCard = MutableLiveData<TrumpCard>()
+
+    private var _openCard = MutableLiveData<TrumpCard>()
+    val openCard: LiveData<TrumpCard>
+        get() = _openCard
 
     init {
         initCard()
@@ -38,14 +56,14 @@ class SolitaireViewModel : ViewModel() {
         val shuffleList = shuffleTrump()
         stockList = createStock(shuffleList)
 
-        spadeFound.value = TrumpCard(NUMBER.NONE, PATTERN.SPADE, MutableLiveData(SIDE.FRONT))
-        heartFound.value = TrumpCard(NUMBER.NONE, PATTERN.HEART, MutableLiveData(SIDE.FRONT))
-        cloverFound.value = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
-        diamondFound.value = TrumpCard(NUMBER.NONE, PATTERN.DIAMOND, MutableLiveData(SIDE.FRONT))
+        _spadeFound.value = TrumpCard(NUMBER.NONE, PATTERN.SPADE, MutableLiveData(SIDE.FRONT))
+        _heartFound.value = TrumpCard(NUMBER.NONE, PATTERN.HEART, MutableLiveData(SIDE.FRONT))
+        _cloverFound.value = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
+        _diamondFound.value = TrumpCard(NUMBER.NONE, PATTERN.DIAMOND, MutableLiveData(SIDE.FRONT))
 
         createLayout(shuffleList)
         stockIndex = -1
-        openCard.value = initialCard
+        _openCard.value = initialCard
     }
 
     /**
@@ -65,12 +83,12 @@ class SolitaireViewModel : ViewModel() {
             if (canMoveToFound(card, item)) {
                 when (data.position) {
                     POSITION.LAYOUT -> {
-                        val baseList = listLayout.value!![column]
+                        val baseList = _listLayout.value!![column]
                         if (baseList.size - 1 == index) {
                             item.value = card
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
-                            listLayout.value = listLayout.value
+                            _listLayout.value = _listLayout.value
                             return
                         }
                     }
@@ -83,7 +101,7 @@ class SolitaireViewModel : ViewModel() {
                         stockList.removeAt(index)
                         stockIndex--
                         if (stockIndex >= 0 && stockList.size > 0) {
-                            openCard.value = stockList[stockIndex]
+                            _openCard.value = stockList[stockIndex]
                         }
                         return
                     }
@@ -93,7 +111,7 @@ class SolitaireViewModel : ViewModel() {
         }
 
         // 場札へ移動
-        for (list in listLayout.value!!) {
+        for (list in _listLayout.value!!) {
             if (canMoveToLayout(card, list)) {
                 if (list.isNotEmpty()) {
                     list.last().isLast.value = false
@@ -111,7 +129,7 @@ class SolitaireViewModel : ViewModel() {
                     }
 
                     POSITION.LAYOUT -> {
-                        val baseList = listLayout.value!![column]
+                        val baseList = _listLayout.value!![column]
                         val moveList = ArrayList(baseList.subList(index, baseList.size))
                         list.addAll(moveList)
                         baseList.removeAll(baseList.subList(index, baseList.size))
@@ -127,12 +145,12 @@ class SolitaireViewModel : ViewModel() {
                             removeAt(index)
                             stockIndex--
                             if (stockIndex >= 0 && stockList.size > 0) {
-                                openCard.value = stockList[stockIndex]
+                                _openCard.value = stockList[stockIndex]
                             }
                         }
                     }
                 }
-                listLayout.value = listLayout.value
+                _listLayout.value = _listLayout.value
                 return
             }
         }
@@ -149,17 +167,17 @@ class SolitaireViewModel : ViewModel() {
                 // 表に変更
                 if (stockIndex >= 0) {
                     stockList[stockIndex].side.value = SIDE.FRONT
-                    openCard.value = stockList[stockIndex]
+                    _openCard.value = stockList[stockIndex]
                 }
             }
 
             stockList.size == 0 -> {
-                openCard.value = initialCard
+                _openCard.value = initialCard
             }
 
             stockIndex == stockList.size -> {
                 stockIndex = -1
-                openCard.value = initialCard
+                _openCard.value = initialCard
             }
         }
     }
@@ -247,7 +265,7 @@ class SolitaireViewModel : ViewModel() {
      */
     @VisibleForTesting
     fun createLayout(list: MutableList<TrumpCard>) {
-        listLayout.value = mutableListOf<MutableList<TrumpCard>>().apply {
+        _listLayout.value = mutableListOf<MutableList<TrumpCard>>().apply {
             var size = 1
             var start = STOCK_CARD_SIZE
             var end = start + size
@@ -296,7 +314,7 @@ class SolitaireViewModel : ViewModel() {
      * 場札を検索.
      */
     private fun getSelectData(card: TrumpCard): SelectData? {
-        for ((i, list) in listLayout.value!!.withIndex()) {
+        for ((i, list) in _listLayout.value!!.withIndex()) {
             for ((j, item) in list.withIndex()) {
                 if (item == card) {
                     return SelectData(card, POSITION.LAYOUT, i, j)
