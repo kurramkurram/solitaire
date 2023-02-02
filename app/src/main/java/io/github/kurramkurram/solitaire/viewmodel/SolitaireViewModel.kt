@@ -74,7 +74,7 @@ class SolitaireViewModel : ViewModel() {
         val column = data.column
         val index = data.index
         val card = data.card
-        L.d(TAG, "#move card = $card")
+        L.d(TAG, "#move card = $card \n index = $index column = $column")
 
         if (card.side.value == SIDE.BACK) return
 
@@ -146,6 +146,8 @@ class SolitaireViewModel : ViewModel() {
                             stockIndex--
                             if (stockIndex >= 0 && stockList.size > 0) {
                                 _openCard.value = stockList[stockIndex]
+                            } else {
+                                _openCard.value = initialCard
                             }
                         }
                     }
