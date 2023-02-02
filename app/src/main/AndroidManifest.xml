@@ -16,8 +16,9 @@
         <activity
             android:name=".view.MainActivity"
             android:exported="true"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity,NonResizeableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
