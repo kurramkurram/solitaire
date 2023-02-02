@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel

@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintHeight_percent="@dimen/layout_height_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_stock_and_found">
 
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHeight_percent="@dimen/stock_and_found_height_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -75,10 +75,10 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.6">
+                app:layout_constraintWidth_percent="@dimen/found_width_percent">
 
                 <ImageView
-                    android:id="@+id/found0"
+                    android:id="@+id/found_spade"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(0)}"
                     android:src="@{viewModel.getCardId(context, viewModel.spadeFound)}"
@@ -86,27 +86,27 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/found1"
+                    android:id="@+id/found_heart"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(1)}"
                     android:src="@{viewModel.getCardId(context, viewModel.heartFound)}"
-                    app:layout_constraintStart_toEndOf="@id/found0"
+                    app:layout_constraintStart_toEndOf="@id/found_spade"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/found2"
+                    android:id="@+id/found_clover"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(2)}"
                     android:src="@{viewModel.getCardId(context, viewModel.cloverFound)}"
-                    app:layout_constraintStart_toEndOf="@id/found1"
+                    app:layout_constraintStart_toEndOf="@id/found_heart"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/found3"
+                    android:id="@+id/found_diamond"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(3)}"
                     android:src="@{viewModel.getCardId(context, viewModel.diamondFound)}"
-                    app:layout_constraintStart_toEndOf="@id/found2"
+                    app:layout_constraintStart_toEndOf="@id/found_clover"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toEndOf="@id/layout_found"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.4">
+                app:layout_constraintWidth_percent="@dimen/stock_width_percent">
 
                 <ImageView
                     android:id="@+id/stock_front"
@@ -126,7 +126,7 @@
                     android:src="@{viewModel.getCardId(context, viewModel.openCard)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.5" />
+                    app:layout_constraintWidth_percent="@dimen/stock_card_width_percent" />
 
                 <ImageView
                     android:id="@+id/stock_back"
@@ -136,7 +136,7 @@
                     android:src="@drawable/trump_background"
                     app:layout_constraintStart_toEndOf="@id/stock_front"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.5" />
+                    app:layout_constraintWidth_percent="@dimen/stock_card_width_percent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

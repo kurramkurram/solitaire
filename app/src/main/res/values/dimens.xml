@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_margin_horizontal">5dp</dimen>
+
+    <dimen name="layout_height_percent">0.9</dimen>
+    <dimen name="stock_and_found_height_percent">0.1</dimen>
+
+    <dimen name="found_width_percent">0.6</dimen>
+    <dimen name="stock_width_percent">0.4</dimen>
+
+    <dimen name="stock_card_width_percent">0.5</dimen>
+
+</resources>
