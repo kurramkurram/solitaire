@@ -11,6 +11,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="1dp"
             android:orientation="vertical"
             app:layout_constraintHeight_percent="@dimen/layout_height_percent"
             app:layout_constraintStart_toStartOf="parent"
