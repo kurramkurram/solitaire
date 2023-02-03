@@ -102,6 +102,8 @@ class SolitaireViewModel : ViewModel() {
                         stockIndex--
                         if (stockIndex >= 0 && stockList.size > 0) {
                             _openCard.value = stockList[stockIndex]
+                        } else {
+                            _openCard.value = initialCard
                         }
                         return
                     }
