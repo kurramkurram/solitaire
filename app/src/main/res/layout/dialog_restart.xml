@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/dialog_width"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_background">
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dialog_margin"
-        android:layout_marginHorizontal="@dimen/dialog_margin"
-        android:gravity="start"
+        style="@style/SolitaireDialogStyle.Text"
         android:text="@string/restart_dialog_text"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="@dimen/dialog_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_layout" />
+        app:layout_constraintTop_toBottomOf="@id/title_layout"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/positive_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dialog_margin"
-        android:gravity="center"
+        style="@style/SolitaireDialogStyle.Button"
         android:text="@string/restart_dialog_positive"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="@dimen/dialog_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text" />
+        app:layout_constraintTop_toBottomOf="@id/text"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/negative_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dialog_margin"
-        android:background="@drawable/dialog_background"
-        android:gravity="center"
+        style="@style/SolitaireDialogStyle.Button"
         android:text="@string/restart_dialog_negative"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="@dimen/dialog_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/positive_button" />
+        app:layout_constraintTop_toBottomOf="@id/positive_button"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title_layout"

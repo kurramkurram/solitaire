@@ -26,4 +26,24 @@
         <item name="layout_constraintWidth_percent">0.25</item>
         <item name="android:text">empty</item>
     </style>
+
+    <style name="SolitaireDialogStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textSize">@dimen/dialog_text_size</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <style name="SolitaireDialogStyle.Text" parent="SolitaireDialogStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:layout_marginBottom">@dimen/dialog_margin</item>
+        <item name="android:layout_marginHorizontal">@dimen/dialog_margin</item>
+    </style>
+
+    <style name="SolitaireDialogStyle.Button" parent="SolitaireDialogStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/dialog_margin</item>
+    </style>
 </resources>
