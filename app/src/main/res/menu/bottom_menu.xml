@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_game"
+        android:icon="@drawable/game"
+        android:title="@string/bottom_menu_game" />
+
+    <item
+        android:id="@+id/navigation_restart"
+        android:icon="@drawable/restart"
+        android:title="@string/bottom_menu_restart" />
+
+    <item
+        android:id="@+id/navigation_record"
+        android:icon="@drawable/record"
+        android:title="@string/bottom_menu_record" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings"
+        android:title="@string/bottom_menu_settings" />
+</menu>

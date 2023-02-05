@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Solitaire</string>
+
+    <string name="bottom_menu_game">Game</string>
+    <string name="bottom_menu_restart">Restart</string>
+    <string name="bottom_menu_record">Record</string>
+    <string name="bottom_menu_settings">Settings</string>
 </resources>

@@ -9,10 +9,11 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="1dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/navbar"
             app:layout_constraintHeight_percent="@dimen/layout_height_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_stock_and_found">
@@ -141,6 +142,14 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="@dimen/navbar_height_percent" />
 
         <TextView
             android:id="@+id/restart_button"
