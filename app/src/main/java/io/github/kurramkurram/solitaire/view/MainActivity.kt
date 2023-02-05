@@ -14,17 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val solitaireFragment = SolitaireFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, SolitaireFragment(), SolitaireFragment.TAG).commit()
+
         navbar.setOnItemSelectedListener {
             val tag: String
             val fragment = when (it.itemId) {
                 R.id.navigation_game -> {
                     tag = SolitaireFragment.TAG
-                    SolitaireFragment()
-                }
-                R.id.navigation_restart -> {
-                    tag = RestartFragment.TAG
-                    RestartFragment().show(supportFragmentManager, tag)
-                    return@setOnItemSelectedListener true
+                    solitaireFragment
                 }
                 R.id.navigation_record -> {
                     tag = RecordFragment.TAG
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 val showFragment = supportFragmentManager.findFragmentByTag(tag)
                 if (showFragment == null) {
                     current = fragment
-                    add(R.id.solitaire_fragment, fragment, tag)
+                    add(R.id.container, fragment, tag)
                 } else {
                     current = showFragment
                     show(showFragment)

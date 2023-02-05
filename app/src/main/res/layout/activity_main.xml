@@ -13,10 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu" />
 
-    <fragment
-        android:id="@+id/solitaire_fragment"
-        android:name="io.github.kurramkurram.solitaire.view.SolitaireFragment"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true" />
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

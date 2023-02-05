@@ -7,11 +7,6 @@
         android:title="@string/bottom_menu_game" />
 
     <item
-        android:id="@+id/navigation_restart"
-        android:icon="@drawable/restart"
-        android:title="@string/bottom_menu_restart" />
-
-    <item
         android:id="@+id/navigation_record"
         android:icon="@drawable/record"
         android:title="@string/bottom_menu_record" />
