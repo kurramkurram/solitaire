@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
-    <fragment
-        android:name="io.github.kurramkurram.solitaire.view.SolitaireFragment"
-        android:id="@+id/solitaire_fragment"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu" />
+
+    <fragment
+        android:id="@+id/solitaire_fragment"
+        android:name="io.github.kurramkurram.solitaire.view.SolitaireFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

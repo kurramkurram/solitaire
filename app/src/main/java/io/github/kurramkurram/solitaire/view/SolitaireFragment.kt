@@ -76,6 +76,6 @@ class SolitaireFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "SolitaireFragment"
+        const val TAG = "SolitaireFragment"
     }
 }
