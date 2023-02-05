@@ -6,8 +6,8 @@
     <string name="bottom_menu_record">Record</string>
     <string name="bottom_menu_settings">Settings</string>
 
-    <string name="restart_dialog_title">リスタート</string>
-    <string name="restart_dialog_text">リスタートしますか？</string>
-    <string name="restart_dialog_positive">OK</string>
-    <string name="restart_dialog_negative">NO</string>
+    <string name="restart_dialog_title">新しいゲーム</string>
+    <string name="restart_dialog_text">新しいゲームを開始しますか？</string>
+    <string name="restart_dialog_positive">新しいゲーム</string>
+    <string name="restart_dialog_negative">キャンセル</string>
 </resources>

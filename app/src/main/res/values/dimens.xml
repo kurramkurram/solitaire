@@ -11,4 +11,10 @@
     <dimen name="stock_card_width_percent">0.5</dimen>
 
     <dimen name="restart_button_margin">20dp</dimen>
+
+    <dimen name="dialog_margin">20dp</dimen>
+    <dimen name="dialog_text_size">15sp</dimen>
+    <dimen name="dialog_title_size">25sp</dimen>
+    <dimen name="dialog_icon_wh">35dp</dimen>
+    <dimen name="dialog_width">320dp</dimen>
 </resources>
