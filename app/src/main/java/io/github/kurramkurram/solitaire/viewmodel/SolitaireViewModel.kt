@@ -107,7 +107,7 @@ class SolitaireViewModel : ViewModel() {
                         }
                         return
                     }
-                    else -> {}
+                    else -> return
                 }
             }
         }
