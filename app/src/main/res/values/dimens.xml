@@ -10,4 +10,5 @@
 
     <dimen name="stock_card_width_percent">0.5</dimen>
 
+    <dimen name="restart_button_margin">20dp</dimen>
 </resources>
