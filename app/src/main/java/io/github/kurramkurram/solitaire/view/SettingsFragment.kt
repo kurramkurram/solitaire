@@ -6,11 +6,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
@@ -40,6 +40,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
+            open_source_software_container -> {
+                Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
+
             question -> {
                 Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
