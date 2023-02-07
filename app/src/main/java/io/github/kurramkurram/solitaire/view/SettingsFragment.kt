@@ -1,16 +1,26 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,20 +30,50 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.app_version_name_tv.text = BuildConfig.VERSION_NAME
 
-        view.open_source_software_container.setOnClickListener {
-            L.d(TAG, "#SettingsFragment open_source_software_container")
-        }
+        view.open_source_software_container.setOnClickListener(this)
+        view.application_privacy_policy_container.setOnClickListener(this)
+        view.question.setOnClickListener(this)
+    }
 
-        view.application_privacy_policy_container.setOnClickListener {
-            L.d(TAG, "#SettingsFragment application_privacy_policy_container")
-        }
+    override fun onClick(v: View?) {
+        when (v) {
+            question -> {
+                Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    putExtra(
+                        Intent.EXTRA_EMAIL,
+                        arrayOf("kurram.dev@gmail.com")
+                    )
+                    val subject = requireContext().resources
+                        .getString(R.string.setting_question_mail_subject)
+                    putExtra(Intent.EXTRA_SUBJECT, subject)
+                    val text = createContactText()
+                    putExtra(Intent.EXTRA_TEXT, text)
 
-        view.question.setOnClickListener {
-            L.d(TAG, "#SettingsFragment question")
+                    try {
+                        startActivity(this)
+                    } catch (e: ActivityNotFoundException) {
+                        L.e(TAG, "#onClick $e")
+                    }
+                }
+            }
         }
     }
+
+    /**
+     * メールの本文にデフォルトで表示する文言.
+     *
+     * @return メールの本文
+     */
+    @SuppressLint("SimpleDateFormat")
+    private fun createContactText(): String =
+        "アプリバージョン：${BuildConfig.VERSION_NAME}\n " +
+                "OSバージョン：Android ${Build.VERSION.SDK_INT} \n " +
+                "機種名：${Build.MODEL}\n " +
+                "日にち：${SimpleDateFormat(DATE_PATTERN).format(Date())}"
 
     companion object {
         const val TAG = "SettingsFragment"
