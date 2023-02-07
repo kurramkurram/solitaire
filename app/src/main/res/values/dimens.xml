@@ -17,4 +17,7 @@
     <dimen name="dialog_title_size">25sp</dimen>
     <dimen name="dialog_icon_wh">35dp</dimen>
     <dimen name="dialog_width">320dp</dimen>
+
+    <dimen name="memo_divider_margin">5dp</dimen>
+    <dimen name="memo_divider_height">1dp</dimen>
 </resources>

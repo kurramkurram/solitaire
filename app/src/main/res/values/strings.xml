@@ -10,4 +10,11 @@
     <string name="restart_dialog_text">新しいゲームを開始しますか？</string>
     <string name="restart_dialog_positive">新しいゲーム</string>
     <string name="restart_dialog_negative">キャンセル</string>
+
+    <string name="setting_about_this_app">このアプリについて</string>
+    <string name="setting_app">アプリケーションプライバシーポリシー</string>
+    <string name="setting_oss">オープンソースライセンス</string>
+    <string name="setting_app_version">アプリバージョン</string>
+    <string name="setting_question_title">お問い合わせ</string>
+    <string name="setting_question">お問い合わせはこちら</string>
 </resources>
