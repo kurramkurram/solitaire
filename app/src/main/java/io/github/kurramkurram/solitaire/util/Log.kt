@@ -7,5 +7,9 @@ class L {
         fun d(tag: String, msg: String) {
             Log.d("Solitaire", "$tag$msg")
         }
+
+        fun e(tag: String, msg: String) {
+            Log.e("Solitaire", "$tag$msg")
+        }
     }
 }
