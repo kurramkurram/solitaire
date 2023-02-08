@@ -45,6 +45,10 @@ class SolitaireViewModel : ViewModel() {
     val openCard: LiveData<TrumpCard>
         get() = _openCard
 
+    private var _count = MutableLiveData(0)
+    val count: LiveData<Int>
+        get() = _count
+
     init {
         initCard()
     }
@@ -89,6 +93,7 @@ class SolitaireViewModel : ViewModel() {
                             baseList.removeAll(baseList.subList(index, baseList.size))
                             changeToFront(baseList, index)
                             _listLayout.value = _listLayout.value
+                            countUp()
                             return
                         }
                     }
@@ -105,6 +110,7 @@ class SolitaireViewModel : ViewModel() {
                         } else {
                             _openCard.value = initialCard
                         }
+                        countUp()
                         return
                     }
                     else -> return
@@ -155,6 +161,7 @@ class SolitaireViewModel : ViewModel() {
                     }
                 }
                 _listLayout.value = _listLayout.value
+                countUp()
                 return
             }
         }
@@ -172,6 +179,7 @@ class SolitaireViewModel : ViewModel() {
                 if (stockIndex >= 0) {
                     stockList[stockIndex].side.value = SIDE.FRONT
                     _openCard.value = stockList[stockIndex]
+                    countUp()
                 }
             }
 
@@ -184,6 +192,10 @@ class SolitaireViewModel : ViewModel() {
                 _openCard.value = initialCard
             }
         }
+    }
+
+    private fun countUp() {
+        _count.value = (_count.value ?: 0) + 1
     }
 
     /**

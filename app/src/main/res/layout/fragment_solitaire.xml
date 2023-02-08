@@ -9,6 +9,26 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            app:layout_constraintHeight_percent="@dimen/header_height_percent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.count.toString()}"
+                android:textSize="@dimen/header_text_size"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/header_margin_end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -68,7 +88,7 @@
             android:orientation="horizontal"
             app:layout_constraintHeight_percent="@dimen/stock_and_found_height_percent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/header">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_found"
@@ -141,7 +161,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <ImageView
             android:id="@+id/restart_button"
