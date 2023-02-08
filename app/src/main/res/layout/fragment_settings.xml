@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/about_this_app_container"
         style="@style/SolitaireSettings.Container"
+        android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
