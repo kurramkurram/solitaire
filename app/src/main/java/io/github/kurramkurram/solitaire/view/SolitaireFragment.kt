@@ -50,6 +50,7 @@ class SolitaireFragment : Fragment() {
         restart_button.setOnClickListener {
             val fragment = DialogRestartFragment()
             fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+            solitaireViewModel.stopTimer()
         }
 
         setFragmentResultListener(DIALOG_RESULT) { _, data ->
@@ -57,6 +58,8 @@ class SolitaireFragment : Fragment() {
             if (result == DIALOG_RESULT_OK) {
                 solitaireViewModel.onRestartClick()
                 initLayout()
+            } else {
+                solitaireViewModel.startTimer()
             }
         }
     }
