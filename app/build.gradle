@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'io.github.kurramkurram.solitaire'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "io.github.kurramkurram.solitaire"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
