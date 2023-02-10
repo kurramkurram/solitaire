@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_solitaire.*
 
 class SolitaireFragment : Fragment() {
 
-    private val solitaireViewModel by viewModels<SolitaireViewModel>()
+    private val solitaireViewModel: SolitaireViewModel by activityViewModels()
 
     private lateinit var layoutList: MutableList<RecyclerView>
     private val listAdapterList: MutableList<CardAdapter> = mutableListOf()

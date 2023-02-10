@@ -49,6 +49,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
 
+    def room_version = "2.5.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
     testImplementation 'junit:junit:4.13.2'
 
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'

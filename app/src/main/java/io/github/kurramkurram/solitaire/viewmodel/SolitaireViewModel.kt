@@ -1,19 +1,26 @@
 package io.github.kurramkurram.solitaire.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
+import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SolitaireViewModel : ViewModel() {
+class SolitaireViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var stockList: MutableList<TrumpCard>
 
@@ -57,6 +64,8 @@ class SolitaireViewModel : ViewModel() {
         get() {
             return _time
         }
+
+    private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
         initCard()
@@ -183,6 +192,10 @@ class SolitaireViewModel : ViewModel() {
         if (ret) {
             countUp()
             startTimer()
+        }
+
+        if (isComplete()) {
+            saveRecord(true)
         }
     }
 
@@ -362,7 +375,12 @@ class SolitaireViewModel : ViewModel() {
     /**
      * Restartボタン選択.
      */
-    fun onRestartClick() = initCard()
+    fun onRestartClick() {
+        if (!isComplete()) {
+            saveRecord(false)
+        }
+        initCard()
+    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     fun getCardId(context: Context, card: TrumpCard): Drawable? = when {
@@ -409,6 +427,33 @@ class SolitaireViewModel : ViewModel() {
     private fun clearTimer() {
         stopTimer()
         _time.value = 0
+    }
+
+    /**
+     * ゲームが終了したかどうか.
+     * 以下を満たさない時
+     * - 移動回数がカード総数52以下
+     * - 組札の一つでもKingでない
+     */
+    private fun isComplete(): Boolean {
+        if (_count.value!! <= TOTAL_CARD_SIZE) return false
+
+        listFound.forEach {
+            it.value?.let { card ->
+                if (card.number != NUMBER.KING) return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * DBに保存する.
+     */
+    private fun saveRecord(result: Boolean) {
+        L.d(TAG, "#saveRecord count = ${_count.value!!} time = ${_time.value!!}")
+        if (_count.value!! > 0) {
+            recordRepository.saveRecord(Record(0, result, _count.value!!, _time.value!!))
+        }
     }
 
     private data class SelectData(
