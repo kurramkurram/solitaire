@@ -9,5 +9,6 @@ data class Record(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "result") val result: Boolean,
     @ColumnInfo(name = "count") val count: Int,
-    @ColumnInfo(name = "time") val time: Long
+    @ColumnInfo(name = "time") val time: Long,
+    @ColumnInfo(name = "date") val date: String
 )

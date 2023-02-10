@@ -17,6 +17,7 @@ import io.github.kurramkurram.solitaire.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -449,10 +450,20 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     /**
      * DBに保存する.
      */
+    @SuppressLint("SimpleDateFormat")
     private fun saveRecord(result: Boolean) {
         L.d(TAG, "#saveRecord count = ${_count.value!!} time = ${_time.value!!}")
         if (_count.value!! > 0) {
-            recordRepository.saveRecord(Record(0, result, _count.value!!, _time.value!!))
+            val simpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            recordRepository.saveRecord(
+                Record(
+                    0,
+                    result,
+                    _count.value!!,
+                    _time.value!!,
+                    simpleDateFormat.format(Date())
+                )
+            )
         }
     }
 
