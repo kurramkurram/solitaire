@@ -197,6 +197,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
         if (isComplete()) {
             saveRecord(true)
+            stopTimer()
         }
     }
 
