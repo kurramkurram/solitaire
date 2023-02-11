@@ -14,7 +14,7 @@
 
     <dimen name="record_recycler_view_margin_horizontal">30dp</dimen>
     <dimen name="record_recycler_view_margin_top">10dp</dimen>
-    <dimen name="record_recycler_view_margin_bottom">10dp</dimen>
+    <dimen name="record_recycler_view_margin_bottom">40dp</dimen>
 
     <dimen name="record_list_item_rank_text_size">20sp</dimen>
     <dimen name="record_list_item_text_size">15sp</dimen>
