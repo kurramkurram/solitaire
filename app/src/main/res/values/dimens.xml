@@ -9,6 +9,21 @@
     <dimen name="header_text_size">15sp</dimen>
     <dimen name="header_margin_end">10dp</dimen>
 
+    <dimen name="record_header_text_size">20sp</dimen>
+    <dimen name="record_header_margin_top">30dp</dimen>
+
+    <dimen name="record_recycler_view_margin_horizontal">30dp</dimen>
+    <dimen name="record_recycler_view_margin_top">10dp</dimen>
+    <dimen name="record_recycler_view_margin_bottom">10dp</dimen>
+
+    <dimen name="record_list_item_rank_text_size">20sp</dimen>
+    <dimen name="record_list_item_text_size">15sp</dimen>
+    <dimen name="record_list_item_feature_text_size">25sp</dimen>
+
+    <dimen name="record_list_item_margin_horizontal">20dp</dimen>
+    <dimen name="record_list_item_feature_margin_horizontal">30dp</dimen>
+    <dimen name="record_list_item_margin_vertical">20dp</dimen>
+
     <dimen name="found_width_percent">0.6</dimen>
     <dimen name="stock_width_percent">0.4</dimen>
 

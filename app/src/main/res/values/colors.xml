@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background_green">#008000</color>
+
+    <color name="rank_1">#FF4500</color>
+    <color name="rank_2">#00BFFF</color>
+    <color name="rank_3">#FFFF00</color>
 </resources>

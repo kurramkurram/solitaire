@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="@color/background_green"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:text="record fragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/background_green">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/record_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/record_header_margin_top"
+            android:gravity="center_horizontal"
+            android:text="@string/record_rank_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/record_header_text_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/record_recycler_view_margin_top"
+            android:gravity="center_horizontal"
+            android:text="@string/record_rank_no_data"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="@{viewModel.recordList.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/record_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/record_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/record_recycler_view_margin_bottom"
+            android:layout_marginHorizontal="@dimen/record_recycler_view_margin_horizontal"
+            android:layout_marginTop="@dimen/record_recycler_view_margin_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/record_header">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="io.github.kurramkurram.solitaire.viewmodel.RecordViewModel" />
+    </data>
+</layout>

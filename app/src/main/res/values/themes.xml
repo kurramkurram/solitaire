@@ -115,4 +115,35 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
     </style>
+
+    <style name="RecordItemText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginVertical">@dimen/record_list_item_margin_vertical</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+
+    <style name="RecordItemText.Rank" parent="RecordItemText">
+        <item name="android:textSize">@dimen/record_list_item_rank_text_size</item>
+        <item name="android:layout_marginHorizontal">@dimen/record_list_item_margin_horizontal
+        </item>
+        <item name="android:textStyle">bold</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <style name="RecordItemText.ResultNormal" parent="RecordItemText">
+        <item name="android:textSize">@dimen/record_list_item_text_size</item>
+        <item name="android:layout_marginHorizontal">@dimen/record_list_item_margin_horizontal
+        </item>
+    </style>
+
+    <style name="RecordItemText.ResultFeature" parent="RecordItemText">
+        <item name="android:textSize">@dimen/record_list_item_feature_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginHorizontal">
+            @dimen/record_list_item_feature_margin_horizontal
+        </item>
+    </style>
 </resources>
