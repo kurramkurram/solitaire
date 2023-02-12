@@ -63,7 +63,9 @@
 
     <style name="SolitaireDialogStyle.Button" parent="SolitaireDialogStyle">
         <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/dialog_padding</item>
         <item name="android:layout_margin">@dimen/dialog_margin</item>
+
     </style>
 
     <style name="SolitaireSettings" />
