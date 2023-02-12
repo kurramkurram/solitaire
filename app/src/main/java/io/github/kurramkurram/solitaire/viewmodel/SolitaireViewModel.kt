@@ -384,22 +384,6 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         initCard()
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    fun getCardId(context: Context, card: TrumpCard): Drawable? = when {
-        card.number == NUMBER.NONE -> {
-            context.resources.getDrawable(R.drawable.ic_launcher_foreground, null)
-        }
-        card.side.value == SIDE.BACK -> {
-            context.resources.getDrawable(R.drawable.trump_background, null)
-        }
-        else -> {
-            val array = context.resources.obtainTypedArray(R.array.trump_card_array)
-            val resourceId = array.getResourceId(card.id, 0)
-            array.recycle()
-            context.getDrawable(resourceId)
-        }
-    }
-
     /**
      * タイマー開始.
      */
