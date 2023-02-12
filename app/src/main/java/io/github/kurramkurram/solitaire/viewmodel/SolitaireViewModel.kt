@@ -49,7 +49,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _listLayout
 
     private var stockIndex: Int = -1
-    private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
+    private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
 
     private var _openCard = MutableLiveData<TrumpCard>()
     val openCard: LiveData<TrumpCard>

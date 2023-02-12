@@ -119,7 +119,9 @@
                     android:id="@+id/found_spade"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(0)}"
-                    android:src="@{viewModel.getCardId(context, viewModel.spadeFound)}"
+                    app:context="@{context}"
+                    app:card="@{viewModel.spadeFound}"
+                    app:side="@{viewModel.spadeFound.side}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,7 +129,9 @@
                     android:id="@+id/found_heart"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(1)}"
-                    android:src="@{viewModel.getCardId(context, viewModel.heartFound)}"
+                    app:context="@{context}"
+                    app:card="@{viewModel.heartFound}"
+                    app:side="@{viewModel.heartFound.side}"
                     app:layout_constraintStart_toEndOf="@id/found_spade"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,7 +139,9 @@
                     android:id="@+id/found_clover"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(2)}"
-                    android:src="@{viewModel.getCardId(context, viewModel.cloverFound)}"
+                    app:context="@{context}"
+                    app:card="@{viewModel.cloverFound}"
+                    app:side="@{viewModel.cloverFound.side}"
                     app:layout_constraintStart_toEndOf="@id/found_heart"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,7 +149,9 @@
                     android:id="@+id/found_diamond"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(3)}"
-                    android:src="@{viewModel.getCardId(context, viewModel.diamondFound)}"
+                    app:context="@{context}"
+                    app:card="@{viewModel.diamondFound}"
+                    app:side="@{viewModel.diamondFound.side}"
                     app:layout_constraintStart_toEndOf="@id/found_clover"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -161,7 +169,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.moveStock()}"
-                    android:src="@{viewModel.getCardId(context, viewModel.openCard)}"
+                    app:context="@{context}"
+                    app:card="@{viewModel.openCard}"
+                    app:side="@{viewModel.openCard.side}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent" />
