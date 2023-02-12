@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="card_margin_horizontal">5dp</dimen>
+    <dimen name="card_margin_horizontal">2dp</dimen>
 
-    <dimen name="layout_height_percent">0.85</dimen>
-    <dimen name="stock_and_found_height_percent">0.1</dimen>
+    <dimen name="layout_height_percent">0.83</dimen>
+    <dimen name="stock_and_found_height_percent">0.12</dimen>
     <dimen name="header_height_percent">0.05</dimen>
 
     <dimen name="header_text_size">15sp</dimen>
