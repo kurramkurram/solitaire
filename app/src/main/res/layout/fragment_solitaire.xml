@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_green"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
@@ -18,19 +19,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/count_image"
+                android:src="@drawable/touch"
+                style="@style/SolitaireHeaderImageView"
+                app:layout_constraintEnd_toStartOf="@id/count" />
+
             <TextView
                 android:id="@+id/count"
                 style="@style/SolitaireHeader"
                 android:text="@{viewModel.count.toString()}"
-                app:layout_constraintEnd_toStartOf="@id/timer"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintEnd_toStartOf="@id/timer_image" />
+
+            <ImageView
+                android:id="@+id/timer_image"
+                style="@style/SolitaireHeaderImageView"
+                android:src="@drawable/timer"
+                app:layout_constraintEnd_toStartOf="@id/timer" />
 
             <TextView
                 android:id="@+id/timer"
                 style="@style/SolitaireHeader"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:text="@{viewModel.time}"
-                tools:ignore="MissingConstraints" />
+                app:text="@{viewModel.time}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

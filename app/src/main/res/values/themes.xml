@@ -25,6 +25,14 @@
         <item name="layout_constraintBottom_toBottomOf">parent</item>
     </style>
 
+    <style name="SolitaireHeaderImageView">
+        <item name="android:layout_width">@dimen/record_header_image_wh</item>
+        <item name="android:layout_height">@dimen/record_header_image_wh</item>
+        <item name="android:layout_marginStart">@dimen/record_header_image_margin_start</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+
     <style name="SolitaireListStyle">
         <item name="android:layout_width">0dp</item>
         <item name="layout_constraintWidth_percent">0.142</item>

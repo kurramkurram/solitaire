@@ -11,6 +11,8 @@
 
     <dimen name="record_header_text_size">20sp</dimen>
     <dimen name="record_header_margin_top">30dp</dimen>
+    <dimen name="record_header_image_wh">15dp</dimen>
+    <dimen name="record_header_image_margin_start">10dp</dimen>
 
     <dimen name="record_recycler_view_margin_horizontal">30dp</dimen>
     <dimen name="record_recycler_view_margin_top">10dp</dimen>
