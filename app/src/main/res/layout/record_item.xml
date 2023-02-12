@@ -15,22 +15,40 @@
             app:context="@{context}"
             app:rank="@{rank}" />
 
+        <ImageView
+            android:id="@+id/count_image"
+            style="@style/RecordItemImageView"
+            android:src="@drawable/touch"
+            app:layout_constraintStart_toEndOf="@id/ranking" />
+
         <TextView
             android:id="@+id/count"
-            style="@style/RecordItemText.ResultFeature"
+            style="@style/RecordItemText.ResultNormal"
             android:text="@{Integer.toString(record.count)}"
-            app:layout_constraintStart_toEndOf="@id/ranking" />
+            app:layout_constraintStart_toEndOf="@id/count_image" />
+
+        <ImageView
+            android:id="@+id/timer_image"
+            style="@style/RecordItemImageView"
+            android:src="@drawable/timer"
+            app:layout_constraintStart_toEndOf="@id/count" />
 
         <TextView
             android:id="@+id/time"
             style="@style/RecordItemText.ResultNormal"
-            app:layout_constraintStart_toEndOf="@id/count"
+            app:layout_constraintStart_toEndOf="@id/timer_image"
             app:text="@{record.time}" />
+
+        <ImageView
+            android:id="@+id/calender_image"
+            style="@style/RecordItemImageView"
+            android:src="@drawable/calender"
+            app:layout_constraintStart_toEndOf="@id/time"/>
 
         <TextView
             style="@style/RecordItemText.ResultNormal"
             android:text="@{record.date}"
-            app:layout_constraintStart_toEndOf="@id/time" />
+            app:layout_constraintStart_toEndOf="@id/calender_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>

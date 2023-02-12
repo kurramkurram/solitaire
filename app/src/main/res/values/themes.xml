@@ -127,23 +127,20 @@
 
     <style name="RecordItemText.Rank" parent="RecordItemText">
         <item name="android:textSize">@dimen/record_list_item_rank_text_size</item>
-        <item name="android:layout_marginHorizontal">@dimen/record_list_item_margin_horizontal
-        </item>
+        <item name="android:layout_marginEnd">@dimen/record_list_item_margin_End</item>
         <item name="android:textStyle">bold</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
 
     <style name="RecordItemText.ResultNormal" parent="RecordItemText">
         <item name="android:textSize">@dimen/record_list_item_text_size</item>
-        <item name="android:layout_marginHorizontal">@dimen/record_list_item_margin_horizontal
-        </item>
     </style>
 
-    <style name="RecordItemText.ResultFeature" parent="RecordItemText">
-        <item name="android:textSize">@dimen/record_list_item_feature_text_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginHorizontal">
-            @dimen/record_list_item_feature_margin_horizontal
-        </item>
+    <style name="RecordItemImageView">
+        <item name="android:layout_height">@dimen/record_list_item_image_wh</item>
+        <item name="android:layout_width">@dimen/record_list_item_image_wh</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginStart">@dimen/record_list_item_image_margin_start</item>
     </style>
 </resources>

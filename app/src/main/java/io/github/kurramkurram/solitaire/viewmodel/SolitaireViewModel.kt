@@ -455,7 +455,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     private fun saveRecord(result: Boolean) {
         L.d(TAG, "#saveRecord count = ${_count.value!!} time = ${_time.value!!}")
         if (_count.value!! > 0) {
-            val simpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            val simpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm")
             recordRepository.saveRecord(
                 Record(
                     0,
