@@ -14,9 +14,14 @@
     <dimen name="record_header_image_wh">15dp</dimen>
     <dimen name="record_header_image_margin_start">10dp</dimen>
 
-    <dimen name="record_recycler_view_margin_horizontal">30dp</dimen>
+    <dimen name="record_recycler_view_margin_horizontal">20dp</dimen>
     <dimen name="record_recycler_view_margin_top">10dp</dimen>
-    <dimen name="record_recycler_view_margin_bottom">40dp</dimen>
+    <dimen name="record_recycler_view_margin_bottom">20dp</dimen>
+
+    <dimen name="record_reset_button_margin">10dp</dimen>
+    <dimen name="record_reset_button_padding">10dp</dimen>
+    <dimen name="record_reset_button_text_size">15sp</dimen>
+    <dimen name="record_reset_button_elevation">10dp</dimen>
 
     <dimen name="record_list_item_rank_text_size">20sp</dimen>
     <dimen name="record_list_item_text_size">18sp</dimen>

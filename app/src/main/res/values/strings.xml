@@ -13,6 +13,7 @@
 
     <string name="record_rank_title">移動回数</string>
     <string name="record_rank_no_data">表示できるデータがありません</string>
+    <string name="record_reset_button">リセット</string>
 
     <string name="setting_about_this_app">このアプリについて</string>
     <string name="setting_app">アプリケーションプライバシーポリシー</string>

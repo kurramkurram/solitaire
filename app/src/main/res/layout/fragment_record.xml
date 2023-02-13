@@ -32,16 +32,31 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/record_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/record_recycler_view_margin_bottom"
             android:layout_marginHorizontal="@dimen/record_recycler_view_margin_horizontal"
             android:layout_marginTop="@dimen/record_recycler_view_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toTopOf="@id/reset_button"
             app:layout_constraintTop_toBottomOf="@id/record_header">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/restart_button_margin"
+            android:background="@drawable/reset_button_background"
+            android:elevation="@dimen/record_reset_button_elevation"
+            android:textSize="@dimen/record_reset_button_text_size"
+            android:padding="@dimen/record_reset_button_padding"
+            android:text="@string/record_reset_button"
+            android:textColor="@color/background_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
