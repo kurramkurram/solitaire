@@ -14,4 +14,7 @@ interface RecordDao {
 
     @Insert
     fun insert(vararg record: Record)
+
+    @Query("DELETE FROM t_record")
+    fun deleteAll()
 }

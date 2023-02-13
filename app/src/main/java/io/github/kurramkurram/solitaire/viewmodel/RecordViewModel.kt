@@ -11,4 +11,6 @@ class RecordViewModel(application: Application) : AndroidViewModel(application) 
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     val recordList: LiveData<MutableList<Record>> = recordRepository.selectAll()
+
+    fun deleteAll() = recordRepository.deleteAll()
 }

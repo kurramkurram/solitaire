@@ -10,6 +10,7 @@ abstract class RecordRepository {
 
     abstract fun selectAll(): LiveData<MutableList<Record>>
     abstract fun saveRecord(record: Record)
+    abstract fun deleteAll()
 }
 
 class RecordRepositoryImpl(
@@ -26,6 +27,13 @@ class RecordRepositoryImpl(
         CoroutineScope(Dispatchers.IO).launch {
             val dao = db.recordDao()
             dao.insert(record)
+        }
+    }
+
+    override fun deleteAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val dao = db.recordDao()
+            dao.deleteAll()
         }
     }
 }

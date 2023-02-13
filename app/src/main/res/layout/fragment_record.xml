@@ -50,10 +50,11 @@
             android:layout_margin="@dimen/restart_button_margin"
             android:background="@drawable/reset_button_background"
             android:elevation="@dimen/record_reset_button_elevation"
-            android:textSize="@dimen/record_reset_button_text_size"
+            android:onClick="@{() -> viewModel.deleteAll()}"
             android:padding="@dimen/record_reset_button_padding"
             android:text="@string/record_reset_button"
             android:textColor="@color/background_green"
+            android:textSize="@dimen/record_reset_button_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
