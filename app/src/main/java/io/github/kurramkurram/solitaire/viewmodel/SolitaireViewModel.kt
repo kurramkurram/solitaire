@@ -387,15 +387,22 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     /**
      * タイマー開始.
      */
-    fun startTimer() {
-        timer ?: run {
-            timer = Timer().apply {
-                schedule(object : TimerTask() {
-                    override fun run() {
-                        _time.postValue((_time.value ?: 0) + 1)
-                    }
-                }, 1000, 1000)
-            }
+    private fun startTimer() = timer ?: run {
+        timer = Timer().apply {
+            schedule(object : TimerTask() {
+                override fun run() {
+                    _time.postValue((_time.value ?: 0) + 1)
+                }
+            }, 1000, 1000)
+        }
+    }
+
+    /**
+     * タイマーリスタート.
+     */
+    fun restartTimer() {
+        if (_time.value != 0L) {
+            startTimer()
         }
     }
 

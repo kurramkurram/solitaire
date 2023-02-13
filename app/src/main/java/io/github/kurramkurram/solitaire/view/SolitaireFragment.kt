@@ -60,7 +60,7 @@ class SolitaireFragment : Fragment() {
                 solitaireViewModel.onRestartClick()
                 initLayout()
             } else {
-                solitaireViewModel.startTimer()
+                solitaireViewModel.restartTimer()
             }
         }
     }
