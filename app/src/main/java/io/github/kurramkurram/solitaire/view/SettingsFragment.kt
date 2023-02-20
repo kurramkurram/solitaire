@@ -46,6 +46,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
+            application_privacy_policy_container -> {
+                Intent(requireContext(), AppActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
+
             question -> {
                 Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
