@@ -24,7 +24,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/open_source_software_container"
+        android:id="@+id/application_privacy_policy_container"
         style="@style/SolitaireSettings.Container"
         android:background="?android:attr/selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@id/about_this_app_container"
@@ -40,18 +40,18 @@
 
             <ImageView style="@style/SolitaireSettings.Arrow" />
 
+
             <TextView
-                android:id="@+id/open_source_software_tv"
                 style="@style/SolitaireSettings.TextView.NoIcon"
-                android:text="@string/setting_oss" />
+                android:text="@string/setting_app" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/application_privacy_policy_container"
+        android:id="@+id/open_source_software_container"
         style="@style/SolitaireSettings.Container"
         android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/open_source_software_container"
+        app:layout_constraintTop_toBottomOf="@id/application_privacy_policy_container"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -66,14 +66,14 @@
 
             <TextView
                 style="@style/SolitaireSettings.TextView.NoIcon"
-                android:text="@string/setting_app" />
+                android:text="@string/setting_oss" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/app_version_container"
         style="@style/SolitaireSettings.Container"
-        app:layout_constraintTop_toBottomOf="@id/application_privacy_policy_container"
+        app:layout_constraintTop_toBottomOf="@id/open_source_software_container"
         tools:ignore="MissingConstraints">
 
         <ImageView
