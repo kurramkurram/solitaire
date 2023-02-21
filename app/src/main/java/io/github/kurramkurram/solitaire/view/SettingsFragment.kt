@@ -42,6 +42,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         when (v) {
             open_source_software_container -> {
                 Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
+                    putExtra(EXTRA_TITLE, resources.getString(R.string.setting_oss))
                     startActivity(this)
                 }
             }
@@ -89,5 +90,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     companion object {
         const val TAG = "SettingsFragment"
+
+        private const val EXTRA_TITLE = "title"
     }
 }
