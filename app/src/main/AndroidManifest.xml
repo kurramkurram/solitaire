@@ -15,7 +15,9 @@
 
         <activity
             android:name=".view.AppActivity"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/setting_app"
+            android:theme="@style/ApplicationPrivacyPolicyTheme">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
