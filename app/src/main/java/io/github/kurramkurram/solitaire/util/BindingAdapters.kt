@@ -2,11 +2,11 @@ package io.github.kurramkurram.solitaire.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
@@ -51,7 +51,14 @@ object BindingAdapters {
         val drawableId = when {
             card == null || side == null || side == SIDE.BACK -> R.drawable.trump_background
 
-            card.number == NUMBER.NONE -> R.drawable.ic_launcher_foreground
+            card.number == NUMBER.NONE -> {
+                when (card.pattern) {
+                    PATTERN.SPADE -> R.drawable.spade
+                    PATTERN.HEART -> R.drawable.heart
+                    PATTERN.CLOVER -> R.drawable.clover
+                    PATTERN.DIAMOND -> R.drawable.diamond
+                }
+            }
 
             else -> {
                 val array = context.resources.obtainTypedArray(R.array.trump_card_array)
@@ -61,5 +68,16 @@ object BindingAdapters {
             }
         }
         view.setImageDrawable(context.resources.getDrawable(drawableId, null))
+    }
+
+    @BindingAdapter(value = ["padding_card", "padding_side"], requireAll = true)
+    @JvmStatic
+    fun setFoundationPadding(view: ImageView, card: TrumpCard?, side: SIDE?) {
+        val padding = when {
+            card == null || side == null -> 0
+            card.number == NUMBER.NONE -> 50
+            else -> 0
+        }
+        view.setPadding(padding)
     }
 }

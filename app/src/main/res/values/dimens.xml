@@ -49,4 +49,7 @@
 
     <dimen name="memo_divider_margin">5dp</dimen>
     <dimen name="memo_divider_height">1dp</dimen>
+
+    <dimen name="padding_exist">20dp</dimen>
+    <dimen name="padding_none">0dp</dimen>
 </resources>

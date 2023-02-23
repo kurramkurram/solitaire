@@ -119,41 +119,45 @@
                     android:id="@+id/found_spade"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(0)}"
-                    app:context="@{context}"
                     app:card="@{viewModel.spadeFound}"
-                    app:side="@{viewModel.spadeFound.side}"
+                    app:context="@{context}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:padding_card="@{viewModel.spadeFound}"
+                    app:padding_side="@{viewModel.spadeFound.side}"
+                    app:side="@{viewModel.spadeFound.side}" />
 
                 <ImageView
                     android:id="@+id/found_heart"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(1)}"
-                    app:context="@{context}"
                     app:card="@{viewModel.heartFound}"
-                    app:side="@{viewModel.heartFound.side}"
+                    app:context="@{context}"
                     app:layout_constraintStart_toEndOf="@id/found_spade"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:padding_card="@{viewModel.heartFound}"
+                    app:padding_side="@{viewModel.heartFound.side}"
+                    app:side="@{viewModel.heartFound.side}" />
 
                 <ImageView
                     android:id="@+id/found_clover"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(2)}"
-                    app:context="@{context}"
                     app:card="@{viewModel.cloverFound}"
-                    app:side="@{viewModel.cloverFound.side}"
+                    app:context="@{context}"
                     app:layout_constraintStart_toEndOf="@id/found_heart"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:padding_card="@{viewModel.cloverFound}"
+                    app:padding_side="@{viewModel.cloverFound.side}"
+                    app:side="@{viewModel.cloverFound.side}" />
 
                 <ImageView
                     android:id="@+id/found_diamond"
                     style="@style/SolitaireFoundationStyle"
                     android:onClick="@{() -> viewModel.moveFound(3)}"
-                    app:context="@{context}"
                     app:card="@{viewModel.diamondFound}"
-                    app:side="@{viewModel.diamondFound.side}"
+                    app:context="@{context}"
                     app:layout_constraintStart_toEndOf="@id/found_clover"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:padding_card="@{viewModel.diamondFound}"
+                    app:padding_side="@{viewModel.diamondFound.side}"
+                    app:side="@{viewModel.diamondFound.side}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,6 +205,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>
+
+        <import type="io.github.kurramkurram.solitaire.util.SIDE"/>
 
         <variable
             name="viewModel"

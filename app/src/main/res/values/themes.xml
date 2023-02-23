@@ -48,6 +48,7 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="layout_constraintWidth_percent">0.25</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
         <item name="android:text">empty</item>
     </style>
 
