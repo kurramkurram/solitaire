@@ -148,12 +148,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.moveStock()}"
-                    app:card="@{viewModel.openCard}"
-                    app:context="@{context}"
+                    app:open_card="@{viewModel.openCard}"
+                    app:open_context="@{context}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent"
-                    app:side="@{viewModel.openCard.side}" />
+                    app:open_side="@{viewModel.openCard.side}" />
 
                 <ImageView
                     android:id="@+id/stock_back"

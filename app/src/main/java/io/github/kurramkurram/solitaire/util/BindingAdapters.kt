@@ -80,4 +80,23 @@ object BindingAdapters {
         }
         view.setPadding(padding)
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @BindingAdapter(value = ["open_context", "open_card", "open_side"], requireAll = true)
+    @JvmStatic
+    fun setStockOpenCard(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
+        val drawableId = when {
+            card == null || side == null || side == SIDE.BACK -> R.drawable.trump_background
+
+            card.number == NUMBER.NONE -> R.drawable.ic_launcher_foreground
+
+            else -> {
+                val array = context.resources.obtainTypedArray(R.array.trump_card_array)
+                val id = array.getResourceId(card.id, 0)
+                array.recycle()
+                id
+            }
+        }
+        view.setImageDrawable(context.resources.getDrawable(drawableId, null))
+    }
 }
