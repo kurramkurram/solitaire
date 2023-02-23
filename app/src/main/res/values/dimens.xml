@@ -39,6 +39,7 @@
     <dimen name="stock_card_width_percent">0.5</dimen>
 
     <dimen name="restart_button_margin">20dp</dimen>
+    <dimen name="restart_button_elevation">1dp</dimen>
 
     <dimen name="dialog_margin">20dp</dimen>
     <dimen name="dialog_padding">10dp</dimen>
@@ -49,7 +50,4 @@
 
     <dimen name="memo_divider_margin">5dp</dimen>
     <dimen name="memo_divider_height">1dp</dimen>
-
-    <dimen name="padding_exist">20dp</dimen>
-    <dimen name="padding_none">0dp</dimen>
 </resources>
