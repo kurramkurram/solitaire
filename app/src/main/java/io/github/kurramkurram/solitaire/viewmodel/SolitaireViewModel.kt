@@ -224,7 +224,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
             stockList.size == 0 -> {
                 _openCard.value = initialCard
-                _closeCard.value = backCard
+                _closeCard.value = null
             }
 
             stockIndex == stockList.size -> {
