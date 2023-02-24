@@ -99,4 +99,18 @@ object BindingAdapters {
         }
         view.setImageDrawable(context.resources.getDrawable(drawableId, null))
     }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @BindingAdapter(value = ["close_context", "close_card"], requireAll = true)
+    @JvmStatic
+    fun setStockCloseCard(view: ImageView, context: Context, card: TrumpCard?) {
+        val id = if (card == null) {
+            view.setPadding(50)
+            R.drawable.restart_stock
+        } else {
+            view.setPadding(0)
+            R.drawable.trump_background
+        }
+        view.setImageDrawable(context.resources.getDrawable(id, null))
+    }
 }

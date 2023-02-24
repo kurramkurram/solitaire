@@ -148,11 +148,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.moveStock()}"
-                    app:open_card="@{viewModel.openCard}"
-                    app:open_context="@{context}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent"
+                    app:open_card="@{viewModel.openCard}"
+                    app:open_context="@{context}"
                     app:open_side="@{viewModel.openCard.side}" />
 
                 <ImageView
@@ -161,6 +161,8 @@
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.openStock()}"
                     android:src="@drawable/trump_background"
+                    app:close_card="@{viewModel.closeCard}"
+                    app:close_context="@{context}"
                     app:layout_constraintStart_toEndOf="@id/stock_front"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent" />

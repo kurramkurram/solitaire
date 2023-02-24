@@ -2,21 +2,14 @@ package io.github.kurramkurram.solitaire.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
-import android.graphics.drawable.Drawable
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -55,6 +48,12 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     val openCard: LiveData<TrumpCard>
         get() = _openCard
 
+    private var _closeCard = MutableLiveData<TrumpCard?>()
+    val closeCard: LiveData<TrumpCard?>
+        get() = _closeCard
+
+    private val backCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
+
     private var _count = MutableLiveData(0)
     val count: LiveData<Int>
         get() = _count
@@ -87,6 +86,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         createLayout(shuffleList)
         stockIndex = -1
         _openCard.value = initialCard
+        _closeCard.value = backCard
         _count.value = 0
         clearTimer()
     }
@@ -214,16 +214,23 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                     _openCard.value = stockList[stockIndex]
                     countUp()
                     startTimer()
+                    _closeCard.value = backCard
+                }
+
+                if (stockList.size - 1 == stockIndex) {
+                    _closeCard.value = null
                 }
             }
 
             stockList.size == 0 -> {
                 _openCard.value = initialCard
+                _closeCard.value = backCard
             }
 
             stockIndex == stockList.size -> {
                 stockIndex = -1
                 _openCard.value = initialCard
+                _closeCard.value = backCard
             }
         }
     }
