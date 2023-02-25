@@ -214,11 +214,12 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                     _openCard.value = stockList[stockIndex]
                     countUp()
                     startTimer()
-                    _closeCard.value = backCard
                 }
 
                 if (stockList.size - 1 == stockIndex) {
                     _closeCard.value = null
+                } else {
+                    _closeCard.value = backCard
                 }
             }
 
