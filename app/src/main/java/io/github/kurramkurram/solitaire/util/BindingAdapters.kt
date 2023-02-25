@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import io.github.kurramkurram.solitaire.R
@@ -46,7 +47,6 @@ object BindingAdapters {
 
     @BindingAdapter(value = ["context", "card", "side"], requireAll = true)
     @JvmStatic
-    @SuppressLint("UseCompatLoadingForDrawables")
     fun setCardSrc(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
         val drawableId = when {
             card == null || side == null || side == SIDE.BACK -> R.drawable.trump_background
@@ -67,7 +67,7 @@ object BindingAdapters {
                 id
             }
         }
-        view.setImageDrawable(context.resources.getDrawable(drawableId, null))
+        view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, drawableId, null))
     }
 
     @BindingAdapter(value = ["padding_card", "padding_side"], requireAll = true)
@@ -81,26 +81,28 @@ object BindingAdapters {
         view.setPadding(padding)
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @BindingAdapter(value = ["open_context", "open_card", "open_side"], requireAll = true)
     @JvmStatic
     fun setStockOpenCard(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
         val drawableId = when {
             card == null || side == null || side == SIDE.BACK -> R.drawable.trump_background
 
-            card.number == NUMBER.NONE -> R.drawable.ic_launcher_foreground
+            card.number == NUMBER.NONE -> {
+                view.setPadding(50)
+                R.mipmap.ic_launcher_round
+            }
 
             else -> {
+                view.setPadding(0)
                 val array = context.resources.obtainTypedArray(R.array.trump_card_array)
                 val id = array.getResourceId(card.id, 0)
                 array.recycle()
                 id
             }
         }
-        view.setImageDrawable(context.resources.getDrawable(drawableId, null))
+        view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, drawableId, null))
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @BindingAdapter(value = ["close_context", "close_card"], requireAll = true)
     @JvmStatic
     fun setStockCloseCard(view: ImageView, context: Context, card: TrumpCard?) {
@@ -111,6 +113,6 @@ object BindingAdapters {
             view.setPadding(0)
             R.drawable.trump_background
         }
-        view.setImageDrawable(context.resources.getDrawable(id, null))
+        view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, id, null))
     }
 }
