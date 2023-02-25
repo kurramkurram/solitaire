@@ -9,7 +9,7 @@ import io.github.kurramkurram.solitaire.data.Record
 @Dao
 interface RecordDao {
 
-    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY count ASC")
+    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY count, time ASC")
     fun getAll(): LiveData<MutableList<Record>>
 
     @Insert
