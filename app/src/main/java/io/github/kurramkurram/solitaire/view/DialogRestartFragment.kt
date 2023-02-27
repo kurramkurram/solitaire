@@ -4,12 +4,10 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import io.github.kurramkurram.solitaire.R
-import io.github.kurramkurram.solitaire.util.*
 import kotlinx.android.synthetic.main.dialog_restart.*
 
-class DialogRestartFragment : DialogFragment() {
+class DialogRestartFragment : DialogBaseFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         Dialog(requireContext()).apply {
@@ -18,18 +16,4 @@ class DialogRestartFragment : DialogFragment() {
             positive_button.setOnClickListener { onPositiveClick() }
             negative_button.setOnClickListener { onNegativeClick() }
         }
-
-    private fun onPositiveClick() {
-        val data = Bundle()
-        data.putInt(DIALOG_RESULT_KEY, DIALOG_RESULT_OK)
-        parentFragmentManager.setFragmentResult(DIALOG_RESULT, data)
-        dismiss()
-    }
-
-    private fun onNegativeClick() {
-        val data = Bundle()
-        data.putInt(DIALOG_RESULT_KEY, DIALOG_RESULT_NG)
-        parentFragmentManager.setFragmentResult(DIALOG_RESULT, data)
-        dismiss()
-    }
 }
