@@ -17,7 +17,7 @@
         android:id="@+id/positive_button"
         style="@style/SolitaireDialogStyle.Button"
         android:background="?android:attr/selectableItemBackground"
-        android:text="@string/restart_dialog_positive"
+        android:text="@string/reset_dialog_positive"
         app:layout_constraintTop_toBottomOf="@id/text"
         tools:ignore="MissingConstraints" />
 
@@ -25,7 +25,7 @@
         android:id="@+id/negative_button"
         style="@style/SolitaireDialogStyle.Button"
         android:background="?android:attr/selectableItemBackground"
-        android:text="@string/restart_dialog_negative"
+        android:text="@string/reset_dialog_negative"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/positive_button"
         tools:ignore="MissingConstraints" />
@@ -43,7 +43,7 @@
             android:layout_width="@dimen/dialog_icon_wh"
             android:layout_height="@dimen/dialog_icon_wh"
             android:layout_margin="@dimen/dialog_margin"
-            android:src="@drawable/restart_dark"
+            android:src="@drawable/delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dialog_margin"
             android:gravity="start"
-            android:text="@string/restart_dialog_title"
+            android:text="@string/reset_dialog_title"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/dialog_title_size"
             android:textStyle="bold"
@@ -61,4 +61,5 @@
             app:layout_constraintStart_toEndOf="@id/reset_image"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

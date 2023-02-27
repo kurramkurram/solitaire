@@ -15,6 +15,11 @@
     <string name="record_rank_no_data">表示できるデータがありません</string>
     <string name="record_reset_button">リセット</string>
 
+    <string name="reset_dialog_title">履歴の削除</string>
+    <string name="reset_dialog_text">これまでの履歴を削除しますか？</string>
+    <string name="reset_dialog_positive">削除する</string>
+    <string name="reset_dialog_negative">キャンセル</string>
+
     <string name="setting_about_this_app">このアプリについて</string>
     <string name="setting_app">アプリケーションプライバシーポリシー</string>
     <string name="setting_oss">オープンソースライセンス</string>
