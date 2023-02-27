@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
@@ -54,7 +53,7 @@ class SolitaireFragment : Fragment() {
             solitaireViewModel.stopTimer()
         }
 
-        setFragmentResultListener(DIALOG_RESULT) { _, data ->
+        setFragmentResultListener(DIALOG_RESULT_RESTART) { _, data ->
             val result = data.getInt(DIALOG_RESULT_KEY, -1)
             if (result == DIALOG_RESULT_OK) {
                 solitaireViewModel.onRestartClick()
