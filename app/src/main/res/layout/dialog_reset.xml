@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/text"
         style="@style/SolitaireDialogStyle.Text"
-        android:text="@string/restart_dialog_text"
+        android:text="@string/reset_dialog_text"
         app:layout_constraintTop_toBottomOf="@id/title_layout"
         tools:ignore="MissingConstraints" />
 
