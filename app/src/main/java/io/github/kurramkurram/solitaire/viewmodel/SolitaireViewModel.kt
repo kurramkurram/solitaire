@@ -61,9 +61,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     private var timer: Timer? = null
     private var _time = MutableLiveData(0L)
     val time: LiveData<Long>
-        get() {
-            return _time
-        }
+        get() = _time
 
     private val _complete = MutableLiveData(false)
     val complete: LiveData<Boolean>
