@@ -65,6 +65,10 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             return _time
         }
 
+    private val _complete = MutableLiveData(false)
+    val complete: LiveData<Boolean>
+        get() = _complete
+
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
@@ -88,6 +92,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         _openCard.value = initialCard
         _closeCard.value = backCard
         _count.value = 0
+        _complete.value = false
         clearTimer()
     }
 
@@ -197,6 +202,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
         if (isComplete()) {
             saveRecord(true)
+            _complete.value = true
             stopTimer()
         }
     }

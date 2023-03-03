@@ -20,6 +20,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complete_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/complete_text_size"
+            android:visibility="@{viewModel.complete ? View.VISIBLE :View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_layout"
             android:layout_width="match_parent"
@@ -210,6 +222,8 @@
     <data>
 
         <import type="io.github.kurramkurram.solitaire.util.SIDE" />
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
