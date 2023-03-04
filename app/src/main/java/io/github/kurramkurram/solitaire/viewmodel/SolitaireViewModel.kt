@@ -34,7 +34,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     val diamondFound: LiveData<TrumpCard>
         get() = _diamondFound
 
-    private var listFound: List<MutableLiveData<TrumpCard>> =
+    private val listFound: List<MutableLiveData<TrumpCard>> =
         listOf(_spadeFound, _heartFound, _cloverFound, _diamondFound)
 
     private val _listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
@@ -44,22 +44,22 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     private var stockIndex: Int = -1
     private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
 
-    private var _openCard = MutableLiveData<TrumpCard>()
+    private val _openCard = MutableLiveData<TrumpCard>()
     val openCard: LiveData<TrumpCard>
         get() = _openCard
 
-    private var _closeCard = MutableLiveData<TrumpCard?>()
+    private val _closeCard = MutableLiveData<TrumpCard?>()
     val closeCard: LiveData<TrumpCard?>
         get() = _closeCard
 
     private val backCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
 
-    private var _count = MutableLiveData(0)
+    private val _count = MutableLiveData(0)
     val count: LiveData<Int>
         get() = _count
 
     private var timer: Timer? = null
-    private var _time = MutableLiveData(0L)
+    private val _time = MutableLiveData(0L)
     val time: LiveData<Long>
         get() = _time
 
