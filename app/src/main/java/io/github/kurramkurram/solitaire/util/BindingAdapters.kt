@@ -4,6 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -114,5 +119,52 @@ object BindingAdapters {
             R.drawable.trump_background
         }
         view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, id, null))
+    }
+
+    @BindingAdapter("visibility")
+    @JvmStatic
+    fun setVisibility(view: TextView, visibility: Int) {
+        L.d("BindingAdapter", "#setVisibilityWithAnimation $visibility")
+
+        if (view.visibility == visibility) return
+        if (visibility == View.GONE) {
+            view.visibility = visibility
+            return
+        }
+
+        val duration = 800L
+        val startOffset = 100L
+
+        val fromAlpha = 0f
+        val toAlpha = 1f
+        val alpha = AlphaAnimation(fromAlpha, toAlpha).apply {
+            view.visibility = View.VISIBLE
+            this.duration = duration
+            this.startOffset = startOffset
+        }
+
+        val fromScale = 0f
+        val toScale = 1f
+        val pivotValue = 0.5f
+        val scale = ScaleAnimation(
+            fromScale,
+            toScale,
+            fromScale,
+            toScale,
+            Animation.RELATIVE_TO_SELF,
+            pivotValue,
+            Animation.RELATIVE_TO_SELF,
+            pivotValue
+        ).apply {
+            this.duration = duration
+            this.startOffset = startOffset
+        }
+
+        val set = AnimationSet(true).apply {
+            interpolator = AccelerateInterpolator()
+            addAnimation(alpha)
+            addAnimation(scale)
+        }
+        view.startAnimation(set)
     }
 }

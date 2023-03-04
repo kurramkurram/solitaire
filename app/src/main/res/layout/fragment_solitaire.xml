@@ -26,11 +26,12 @@
             android:text="@string/complete_text"
             android:textColor="@color/white"
             android:textSize="@dimen/complete_text_size"
-            android:visibility="@{viewModel.complete ? View.VISIBLE :View.GONE}"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibility="@{viewModel.complete ? View.VISIBLE :View.GONE}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_layout"
