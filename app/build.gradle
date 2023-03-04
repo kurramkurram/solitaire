@@ -70,6 +70,10 @@ dependencies {
     // oss
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
+    // font
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
     // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
