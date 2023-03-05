@@ -6,13 +6,15 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SolitaireViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -67,6 +69,8 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     val complete: LiveData<Boolean>
         get() = _complete
 
+    private var checkCardIndex = 0
+
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
@@ -91,20 +95,21 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         _closeCard.value = backCard
         _count.value = 0
         _complete.value = false
+        checkCardIndex = 0
         clearTimer()
     }
 
     /**
      * カードの移動.
      */
-    private fun move(data: SelectData) {
+    private fun move(data: SelectData): Boolean {
         L.d(TAG, "#move")
         val column = data.column
         val index = data.index
         val card = data.card
         L.d(TAG, "#move card = $card \n index = $index column = $column")
 
-        if (card.side.value == SIDE.BACK) return
+        if (card.side.value == SIDE.BACK) return false
 
         var ret = false
         // 組札へ移動
@@ -203,6 +208,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             _complete.value = true
             stopTimer()
         }
+        return ret
     }
 
     /**
@@ -452,6 +458,174 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     /**
+     * 自動回収開始(非同期).
+     */
+    fun startAutoCompleteAsync() {
+        viewModelScope.launch {
+            startAutoCompleteSync()
+        }
+    }
+
+    /**
+     * 自動回収開始(同期)
+     */
+    private suspend fun startAutoCompleteSync() {
+        L.d(TAG, "startAutoComplete")
+
+        // 組札を見て次に必要なカードを決める
+        val nextCard = getNextCard(checkCardIndex)
+        if (nextCard != null) {
+
+            val number = nextCard.first
+            val pattern = nextCard.second
+            L.d(TAG, "startAutoComplete number = $number pattern = $pattern")
+
+            val canMove = if (isExistOpen(number, pattern)) {
+                L.d(TAG, "startAutoComplete -- [1] --")
+
+                // 必要なカードが山札（オープンになっているもの）に存在している場合に移動
+                moveStock()
+                delay(DELAY_TIME)
+                true
+            } else {
+                val selectData = getExistLayout(number, pattern)
+                if (selectData != null) {
+                    L.d(TAG, "startAutoComplete -- [2] --")
+
+                    // 必要なカードが場札に存在している場合に移動
+                    move(selectData)
+                    delay(DELAY_TIME)
+                    true
+                } else {
+                    L.d(TAG, "startAutoComplete -- [3] --")
+                    false
+                }
+            }
+
+            if (canMove) {
+                L.d(TAG, "startAutoComplete -- [4] --")
+                // 移動できたので最初のパターンから評価し直す
+                checkCardIndex = 0
+            } else {
+                L.d(TAG, "startAutoComplete -- [5] --")
+                // 移動できなかったので次のパターンの評価に移動する
+                checkCardIndex++
+
+                if (checkCardIndex >= 4) {
+                    // すべてのパターンをチェックしてしまったので、場札に存在しているかを確認する
+                    L.d(TAG, "startAutoComplete -- [6] --")
+
+                    checkCardIndex = 0
+                    // 場札に存在しているか確認する
+                    val aboveCard = getAboveCardLayout(number, pattern)
+                    if (aboveCard != null) {
+                        L.d(TAG, "startAutoComplete -- [7] --")
+
+                        // 存在している場合には上のカードを動かす
+                        val ret = move(aboveCard)
+                        delay(DELAY_TIME)
+
+                        // 存在しているが、動かせない場合には山札を開く
+                        if (!ret) {
+                            L.d(TAG, "startAutoComplete -- [8] --")
+
+                            // 最後に山札をオープンする
+                            openStock()
+                            delay(DELAY_TIME)
+                        }
+                    }
+                }
+            }
+            startAutoCompleteSync()
+        } else {
+            L.d(TAG, "startAutoComplete -- [9] --")
+            // KINGが組札にある場合にはこちらに入る
+            checkCardIndex++
+            if (!isComplete()) {
+                startAutoCompleteSync()
+            }
+        }
+    }
+
+    /**
+     * 場札に存在しているか.
+     *
+     * @return 対象のカードのひとつ前
+     */
+    private fun getAboveCardLayout(number: NUMBER, pattern: PATTERN): SelectData? {
+        for ((columnIndex, column) in _listLayout.value!!.withIndex()) {
+            var next = false
+            for ((index, card) in column.withIndex()) {
+                if (next) {
+                    return SelectData(card, POSITION.LAYOUT, columnIndex, index)
+                }
+                if (card.number == number && card.pattern == pattern) {
+                    next = true
+                }
+            }
+        }
+        return null
+    }
+
+    /**
+     * 山札の表になっているカードに存在しているか.
+     */
+    private fun isExistOpen(number: NUMBER, pattern: PATTERN): Boolean {
+        val open = _openCard.value!!
+        return open.number == number && open.pattern == pattern
+    }
+
+    /**
+     * 場札から移動できるか.
+     */
+    private fun getExistLayout(number: NUMBER, pattern: PATTERN): SelectData? {
+        for ((index, column) in _listLayout.value!!.withIndex()) {
+            if (column.size >= 1) {
+                val last = column.last()
+                if (last.number == number && last.pattern == pattern) {
+                    return SelectData(last, POSITION.LAYOUT, index, column.size - 1)
+                }
+            }
+        }
+        return null
+    }
+
+    /**
+     * 組札に次に乗せるカードを取得する.
+     */
+    private fun getNextCard(checkCardIndex: Int): Pair<NUMBER, PATTERN>? {
+        var ret: Pair<NUMBER, PATTERN>? = null
+        when (checkCardIndex) {
+            PATTERN.SPADE.ordinal -> {
+                val number = _spadeFound.value!!.number
+                if (number != NUMBER.KING) {
+                    ret = Pair(NUMBER.getNumber(number.ordinal + 1), PATTERN.SPADE)
+                }
+            }
+            PATTERN.HEART.ordinal -> {
+                val number = _heartFound.value!!.number
+                if (number != NUMBER.KING) {
+                    ret = Pair(NUMBER.getNumber(number.ordinal + 1), PATTERN.HEART)
+                }
+
+            }
+            PATTERN.CLOVER.ordinal -> {
+                val number = _cloverFound.value!!.number
+                if (number != NUMBER.KING) {
+                    return Pair(NUMBER.getNumber(number.ordinal + 1), PATTERN.CLOVER)
+                }
+            }
+            PATTERN.DIAMOND.ordinal -> {
+                val number = _diamondFound.value!!.number
+                if (number != NUMBER.KING) {
+                    ret = Pair(NUMBER.getNumber(number.ordinal + 1), PATTERN.DIAMOND)
+                }
+            }
+        }
+        return ret
+    }
+
+    /**
      * DBに保存する.
      */
     @SuppressLint("SimpleDateFormat")
@@ -483,6 +657,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         private const val TOTAL_CARD_SIZE = 52
         private const val LAYOUT_CARD_SIZE = 28
         private const val STOCK_CARD_SIZE = TOTAL_CARD_SIZE - LAYOUT_CARD_SIZE
+        private const val DELAY_TIME = 500L
     }
 }
 
