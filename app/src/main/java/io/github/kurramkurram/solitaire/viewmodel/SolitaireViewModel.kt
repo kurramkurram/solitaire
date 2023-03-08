@@ -71,6 +71,10 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var checkCardIndex = 0
 
+    private val _canComplete = MutableLiveData(false)
+    val canComplete: LiveData<Boolean>
+        get() = _canComplete
+
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
@@ -96,6 +100,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         _count.value = 0
         _complete.value = false
         checkCardIndex = 0
+        _canComplete.value = false
         clearTimer()
     }
 
@@ -206,17 +211,21 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         if (isComplete()) {
             saveRecord(true)
             _complete.value = true
+            _canComplete.value = false
             stopTimer()
+        } else if (isCanComplete()) {
+            _canComplete.value = true
         }
+
         return ret
     }
 
     /**
      * 山札をめくる.
      */
-    fun openStock() {
+    fun openStock(): Boolean {
         stockIndex++
-        when {
+        return when {
             stockList.size > 0 && stockIndex < stockList.size -> {
                 // 表に変更
                 if (stockIndex >= 0) {
@@ -231,18 +240,23 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                 } else {
                     _closeCard.value = backCard
                 }
+                true
             }
 
             stockList.size == 0 -> {
                 _openCard.value = initialCard
                 _closeCard.value = null
+                false
             }
 
             stockIndex == stockList.size -> {
                 stockIndex = -1
                 _openCard.value = initialCard
                 _closeCard.value = backCard
+                true
             }
+
+            else -> false
         }
     }
 
@@ -457,6 +471,17 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         return true
     }
 
+    private fun isCanComplete(): Boolean {
+        if (_count.value!! <= 20) return false
+
+        _listLayout.value!!.forEach { list ->
+            list.forEach { card ->
+                if (card.side.value == SIDE.BACK) return false
+            }
+        }
+        return true
+    }
+
     /**
      * 自動回収開始(非同期).
      */
@@ -523,24 +548,40 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
                         // 存在している場合には上のカードを動かす
                         val ret = move(aboveCard)
-                        delay(DELAY_TIME)
+                        if (ret) delay(DELAY_TIME)
 
-                        // 存在しているが、動かせない場合には山札を開く
                         if (!ret) {
+                            // 存在しているが、動かせない場合には山札を開く
                             L.d(TAG, "startAutoComplete -- [8] --")
 
                             // 最後に山札をオープンする
-                            openStock()
-                            delay(DELAY_TIME)
+                            val open = openStock()
+                            if (open) delay(DELAY_TIME)
                         }
+
+                    } else {
+                        L.d(TAG, "startAutoComplete -- [9] --")
+
+                        // 最後に山札をオープンする
+                        val open = openStock()
+                        if (open) delay(DELAY_TIME)
                     }
                 }
             }
             startAutoCompleteSync()
         } else {
-            L.d(TAG, "startAutoComplete -- [9] --")
             // KINGが組札にある場合にはこちらに入る
             checkCardIndex++
+            if (checkCardIndex >= 4) {
+                L.d(TAG, "startAutoComplete -- [10] --")
+                checkCardIndex = 0
+            } else {
+                L.d(TAG, "startAutoComplete -- [11] --")
+
+                // 最後に山札をオープンする
+                val open = openStock()
+                if (open) delay(DELAY_TIME)
+            }
             if (!isComplete()) {
                 startAutoCompleteSync()
             }

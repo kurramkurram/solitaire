@@ -37,6 +37,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visibility="@{viewModel.complete ? View.VISIBLE :View.GONE}" />
 
+        <TextView
+            android:id="@+id/auto_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/restart_button_margin"
+            android:background="@drawable/reset_button_background"
+            android:elevation="@dimen/record_reset_button_elevation"
+            android:onClick="@{() -> viewModel.startAutoCompleteAsync()}"
+            android:padding="@dimen/record_reset_button_padding"
+            android:text="@string/auto_complete_button_text"
+            android:textColor="@color/background_green"
+            android:textSize="@dimen/record_reset_button_text_size"
+            android:visibility="@{viewModel.canComplete ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_layout"
             android:layout_width="match_parent"

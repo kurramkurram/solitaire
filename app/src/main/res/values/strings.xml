@@ -29,4 +29,5 @@
     <string name="setting_question_mail_subject">Solitaireについての問い合わせ</string>
 
     <string name="complete_text">Congratulations!!</string>
+    <string name="auto_complete_button_text">自動回収</string>
 </resources>
