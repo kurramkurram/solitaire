@@ -575,12 +575,12 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             if (checkCardIndex >= 4) {
                 L.d(TAG, "startAutoComplete -- [10] --")
                 checkCardIndex = 0
-            } else {
-                L.d(TAG, "startAutoComplete -- [11] --")
 
                 // 最後に山札をオープンする
                 val open = openStock()
                 if (open) delay(DELAY_TIME)
+            } else {
+                L.d(TAG, "startAutoComplete -- [11] --")
             }
             if (!isComplete()) {
                 startAutoCompleteSync()
