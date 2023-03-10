@@ -30,4 +30,10 @@
 
     <string name="complete_text">Congratulations!!</string>
     <string name="auto_complete_button_text">自動回収</string>
+
+    <string name="auto_complete_dialog_title">自動回収</string>
+    <string name="auto_complete_dialog_text">自動回収を行いますか？\n移動回数・経過時間は手動で行う場合より最適化されないことがあります。</string>
+    <string name="auto_complete_checkbox">以後表示しない</string>
+    <string name="auto_complete_dialog_positive">自動回収する</string>
+    <string name="auto_complete_dialog_negative">キャンセル</string>
 </resources>
