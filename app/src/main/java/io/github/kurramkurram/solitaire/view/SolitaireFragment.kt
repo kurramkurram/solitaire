@@ -13,6 +13,8 @@ import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
 import io.github.kurramkurram.solitaire.util.*
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 import kotlinx.android.synthetic.main.fragment_solitaire.*
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class SolitaireFragment : Fragment() {
 
@@ -60,6 +62,29 @@ class SolitaireFragment : Fragment() {
                 initLayout()
             } else {
                 solitaireViewModel.restartTimer()
+            }
+        }
+
+        auto_complete.setOnClickListener {
+            val ret = runBlocking {
+                getPreference(requireContext(), NO_MORE_CHECKBOX_KEY, false).first()
+            }
+
+            L.d(TAG, "#onViewCreated ret = $ret")
+            if (ret) {
+                solitaireViewModel.startAutoCompleteAsync()
+            } else {
+                val fragment = DialogAutoCompleteFragment()
+                fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                solitaireViewModel.stopTimer()
+            }
+        }
+
+        setFragmentResultListener(DIALOG_RESULT_AUTO_COMPLETE) { _, data ->
+            val result = data.getInt(DIALOG_RESULT_KEY, -1)
+            solitaireViewModel.restartTimer()
+            if (result == DIALOG_RESULT_OK) {
+                solitaireViewModel.startAutoCompleteAsync()
             }
         }
     }

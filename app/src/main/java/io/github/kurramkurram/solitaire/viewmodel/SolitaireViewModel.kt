@@ -75,6 +75,8 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     val canComplete: LiveData<Boolean>
         get() = _canComplete
 
+    val isChecked = MutableLiveData(false)
+
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
@@ -487,6 +489,15 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
      */
     fun startAutoCompleteAsync() {
         viewModelScope.launch {
+            isChecked.value?.let {
+                if (it) {
+                    setPreference(
+                        getApplication<Application>().applicationContext,
+                        NO_MORE_CHECKBOX_KEY,
+                        true
+                    )
+                }
+            }
             startAutoCompleteSync()
         }
     }

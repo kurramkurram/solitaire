@@ -44,6 +44,7 @@ enum class POSITION {
 
 const val DIALOG_RESULT_RESTART = "dialog_result_restart"
 const val DIALOG_RESULT_RESET = "dialog_result_rest"
+const val DIALOG_RESULT_AUTO_COMPLETE = "dialog_result_auto_complete"
 const val DIALOG_RESULT_KEY = "dialog_result_key"
 const val DIALOG_RESULT_OK = 0
 const val DIALOG_RESULT_NG = 1
