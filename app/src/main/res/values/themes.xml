@@ -159,4 +159,9 @@
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="android:layout_marginStart">@dimen/record_list_item_image_margin_start</item>
     </style>
+
+    <style name="Checkbox">
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/holo_red_light</item>
+    </style>
 </resources>
