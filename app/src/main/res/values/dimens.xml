@@ -52,4 +52,7 @@
     <dimen name="memo_divider_height">1dp</dimen>
 
     <dimen name="complete_text_size">40sp</dimen>
+
+    <dimen name="card_margin_top_not_last_padding_top">60dp</dimen>
+    <dimen name="card_margin_top_last_padding_top">0dp</dimen>
 </resources>

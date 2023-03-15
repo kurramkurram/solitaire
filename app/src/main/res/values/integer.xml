@@ -3,7 +3,4 @@
     <integer name="card_layout_height_last">220</integer>
     <integer name="card_layout_height_not_last">60</integer>
 
-    <integer name="card_margin_top_last">0</integer>
-    <integer name="card_margin_top_not_last">170</integer>
-
 </resources>

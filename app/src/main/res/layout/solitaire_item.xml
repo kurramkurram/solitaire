@@ -15,14 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@{trumpCard.side == SIDE.FRONT ? @color/background_green : @android:color/darker_gray}"
-            android:paddingTop="@{trumpCard.isLast ? @integer/card_margin_top_last : @integer/card_margin_top_not_last}"
+            android:paddingTop="@{trumpCard.isLast ? @dimen/card_margin_top_last_padding_top : @dimen/card_margin_top_not_last_padding_top}"
             android:scaleType="@{trumpCard.isLast ? ImageView.ScaleType.FIT_XY : ImageView.ScaleType.CENTER_CROP}"
-            app:context="@{context}"
             app:card="@{trumpCard}"
-            app:side="@{trumpCard.side}"
+            app:context="@{context}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_height="@{trumpCard.isLast ? @integer/card_layout_height_last : @integer/card_layout_height_not_last}" />
+            app:layout_height="@{trumpCard.isLast ? @integer/card_layout_height_last : @integer/card_layout_height_not_last}"
+            app:side="@{trumpCard.side}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
