@@ -6,4 +6,4 @@ Google Play and the Google Play logo are trademarks of Google LLC.
 
 This is Solitaire app.
 
-<image src="https://user-images.githubusercontent.com/54581188/228860664-0699ef85-f98b-4954-8b7e-19c94a712e69.png" width="200">)
+<image src="https://user-images.githubusercontent.com/54581188/228860664-0699ef85-f98b-4954-8b7e-19c94a712e69.png" width="200">
