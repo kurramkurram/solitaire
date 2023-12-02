@@ -5,7 +5,7 @@
         android:right="@dimen/memo_divider_margin">
         <shape android:shape="rectangle">
             <size android:height="@dimen/memo_divider_height" />
-            <solid android:color="@android:color/white" />
+            <solid android:color="@color/divider" />
         </shape>
     </item>
 </layer-list>
