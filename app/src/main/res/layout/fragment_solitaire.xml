@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/restart_button_margin"
             android:elevation="@dimen/restart_button_elevation"
-            android:src="@drawable/restart"
+            android:src="@drawable/restart_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

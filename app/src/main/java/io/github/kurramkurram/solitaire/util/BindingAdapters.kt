@@ -113,7 +113,7 @@ object BindingAdapters {
     fun setStockCloseCard(view: ImageView, context: Context, card: TrumpCard?) {
         val id = if (card == null) {
             view.setPadding(50)
-            R.drawable.restart_stock
+            R.drawable.restart_sotck_button
         } else {
             view.setPadding(0)
             R.drawable.trump_background
