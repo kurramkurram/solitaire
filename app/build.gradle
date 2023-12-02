@@ -20,6 +20,11 @@ android {
         versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        resValue "string", "ad_application_id", "\"${properties.getProperty("AD_APPLICATION_ID")}\""
+        resValue "string", "ad_unit_id", "\"${properties.getProperty("AD_UNIT_ID")}\""
     }
 
     buildTypes {
@@ -76,6 +81,9 @@ dependencies {
 
     // datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // AdMob
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
 
     // Test
     testImplementation 'junit:junit:4.13.2'

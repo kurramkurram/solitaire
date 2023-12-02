@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SolitaireApplication"
         android:allowBackup="true"
@@ -44,6 +48,10 @@
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/ApplicationPrivacyPolicyTheme" />
-    </application>
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ad_application_id" />
+
+    </application>
 </manifest>

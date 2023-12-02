@@ -8,6 +8,8 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -66,6 +68,11 @@ class MainActivity : AppCompatActivity() {
             }.commit()
             true
         }
+
+        MobileAds.initialize(this) {}
+
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun attachBaseContext(newBase: Context) {

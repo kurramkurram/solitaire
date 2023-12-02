@@ -10,9 +10,22 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/navbar"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="0" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:layout_constraintBottom_toTopOf="@id/navbar"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_weight="0"
+        ads:adUnitId="@string/ad_unit_id" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
