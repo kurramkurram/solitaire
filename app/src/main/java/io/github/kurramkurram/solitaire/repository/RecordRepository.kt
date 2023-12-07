@@ -1,12 +1,25 @@
 package io.github.kurramkurram.solitaire.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
+import io.github.kurramkurram.solitaire.database.RecordLocalDataSource
+import io.github.kurramkurram.solitaire.database.RecordLocalDataSourceImpl
 import kotlinx.coroutines.*
 
 abstract class RecordRepository {
+
+    /**
+     * 全件取得.
+     */
+    abstract fun getSuccessRate(): LiveData<Int>
+
+    /**
+     * 成功数を取得.
+     */
+    abstract fun getSuccessCount(): LiveData<Int>
 
     /**
      * 全件取得する.
@@ -56,12 +69,23 @@ abstract class RecordRepository {
 
 class RecordRepositoryImpl(
     private val context: Context,
-    private val db: RecordDatabase = RecordDatabase.getDatabases(context)
+    private val db: RecordDatabase = RecordDatabase.getDatabases(context),
+    private val recordLocalDataSource: RecordLocalDataSource = RecordLocalDataSourceImpl()
 ) : RecordRepository() {
+
+    override fun getSuccessCount(): LiveData<Int> {
+        val dao = db.recordDao()
+        return dao.getCountSuccess()
+    }
+
+    override fun getSuccessRate(): LiveData<Int> {
+        val dao = db.recordDao()
+        return dao.getSuccessRate()
+    }
 
     override fun selectAll(): LiveData<MutableList<Record>> {
         val dao = db.recordDao()
-        return dao.getAll()
+        return dao.getSuccess()
     }
 
     override fun selectLatest(): LiveData<Record> {
@@ -69,10 +93,16 @@ class RecordRepositoryImpl(
         return dao.getLatest()
     }
 
-    override fun selectOldest(): LiveData<Record> {
-        val dao = db.recordDao()
-        return dao.getOldest()
-    }
+    override fun selectOldest(): LiveData<Record> =
+        if (recordLocalDataSource.oldestRecord.value != null) {
+            Log.d("RecordRepositoryImpl", "#selectOldest not null")
+            recordLocalDataSource.oldestRecord
+        } else {
+            val dao = db.recordDao()
+            val oldest = dao.getOldest()
+            oldest.value?.let { recordLocalDataSource.saveOldestRecord(it) }
+            oldest
+        }
 
     override fun selectSmallest(): LiveData<Record> {
         val dao = db.recordDao()

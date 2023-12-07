@@ -10,7 +10,13 @@ import io.github.kurramkurram.solitaire.data.Record
 interface RecordDao {
 
     @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY count, time ASC")
-    fun getAll(): LiveData<MutableList<Record>>
+    fun getSuccess(): LiveData<MutableList<Record>>
+
+    @Query("SELECT (SELECT count(*) FROM t_record WHERE result = 1) * 100 / (SELECT CASE WHEN COUNT(*) = 0 THEN 1 ELSE COUNT(*) END AS RESULT FROM t_record)")
+    fun getSuccessRate(): LiveData<Int>
+
+    @Query("SELECT count(*) FROM t_record WHERE result = 1")
+    fun getCountSuccess(): LiveData<Int>
 
     @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY id DESC Limit 1")
     fun getLatest(): LiveData<Record>

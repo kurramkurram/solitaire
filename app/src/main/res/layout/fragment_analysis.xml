@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_green">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_count_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_count" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_count"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_count_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{Long.toString(viewModel.successCount) + '回'}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="成功回数" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_rate_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_count_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_rate" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_rate"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_rate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{Long.toString(viewModel.successRate) + '%'}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="成功率" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_latest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_rate_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_latest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_latest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_latest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.successLatest.date}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="一番新しい成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_oldest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_latest_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_oldest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_oldest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_oldest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.successOldest.date}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="一番古い成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_smallest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_oldest_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_smallest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_smallest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_smallest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{Integer.toString(viewModel.successSmallest.count) + '回'}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="最小移動回数の成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_largest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_smallest_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_largest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_largest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_largest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@{Integer.toString(viewModel.successLargest.count) + '回'}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="最多移動回数の成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_shortest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_largest_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_shortest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_shortest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_shortest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:text="@{viewModel.successShortest.time}" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="最短の成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/success_longest_layout"
+            style="@style/SolitaireSettings.Container"
+            app:layout_constraintTop_toBottomOf="@id/success_shortest_layout"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                style="@style/SolitaireSettings.Divider"
+                app:layout_constraintTop_toBottomOf="@id/success_longest" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/success_longest"
+                style="@style/SolitaireSettings.Item">
+
+                <TextView
+                    android:id="@+id/success_longest_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:text="@{viewModel.successLongest.time}" />
+
+                <TextView
+                    style="@style/SolitaireSettings.TextView.NoIcon"
+                    android:text="最長の成功記録" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="io.github.kurramkurram.solitaire.viewmodel.AnalysisViewModel" />
+    </data>
+</layout>
