@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                     solitaireFragment
                 }
                 R.id.navigation_record -> {
-                    tag = RecordFragment.TAG
-                    RecordFragment()
+                    tag = BaseRecordFragment.TAG
+                    BaseRecordFragment()
                 }
                 R.id.navigation_settings -> {
                     tag = SettingsFragment.TAG

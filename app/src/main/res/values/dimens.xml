@@ -25,7 +25,7 @@
     <dimen name="record_reset_button_elevation">10dp</dimen>
 
     <dimen name="record_list_item_rank_text_size">20sp</dimen>
-    <dimen name="record_list_item_text_size">18sp</dimen>
+    <dimen name="record_list_item_text_size">16sp</dimen>
     <dimen name="record_list_item_feature_text_size">25sp</dimen>
 
     <dimen name="record_list_item_margin_End">20dp</dimen>
