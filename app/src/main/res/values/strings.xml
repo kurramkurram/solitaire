@@ -36,4 +36,13 @@
     <string name="auto_complete_checkbox">以後表示しない</string>
     <string name="auto_complete_dialog_positive">自動回収する</string>
     <string name="auto_complete_dialog_negative">キャンセル</string>
+
+    <string name="analysis_success_count">成功回数</string>
+    <string name="analysis_success_rate">成功率</string>
+    <string name="analysis_success_latest">一番新しい成功記録</string>
+    <string name="analysis_success_oldest">一番古い成功記録</string>
+    <string name="analysis_success_smallest">最小移動回数の成功記録</string>
+    <string name="analysis_success_largest">最多移動回数の成功記録</string>
+    <string name="analysis_success_shortest">最短の成功記録</string>
+    <string name="analysis_success_longest">最長の成功記録</string>
 </resources>

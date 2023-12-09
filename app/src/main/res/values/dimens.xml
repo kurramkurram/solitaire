@@ -20,7 +20,7 @@
 
     <dimen name="record_reset_button_margin">10dp</dimen>
     <dimen name="record_reset_button_padding_vertical">10dp</dimen>
-    <dimen name="record_reset_button_padding_horizontal"> 20dp</dimen>
+    <dimen name="record_reset_button_padding_horizontal">20dp</dimen>
     <dimen name="record_reset_button_text_size">15sp</dimen>
     <dimen name="record_reset_button_elevation">10dp</dimen>
 
@@ -56,4 +56,7 @@
 
     <dimen name="card_margin_top_not_last_padding_top">60dp</dimen>
     <dimen name="card_margin_top_last_padding_top">0dp</dimen>
+
+    <dimen name="analysis_margin_top">10dp</dimen>
+    <dimen name="analysis_value_margin_end">10dp</dimen>
 </resources>

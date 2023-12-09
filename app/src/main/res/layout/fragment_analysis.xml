@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/analysis_margin_top"
         android:background="@color/background_green">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
                     android:id="@+id/success_count_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{Long.toString(viewModel.successCount) + '回'}"
                     android:textColor="@color/white"
@@ -37,7 +37,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="成功回数" />
+                    android:text="@string/analysis_success_count" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,7 +59,7 @@
                     android:id="@+id/success_rate_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{Long.toString(viewModel.successRate) + '%'}"
                     android:textColor="@color/white"
@@ -69,7 +69,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="成功率" />
+                    android:text="@string/analysis_success_rate" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,7 +91,7 @@
                     android:id="@+id/success_latest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{viewModel.successLatest.date}"
                     android:textColor="@color/white"
@@ -101,7 +101,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="一番新しい成功記録" />
+                    android:text="@string/analysis_success_latest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -123,7 +123,7 @@
                     android:id="@+id/success_oldest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{viewModel.successOldest.date}"
                     android:textColor="@color/white"
@@ -133,7 +133,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="一番古い成功記録" />
+                    android:text="@string/analysis_success_oldest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,7 +155,7 @@
                     android:id="@+id/success_smallest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{Integer.toString(viewModel.successSmallest.count) + '回'}"
                     android:textColor="@color/white"
@@ -165,7 +165,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="最小移動回数の成功記録" />
+                    android:text="@string/analysis_success_smallest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,7 +187,7 @@
                     android:id="@+id/success_largest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:text="@{Integer.toString(viewModel.successLargest.count) + '回'}"
                     android:textColor="@color/white"
@@ -197,7 +197,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="最多移動回数の成功記録" />
+                    android:text="@string/analysis_success_largest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,7 +219,7 @@
                     android:id="@+id/success_shortest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -229,7 +229,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="最短の成功記録" />
+                    android:text="@string/analysis_success_shortest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -251,7 +251,7 @@
                     android:id="@+id/success_longest_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="@dimen/analysis_value_margin_end"
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -261,7 +261,7 @@
 
                 <TextView
                     style="@style/SolitaireSettings.TextView.NoIcon"
-                    android:text="最長の成功記録" />
+                    android:text="@string/analysis_success_longest" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
