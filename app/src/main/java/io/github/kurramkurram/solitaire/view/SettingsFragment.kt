@@ -1,6 +1,7 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -9,10 +10,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.firebase.auth.FirebaseAuth
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
+import io.github.kurramkurram.solitaire.repository.ArchiveRepositoryImpl
+import io.github.kurramkurram.solitaire.usecase.BackupUseCase
+import io.github.kurramkurram.solitaire.usecase.FirebaseAuthenticationUseCase
+import io.github.kurramkurram.solitaire.usecase.RestoreUseCase
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -21,6 +32,54 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SettingsFragment : Fragment(), View.OnClickListener {
+
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val startBackupSignInForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let {
+                    val ctx = requireContext()
+                    FirebaseAuthenticationUseCase(
+                        it,
+                        onSuccess = {
+                            FirebaseAuth.getInstance().currentUser?.let { user ->
+                                BackupUseCase(
+                                    ctx,
+                                    user,
+                                    onSuccess = { ctx.showToast(R.string.toast_backup_success) },
+                                    onFailure = { ctx.showToast(R.string.toast_backup_failure) }
+                                ).invoke()
+                            }
+                        },
+                        onFailure = { ctx.showToast(R.string.toast_backup_failure) }
+                    ).invoke()
+                }
+            }
+        }
+
+    private val startRestoreSignInForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let {
+                    val ctx = requireContext()
+                    FirebaseAuthenticationUseCase(
+                        it,
+                        onSuccess = {
+                            FirebaseAuth.getInstance().currentUser?.let { user ->
+                                RestoreUseCase(
+                                    ctx,
+                                    user,
+                                    onSuccess = { ctx.showToast(R.string.toast_restore_success) },
+                                    onFailure = { ctx.showToast(R.string.toast_restore_failure) }
+                                ).invoke()
+                            }
+                        },
+                        onFailure = { ctx.showToast(R.string.toast_restore_failure) }
+                    ).invoke()
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +95,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         view.open_source_software_container.setOnClickListener(this)
         view.application_privacy_policy_container.setOnClickListener(this)
         view.question.setOnClickListener(this)
+
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
+
+        backup.setOnClickListener(this)
+        restore.setOnClickListener(this)
+        sign_out.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -72,6 +141,20 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         L.e(TAG, "#onClick $e")
                     }
                 }
+            }
+
+            backup -> {
+                val signInIntent = googleSignInClient.signInIntent
+                startBackupSignInForResult.launch(signInIntent)
+            }
+
+            restore -> {
+                val signInIntent = googleSignInClient.signInIntent
+                startRestoreSignInForResult.launch(signInIntent)
+            }
+
+            sign_out -> {
+                googleSignInClient.signOut()
             }
         }
     }

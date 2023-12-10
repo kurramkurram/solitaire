@@ -3,6 +3,7 @@ package io.github.kurramkurram.solitaire.repository
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
 import io.github.kurramkurram.solitaire.database.RecordLocalDataSource
@@ -60,6 +61,11 @@ abstract class RecordRepository {
      * 保存する.
      */
     abstract fun saveRecord(record: Record)
+
+    /**
+     * 保存する（複数レコード）.
+     */
+    abstract suspend fun saveRecord(record: List<Record>)
 
     /**
      * 全件削除する.
@@ -129,6 +135,11 @@ class RecordRepositoryImpl(
             val dao = db.recordDao()
             dao.insert(record)
         }
+    }
+
+    override suspend fun saveRecord(record: List<Record>) {
+        val dao = db.recordDao()
+        dao.insert(record)
     }
 
     override fun deleteAll() {
