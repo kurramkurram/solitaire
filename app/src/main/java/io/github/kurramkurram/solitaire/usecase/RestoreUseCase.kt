@@ -36,25 +36,26 @@ class RestoreUseCase(
                         decompressFile(zipFile, dbFile.parent!!, TmpRecordDatabase.DB_NAME)
                     L.d("RestoreUsecase", "tmpFile = ${tmpFile.path}")
 
-//                    CoroutineScope(Dispatchers.IO).launch {
-////                        L.d("RestoreUseCase", "#invoke --1--")
-////                        val records: List<Record> = tmpRecordRepository.selectAll().map { record ->
-////                            record.id = 0
-////                            L.d("RestoreUseCase", "#invoke data = $record")
-////                            record
-////                        }
-//
-////                        recordRepository.saveRecord(records)
-//                        deleteFile(tmpFile)
-//                        deleteFile(dbFile)
-//                        CoroutineScope(Dispatchers.Main).launch {
-//                            if (decompress) {
-//                                onSuccess()
-//                            } else {
-//                                onFailure()
-//                            }
-//                        }
-//                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val records: List<Record> = tmpRecordRepository.selectAll().map { record ->
+                            record.id = 0
+                            record
+                        }
+
+                        recordRepository.apply {
+                            deleteAll()
+                            saveRecord(records)
+                        }
+                        deleteFile(tmpFile)
+                        deleteFile(dbFile)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            if (decompress) {
+                                onSuccess()
+                            } else {
+                                onFailure()
+                            }
+                        }
+                    }
                     if (decompress) {
                         onSuccess()
                     } else {

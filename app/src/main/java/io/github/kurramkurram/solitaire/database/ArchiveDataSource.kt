@@ -3,7 +3,9 @@ package io.github.kurramkurram.solitaire.database
 import android.content.Context
 import io.github.kurramkurram.solitaire.util.L
 import java.io.*
+import java.nio.charset.Charset
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -71,16 +73,35 @@ class ArchiveDataSourceImpl(
         }
     }
 
-    // TODO 解凍できない
     override fun decompressFile(zipFile: File, targetParent: String, target: String): Boolean {
         return try {
-            ZipInputStream(Files.newInputStream(Paths.get(zipFile.path))).use { zis ->
-                var entry = zis.nextEntry
-                while (entry != null) {
-                    val dst = File(targetParent, TmpRecordDatabase.DB_NAME)
-                    dst.parentFile?.mkdirs()
-                    zis.copyTo(BufferedOutputStream(FileOutputStream(dst)))
-                    entry = zis.nextEntry
+            ZipInputStream(
+                Files.newInputStream(Paths.get(zipFile.path)),
+                Charset.forName("Shift_JIS")
+            ).use { f ->
+                var zipEntry: ZipEntry?
+                val buffer = ByteArray(1024 * 1024)
+                while (f.nextEntry.also { zipEntry = it } != null) {
+                    val entryPath = Paths.get(TmpRecordDatabase.DB_NAME).normalize()
+
+                    val dst = Paths.get(targetParent).resolve(entryPath)
+                    if (zipEntry!!.isDirectory) {
+                        Files.createDirectories(dst)
+                    } else {
+                        // System.err.println("inflating: $dst")
+                        Files.createDirectories(dst.parent)
+
+                        var nReads: Int
+                        FileOutputStream(dst.toFile()).use { fos ->
+                            BufferedOutputStream(fos).use { out ->
+                                while (f.read(buffer, 0, buffer.size).also { nReads = it } != -1) {
+                                    out.write(buffer, 0, nReads)
+                                }
+                                out.flush()
+                            }
+                        }
+                        f.closeEntry()
+                    }
                 }
             }
             true
@@ -91,6 +112,7 @@ class ArchiveDataSourceImpl(
     }
 
     override fun deleteFile(file: File): Boolean {
+        // TODO 削除
         return false
     }
 

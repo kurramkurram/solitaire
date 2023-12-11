@@ -70,7 +70,7 @@ abstract class RecordRepository {
     /**
      * 全件削除する.
      */
-    abstract fun deleteAll()
+    abstract suspend fun deleteAll()
 }
 
 class RecordRepositoryImpl(
@@ -142,10 +142,10 @@ class RecordRepositoryImpl(
         dao.insert(record)
     }
 
-    override fun deleteAll() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val dao = db.recordDao()
-            dao.deleteAll()
-        }
+    override suspend fun deleteAll() {
+
+        val dao = db.recordDao()
+        dao.deleteAll()
+
     }
 }

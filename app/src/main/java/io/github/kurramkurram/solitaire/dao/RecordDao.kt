@@ -22,10 +22,10 @@ interface RecordDao {
     @Query("SELECT count(*) FROM t_record WHERE result = 1")
     fun getCountSuccess(): LiveData<Int>
 
-    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY id DESC Limit 1")
+    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY time DESC Limit 1")
     fun getLatest(): LiveData<Record>
 
-    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY id ASC Limit 1")
+    @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY time ASC Limit 1")
     fun getOldest(): LiveData<Record>
 
     @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY count ASC Limit 1")
