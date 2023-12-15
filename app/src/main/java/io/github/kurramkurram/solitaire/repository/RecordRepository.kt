@@ -75,8 +75,7 @@ abstract class RecordRepository {
 
 class RecordRepositoryImpl(
     private val context: Context,
-    private val db: RecordDatabase = RecordDatabase.getDatabases(context),
-    private val recordLocalDataSource: RecordLocalDataSource = RecordLocalDataSourceImpl()
+    private val db: RecordDatabase = RecordDatabase.getDatabases(context)
 ) : RecordRepository() {
 
     override fun getSuccessCount(): LiveData<Int> {
@@ -99,16 +98,10 @@ class RecordRepositoryImpl(
         return dao.getLatest()
     }
 
-    override fun selectOldest(): LiveData<Record> =
-        if (recordLocalDataSource.oldestRecord.value != null) {
-            Log.d("RecordRepositoryImpl", "#selectOldest not null")
-            recordLocalDataSource.oldestRecord
-        } else {
-            val dao = db.recordDao()
-            val oldest = dao.getOldest()
-            oldest.value?.let { recordLocalDataSource.saveOldestRecord(it) }
-            oldest
-        }
+    override fun selectOldest(): LiveData<Record> {
+        val dao = db.recordDao()
+        return dao.getOldest()
+    }
 
     override fun selectSmallest(): LiveData<Record> {
         val dao = db.recordDao()
