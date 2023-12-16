@@ -244,7 +244,7 @@
 
             <TextView
                 style="@style/SolitaireSettings.TextView"
-                android:text="サインアウトする"
+                android:text="@string/setting_sign_out"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

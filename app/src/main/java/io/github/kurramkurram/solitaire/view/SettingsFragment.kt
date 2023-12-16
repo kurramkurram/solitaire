@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,6 +27,7 @@ import io.github.kurramkurram.solitaire.usecase.FirebaseAuthenticationUseCase
 import io.github.kurramkurram.solitaire.usecase.RestoreUseCase
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
+import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import java.text.SimpleDateFormat
@@ -38,8 +40,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private val startBackupSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                val ctx = requireContext()
+                val message = ctx.resources.getString(R.string.loading_dialog_saving)
+                val progress = DialogProgressFragment.newInstance(message)
+                progress.show(requireActivity().supportFragmentManager, SHOW_DIALOG_KEY)
+
                 result.data?.let {
-                    val ctx = requireContext()
+                    fun onFailure() {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_backup_failure)
+                    }
                     FirebaseAuthenticationUseCase(
                         it,
                         onSuccess = {
@@ -47,12 +57,15 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                                 BackupUseCase(
                                     ctx,
                                     user,
-                                    onSuccess = { ctx.showToast(R.string.toast_backup_success) },
-                                    onFailure = { ctx.showToast(R.string.toast_backup_failure) }
+                                    onSuccess = {
+                                        progress.dismiss()
+                                        ctx.showToast(R.string.toast_backup_success)
+                                    },
+                                    onFailure = { onFailure() }
                                 ).invoke()
                             }
                         },
-                        onFailure = { ctx.showToast(R.string.toast_backup_failure) }
+                        onFailure = { onFailure() }
                     ).invoke()
                 }
             }
@@ -61,8 +74,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private val startRestoreSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                val ctx = requireContext()
+                val message = ctx.resources.getString(R.string.loading_dialog_restoring)
+                val progress = DialogProgressFragment.newInstance(message)
+                progress.show(requireActivity().supportFragmentManager, SHOW_DIALOG_KEY)
+
                 result.data?.let {
-                    val ctx = requireContext()
+                    fun onFailure() {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_backup_failure)
+                    }
                     FirebaseAuthenticationUseCase(
                         it,
                         onSuccess = {
@@ -70,12 +91,15 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                                 RestoreUseCase(
                                     ctx,
                                     user,
-                                    onSuccess = { ctx.showToast(R.string.toast_restore_success) },
-                                    onFailure = { ctx.showToast(R.string.toast_restore_failure) }
+                                    onSuccess = {
+                                        progress.dismiss()
+                                        ctx.showToast(R.string.toast_restore_success)
+                                    },
+                                    onFailure = { onFailure() }
                                 ).invoke()
                             }
                         },
-                        onFailure = { ctx.showToast(R.string.toast_restore_failure) }
+                        onFailure = { onFailure() }
                     ).invoke()
                 }
             }

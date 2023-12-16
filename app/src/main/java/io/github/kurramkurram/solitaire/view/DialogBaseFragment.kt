@@ -2,7 +2,6 @@ package io.github.kurramkurram.solitaire.view
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESTART
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_KEY
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_NG
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK

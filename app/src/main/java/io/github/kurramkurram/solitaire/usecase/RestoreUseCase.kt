@@ -56,11 +56,6 @@ class RestoreUseCase(
                             }
                         }
                     }
-                    if (decompress) {
-                        onSuccess()
-                    } else {
-                        onFailure()
-                    }
                 }
             }
             .addOnFailureListener {
