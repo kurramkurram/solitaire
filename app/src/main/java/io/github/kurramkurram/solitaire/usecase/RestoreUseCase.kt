@@ -1,13 +1,10 @@
 package io.github.kurramkurram.solitaire.usecase
 
 import android.content.Context
-import android.util.Log
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
-import io.github.kurramkurram.solitaire.database.RecordDatabase
 import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
 import io.github.kurramkurram.solitaire.repository.*
-import io.github.kurramkurram.solitaire.util.L
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,12 +44,10 @@ class RestoreUseCase(
                         }
                         deleteFile(tmpFile)
                         deleteFile(dbFile)
-                        CoroutineScope(Dispatchers.Main).launch {
-                            if (decompress) {
-                                onSuccess()
-                            } else {
-                                onFailure()
-                            }
+                        if (decompress) {
+                            onSuccess()
+                        } else {
+                            onFailure()
                         }
                     }
                 }

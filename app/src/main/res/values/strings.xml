@@ -54,6 +54,7 @@
     <string name="toast_backup_failure">バックアップに失敗しました</string>
     <string name="toast_restore_success">リストアに成功しました</string>
     <string name="toast_restore_failure">リストアに失敗しました</string>
+    <string name="toast_sign_out">サインアウトしました</string>
 
     <string name="loading_dialog_saving">保存中です</string>
     <string name="loading_dialog_restoring">復元中です</string>
