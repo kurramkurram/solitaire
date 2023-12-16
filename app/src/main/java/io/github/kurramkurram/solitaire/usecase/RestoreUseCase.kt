@@ -31,10 +31,9 @@ class RestoreUseCase(
             .addOnCompleteListener {
                 archiveRepository.apply {
                     val zipFile = getCompressedFile("backup.zip")
-                    val dbFile = getDatabaseFile(RecordDatabase.DB_NAME)
+                    val dbFile = getDatabaseFile(TmpRecordDatabase.DB_NAME)
                     val decompress =
                         decompressFile(zipFile, dbFile.parent!!, TmpRecordDatabase.DB_NAME)
-                    L.d("RestoreUsecase", "tmpFile = ${tmpFile.path}")
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val records: List<Record> = tmpRecordRepository.selectAll().map { record ->

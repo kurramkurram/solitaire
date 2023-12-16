@@ -82,13 +82,12 @@ class ArchiveDataSourceImpl(
                 var zipEntry: ZipEntry?
                 val buffer = ByteArray(1024 * 1024)
                 while (f.nextEntry.also { zipEntry = it } != null) {
-                    val entryPath = Paths.get(TmpRecordDatabase.DB_NAME).normalize()
+                    val entryPath = Paths.get(target).normalize()
 
                     val dst = Paths.get(targetParent).resolve(entryPath)
                     if (zipEntry!!.isDirectory) {
                         Files.createDirectories(dst)
                     } else {
-                        // System.err.println("inflating: $dst")
                         Files.createDirectories(dst.parent)
 
                         var nReads: Int
@@ -112,8 +111,7 @@ class ArchiveDataSourceImpl(
     }
 
     override fun deleteFile(file: File): Boolean {
-        // TODO 削除
-        return false
+        return file.delete()
     }
 
     companion object {

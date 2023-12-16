@@ -5,8 +5,7 @@ import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
 import io.github.kurramkurram.solitaire.database.RecordDatabase
-import io.github.kurramkurram.solitaire.repository.ArchiveRepository
-import io.github.kurramkurram.solitaire.repository.ArchiveRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.*
 
 class BackupUseCase(
     private val context: Context,

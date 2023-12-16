@@ -1,19 +1,15 @@
 package io.github.kurramkurram.solitaire.repository
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
-import io.github.kurramkurram.solitaire.database.RecordLocalDataSource
-import io.github.kurramkurram.solitaire.database.RecordLocalDataSourceImpl
 import kotlinx.coroutines.*
 
 abstract class RecordRepository {
 
     /**
-     * 全件取得.
+     * 成功率を取得.
      */
     abstract fun getSuccessRate(): LiveData<Int>
 
@@ -25,7 +21,7 @@ abstract class RecordRepository {
     /**
      * 全件取得する.
      */
-    abstract fun selectAll(): LiveData<MutableList<Record>>
+    abstract fun getAllSuccess(): LiveData<MutableList<Record>>
 
     /**
      * 最新の成功を取得する.
@@ -88,7 +84,7 @@ class RecordRepositoryImpl(
         return dao.getSuccessRate()
     }
 
-    override fun selectAll(): LiveData<MutableList<Record>> {
+    override fun getAllSuccess(): LiveData<MutableList<Record>> {
         val dao = db.recordDao()
         return dao.getSuccess()
     }
@@ -136,9 +132,7 @@ class RecordRepositoryImpl(
     }
 
     override suspend fun deleteAll() {
-
         val dao = db.recordDao()
         dao.deleteAll()
-
     }
 }

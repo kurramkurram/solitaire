@@ -13,7 +13,7 @@ class RecordViewModel(application: Application) : AndroidViewModel(application) 
 
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
-    val recordList: LiveData<MutableList<Record>> = recordRepository.selectAll()
+    val recordList: LiveData<MutableList<Record>> = recordRepository.getAllSuccess()
 
     fun deleteAll() {
         CoroutineScope(Dispatchers.IO).launch {
