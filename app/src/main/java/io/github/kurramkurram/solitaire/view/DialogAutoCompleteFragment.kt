@@ -1,13 +1,10 @@
 package io.github.kurramkurram.solitaire.view
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
-import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.DialogAutoCompleteBinding
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_AUTO_COMPLETE
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel

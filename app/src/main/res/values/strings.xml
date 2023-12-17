@@ -27,10 +27,14 @@
     <string name="setting_question_title">お問い合わせ</string>
     <string name="setting_question">お問い合わせはこちら</string>
     <string name="setting_question_mail_subject">Solitaireについての問い合わせ</string>
+    <string name="setting_backup_and_restore">記録を保存する</string>
+    <string name="setting_backup">保存する</string>
+    <string name="setting_restore">復元する</string>
+    <string name="setting_sign_out">サインアウトする</string>
 
     <string name="complete_text">Congratulations!!</string>
-    <string name="auto_complete_button_text">自動回収</string>
 
+    <string name="auto_complete_button_text">自動回収</string>
     <string name="auto_complete_dialog_title">自動回収</string>
     <string name="auto_complete_dialog_text">自動回収を行いますか？\n移動回数・経過時間は手動で行う場合より最適化されないことがあります。</string>
     <string name="auto_complete_checkbox">以後表示しない</string>
@@ -45,4 +49,13 @@
     <string name="analysis_success_largest">最多移動回数の成功記録</string>
     <string name="analysis_success_shortest">最短の成功記録</string>
     <string name="analysis_success_longest">最長の成功記録</string>
+
+    <string name="toast_backup_success">バックアップに成功しました</string>
+    <string name="toast_backup_failure">バックアップに失敗しました</string>
+    <string name="toast_restore_success">リストアに成功しました</string>
+    <string name="toast_restore_failure">リストアに失敗しました</string>
+    <string name="toast_sign_out">サインアウトしました</string>
+
+    <string name="loading_dialog_saving">保存中です</string>
+    <string name="loading_dialog_restoring">復元中です</string>
 </resources>

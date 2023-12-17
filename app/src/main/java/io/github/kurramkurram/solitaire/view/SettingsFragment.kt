@@ -1,6 +1,7 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -9,18 +10,79 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
+import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
+import io.github.kurramkurram.solitaire.viewmodel.SettingViewModel
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SettingsFragment : Fragment(), View.OnClickListener {
+
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private val settingViewModel: SettingViewModel by activityViewModels()
+
+    private val startBackupSignInForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val ctx = requireContext()
+                val message = ctx.resources.getString(R.string.loading_dialog_saving)
+                val progress = DialogProgressFragment.newInstance(message)
+                progress.show(requireActivity().supportFragmentManager, SHOW_DIALOG_KEY)
+
+                result.data?.let {
+                    fun onSuccess() = CoroutineScope(Dispatchers.Main).launch {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_backup_success)
+                    }
+
+                    fun onFailure() = CoroutineScope(Dispatchers.Main).launch {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_backup_failure)
+                    }
+
+                    settingViewModel.startBackUpData(it, { onSuccess() }, { onFailure() })
+                }
+            }
+        }
+
+    private val startRestoreSignInForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val ctx = requireContext()
+                val message = ctx.resources.getString(R.string.loading_dialog_restoring)
+                val progress = DialogProgressFragment.newInstance(message)
+                progress.show(requireActivity().supportFragmentManager, SHOW_DIALOG_KEY)
+
+                result.data?.let {
+                    fun onSuccess() = CoroutineScope(Dispatchers.Main).launch {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_restore_success)
+                    }
+
+                    fun onFailure() = CoroutineScope(Dispatchers.Main).launch {
+                        progress.dismiss()
+                        ctx.showToast(R.string.toast_restore_failure)
+                    }
+
+                    settingViewModel.startRestoreData(it, { onSuccess() }, { onFailure() })
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +98,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         view.open_source_software_container.setOnClickListener(this)
         view.application_privacy_policy_container.setOnClickListener(this)
         view.question.setOnClickListener(this)
+
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
+
+        backup.setOnClickListener(this)
+        restore.setOnClickListener(this)
+        sign_out.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -56,10 +128,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             question -> {
                 Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
-                    putExtra(
-                        Intent.EXTRA_EMAIL,
-                        arrayOf("kurram.dev@gmail.com")
-                    )
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf("kurram.dev@gmail.com"))
                     val subject = requireContext().resources
                         .getString(R.string.setting_question_mail_subject)
                     putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -72,6 +141,21 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         L.e(TAG, "#onClick $e")
                     }
                 }
+            }
+
+            backup -> {
+                val signInIntent = googleSignInClient.signInIntent
+                startBackupSignInForResult.launch(signInIntent)
+            }
+
+            restore -> {
+                val signInIntent = googleSignInClient.signInIntent
+                startRestoreSignInForResult.launch(signInIntent)
+            }
+
+            sign_out -> {
+                googleSignInClient.signOut()
+                requireContext().showToast(R.string.toast_sign_out)
             }
         }
     }

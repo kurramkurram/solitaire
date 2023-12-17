@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentBaseRecordBinding
 import kotlinx.android.synthetic.main.fragment_base_record.*
 

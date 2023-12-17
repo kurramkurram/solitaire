@@ -40,7 +40,6 @@
 
             <ImageView style="@style/SolitaireSettings.Arrow" />
 
-
             <TextView
                 style="@style/SolitaireSettings.TextView.NoIcon"
                 android:text="@string/setting_app" />
@@ -148,6 +147,106 @@
                 style="@style/SolitaireSettings.TextView"
                 android:text="@string/setting_question"
                 app:layout_constraintStart_toEndOf="@id/question_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backup_container"
+        style="@style/SolitaireSettings.Container"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/question_here_container"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            style="@style/SolitaireSettings.Divider"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            style="@style/SolitaireSettings.Header"
+            android:text="@string/setting_backup_and_restore" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backup_item_container"
+        style="@style/SolitaireSettings.Container"
+        app:layout_constraintTop_toBottomOf="@id/backup_container"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            style="@style/SolitaireSettings.Divider"
+            app:layout_constraintTop_toBottomOf="@id/backup" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backup"
+            style="@style/SolitaireSettings.Item"
+            android:background="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/backup_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/backup"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SolitaireSettings.TextView"
+                android:text="@string/setting_backup"
+                app:layout_constraintStart_toEndOf="@id/backup_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restore_item_container"
+        style="@style/SolitaireSettings.Container"
+        app:layout_constraintTop_toBottomOf="@id/backup_item_container"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            style="@style/SolitaireSettings.Divider"
+            app:layout_constraintTop_toBottomOf="@id/restore" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/restore"
+            style="@style/SolitaireSettings.Item"
+            android:background="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/restore_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/restore"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SolitaireSettings.TextView"
+                android:text="@string/setting_restore"
+                app:layout_constraintStart_toEndOf="@id/restore_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sign_out_container"
+        style="@style/SolitaireSettings.Container"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@id/restore_item_container"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sign_out"
+            style="@style/SolitaireSettings.Item"
+            android:background="?android:attr/selectableItemBackground">
+
+            <TextView
+                style="@style/SolitaireSettings.TextView"
+                android:text="@string/setting_sign_out"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

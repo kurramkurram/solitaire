@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="divider">#006400</color>
+    <color name="dark_green">#006400</color>
     <color name="background_green">#008000</color>
 
     <color name="rank_1">#FF4500</color>
