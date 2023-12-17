@@ -31,6 +31,7 @@
     <string name="setting_backup">保存する</string>
     <string name="setting_restore">復元する</string>
     <string name="setting_sign_out">サインアウトする</string>
+    <string name="setting_question_text">アプリバージョン：%1s\nOSバージョン：Android %2d \n 機種名：%3s\n日にち：%4s</string>
 
     <string name="complete_text">Congratulations!!</string>
 
