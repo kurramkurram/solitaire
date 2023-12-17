@@ -166,11 +166,13 @@ class SettingsFragment : Fragment(), View.OnClickListener {
      * @return メールの本文
      */
     @SuppressLint("SimpleDateFormat")
-    private fun createContactText(): String =
-        "アプリバージョン：${BuildConfig.VERSION_NAME}\n " +
-                "OSバージョン：Android ${Build.VERSION.SDK_INT} \n " +
-                "機種名：${Build.MODEL}\n " +
-                "日にち：${SimpleDateFormat(DATE_PATTERN).format(Date())}"
+    private fun createContactText(): String = requireContext().resources.getString(
+        R.string.setting_question_text,
+        BuildConfig.VERSION_NAME,
+        Build.VERSION.SDK_INT,
+        Build.MODEL,
+        SimpleDateFormat(DATE_PATTERN).format(Date())
+    )
 
     companion object {
         const val TAG = "SettingsFragment"
