@@ -709,7 +709,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         private const val TOTAL_CARD_SIZE = 52
         private const val LAYOUT_CARD_SIZE = 28
         private const val STOCK_CARD_SIZE = TOTAL_CARD_SIZE - LAYOUT_CARD_SIZE
-        private const val DELAY_TIME = 500L
+        private const val DELAY_TIME = 250L
     }
 }
 
