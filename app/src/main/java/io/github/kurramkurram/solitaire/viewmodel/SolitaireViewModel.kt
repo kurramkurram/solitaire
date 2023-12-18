@@ -77,6 +77,8 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
     val isChecked = MutableLiveData(false)
 
+    val recording = MutableLiveData(false)
+
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {

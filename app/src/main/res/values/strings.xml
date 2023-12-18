@@ -59,4 +59,8 @@
 
     <string name="loading_dialog_saving">保存中です</string>
     <string name="loading_dialog_restoring">復元中です</string>
+
+    <string name="notification_channel_recoding">録画中の通知</string>
+    <string name="notification_recoding_title">録画中</string>
+    <string name="notification_recoding_description">画面録画中をしています</string>
 </resources>
