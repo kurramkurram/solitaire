@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
 
     <application
         android:name=".SolitaireApplication"
@@ -48,6 +49,11 @@
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/ApplicationPrivacyPolicyTheme" />
+
+        <service
+            android:name=".service.RecordService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

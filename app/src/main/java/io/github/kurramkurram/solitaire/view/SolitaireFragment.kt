@@ -1,15 +1,23 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.media.projection.MediaProjectionConfig
+import android.media.projection.MediaProjectionManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
+import io.github.kurramkurram.solitaire.service.RecordService
 import io.github.kurramkurram.solitaire.util.*
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 import kotlinx.android.synthetic.main.fragment_solitaire.*
@@ -22,6 +30,17 @@ class SolitaireFragment : Fragment() {
 
     private lateinit var layoutList: MutableList<RecyclerView>
     private val listAdapterList: MutableList<CardAdapter> = mutableListOf()
+
+    private val startRecordPermission = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = Intent(requireContext(), RecordService::class.java)
+            intent.putExtra(RECORD_RESULT_DATA, result.data)
+            requireContext().startForegroundService(intent)
+            solitaireViewModel.recording.value = true
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,6 +106,26 @@ class SolitaireFragment : Fragment() {
                 solitaireViewModel.startAutoCompleteAsync()
             }
         }
+
+        recording_button.setOnClickListener {
+            if (solitaireViewModel.recording.value!!) {
+                val intent = Intent(requireContext(), RecordService::class.java)
+                requireContext().stopService(intent)
+                solitaireViewModel.recording.value = false
+            } else {
+                val projectionManager =
+                    requireContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    startRecordPermission.launch(
+                        projectionManager.createScreenCaptureIntent(
+                            MediaProjectionConfig.createConfigForUserChoice()
+                        )
+                    )
+                } else {
+                    startRecordPermission.launch(projectionManager.createScreenCaptureIntent())
+                }
+            }
+        }
     }
 
     private fun initLayout() {
@@ -110,6 +149,12 @@ class SolitaireFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(requireContext(), RecordService::class.java)
+        requireContext().stopService(intent)
     }
 
     companion object {
