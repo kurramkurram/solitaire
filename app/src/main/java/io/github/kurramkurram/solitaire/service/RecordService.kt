@@ -26,6 +26,7 @@ class RecordService : Service() {
         private const val TAG = "RecordService"
         private const val NOTIFICATION_CHANNEL = "RECORD_NOTIFICATION"
         private const val NOTIFICATION_ID = 1
+        private const val VIRTUAL_DISPLAY_NAME = "record"
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -93,7 +94,7 @@ class RecordService : Service() {
         }
 
         virtualDisplay = mediaProjection.createVirtualDisplay(
-            "record",
+            VIRTUAL_DISPLAY_NAME,
             width,
             height,
             metrics.densityDpi,
