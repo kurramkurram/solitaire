@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import io.github.kurramkurram.solitaire.dao.RecordDao
 import io.github.kurramkurram.solitaire.data.Record
+import io.github.kurramkurram.solitaire.database.migration.MIGRATION_1_2
 
 @Database(entities = [Record::class], version = 1, exportSchema = false)
 abstract class RecordDatabase : RoomDatabase() {

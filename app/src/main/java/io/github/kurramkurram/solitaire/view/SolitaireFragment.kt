@@ -7,6 +7,7 @@ import android.media.projection.MediaProjectionConfig
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -151,8 +152,19 @@ class SolitaireFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.d(TAG, "#onHiddenChanged hidden = $hidden")
+        if (hidden) {
+            val intent = Intent(requireContext(), RecordService::class.java)
+            requireContext().stopService(intent)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "#onPause ")
+
         val intent = Intent(requireContext(), RecordService::class.java)
         requireContext().stopService(intent)
     }

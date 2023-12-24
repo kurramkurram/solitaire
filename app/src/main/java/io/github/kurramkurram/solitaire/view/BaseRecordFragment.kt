@@ -26,7 +26,6 @@ class BaseRecordFragment : Fragment() {
         val pagerAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
         view_pager.adapter = pagerAdapter
 
-
         TabLayoutMediator(tab_layout, view_pager) { tab, position ->
             tab.text = pagerAdapter.getTabTitle(position)
         }.attach()
@@ -59,8 +58,7 @@ class BaseRecordFragment : Fragment() {
             } else {
                 0
             }
-            return contents[index
-            ]
+            return contents[index]
         }
     }
 }

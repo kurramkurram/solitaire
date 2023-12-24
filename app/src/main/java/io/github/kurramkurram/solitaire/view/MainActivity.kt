@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                     tag = BaseRecordFragment.TAG
                     BaseRecordFragment()
                 }
+                R.id.navigation_movie -> {
+                    tag = PlayMovieFragment.TAG
+                    PlayMovieFragment()
+                }
                 R.id.navigation_settings -> {
                     tag = SettingsFragment.TAG
                     SettingsFragment()
