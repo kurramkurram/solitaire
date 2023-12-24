@@ -27,7 +27,6 @@ class DialogProgressFragment : DialogBaseFragment() {
             val message = requireArguments().getString(KEY_MESSAGE)
             setContentView(R.layout.dialog_progress)
             progress_message.text = message
-
         }
 
     override fun onCreateView(

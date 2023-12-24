@@ -11,9 +11,12 @@ import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.IBinder
+import androidx.lifecycle.AndroidViewModel
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.repository.MovieRepositoryImpl
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.RECORD_RESULT_DATA
+import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
 import java.io.File
 
 class RecordService : Service() {
@@ -80,8 +83,9 @@ class RecordService : Service() {
         } else {
             MediaRecorder()
         }.apply {
-            val file =
-                File("${applicationContext.getExternalFilesDir(null)!!.path}/${System.currentTimeMillis()}.mp4")
+            val repository = MovieRepositoryImpl(applicationContext)
+            val file = repository.getSaveFile()
+            repository.deleteOldestFile()
             L.d(TAG, "#File = ${file.path}")
             setVideoSource(MediaRecorder.VideoSource.SURFACE)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)

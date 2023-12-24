@@ -164,4 +164,8 @@
         <item name="colorControlNormal">@android:color/darker_gray</item>
         <item name="colorControlActivated">@android:color/holo_red_light</item>
     </style>
+
+    <style name="Theme.TranslucentBackground" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>
