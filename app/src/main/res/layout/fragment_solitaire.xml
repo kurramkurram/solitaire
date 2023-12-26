@@ -20,6 +20,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <ImageView
+            android:id="@+id/recording_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/restart_button_margin"
+            android:elevation="@dimen/restart_button_elevation"
+            android:src="@{viewModel.recording ? @drawable/stop_circle : @drawable/capture}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/restart_button" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

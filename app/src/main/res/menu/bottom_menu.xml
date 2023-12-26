@@ -12,6 +12,11 @@
         android:title="@string/bottom_menu_record" />
 
     <item
+        android:id="@+id/navigation_movie"
+        android:icon="@drawable/capture"
+        android:title="@string/bottom_menu_movie" />
+
+    <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/settings"
         android:title="@string/bottom_menu_settings" />

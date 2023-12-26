@@ -52,3 +52,6 @@ const val DIALOG_RESULT_NG = 1
 const val SHOW_DIALOG_KEY = "show_dialog_key"
 
 const val DATE_PATTERN = "yyyy/MM/dd"
+const val DATE_PATTERN_HH_MM = "yyyy/MM/dd HH:mm"
+
+const val RECORD_RESULT_DATA = "record_result_data"
