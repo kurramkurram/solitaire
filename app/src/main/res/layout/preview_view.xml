@@ -4,6 +4,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/background_green"
         android:layout_height="200dp"
         android:onClick="@{() -> viewModel.showMovie(fileName)}"
         android:padding="10dp">

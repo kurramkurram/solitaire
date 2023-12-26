@@ -10,25 +10,26 @@ import java.util.*
 import kotlin.io.path.name
 
 abstract class MovieDataSource {
-    abstract fun getAllFile(): List<File>
 
+    /**
+     * 動画のパスを取得する.
+     */
+    abstract fun getMovieFilePath(fileName: String): String
+
+    /**
+     * 保存する動画ファイルを取得する.
+     */
     abstract fun getSaveFile(): File
 
-    abstract fun deleteOldestFile(): Boolean
+    /**
+     * もっとも古い動画を削除する.
+     */
+    abstract fun deleteOldestFile(name: String): Boolean
 }
 
 class MovieDataSourceImpl(private val context: Context) : MovieDataSource() {
-
-    override fun getAllFile(): List<File> {
-        val list = mutableListOf<File>()
-        Files.list(Paths.get(context.getExternalFilesDir(null)!!.path)).use {
-            for (f in it) {
-                list.add(f.toFile())
-                Log.d(TAG, "#getAllFile = ${f.name}")
-            }
-        }
-        return list.sortedByDescending { it.name }.filterIndexed { index, _ -> index < 6 }
-    }
+    override fun getMovieFilePath(fileName: String): String =
+        "${context.getExternalFilesDir(null)}/$fileName"
 
     @SuppressLint("SimpleDateFormat")
     override fun getSaveFile(): File {
@@ -37,15 +38,9 @@ class MovieDataSourceImpl(private val context: Context) : MovieDataSource() {
         return File(filePath)
     }
 
-    override fun deleteOldestFile(): Boolean {
-        Files.list(Paths.get(context.getExternalFilesDir(null)!!.path)).use {
-            if (it.count() < 7) return true
-        }
-        Files.list(Paths.get(context.getExternalFilesDir(null)!!.path)).use {
-            val file = it.findFirst().get().toFile()
-            Log.d(TAG, "#deleteOldestFIle = ${file.name}")
-            return file.delete()
-        }
+    override fun deleteOldestFile(name: String): Boolean {
+        val filePath = "${context.getExternalFilesDir(null)!!.path}/$name.mp4"
+        return File(filePath).delete()
     }
 
     companion object {
