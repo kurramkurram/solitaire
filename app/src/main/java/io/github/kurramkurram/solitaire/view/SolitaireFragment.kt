@@ -158,6 +158,7 @@ class SolitaireFragment : Fragment() {
 
         val intent = Intent(requireContext(), RecordService::class.java)
         requireContext().stopService(intent)
+        solitaireViewModel.recording.value = false
     }
 
     companion object {
