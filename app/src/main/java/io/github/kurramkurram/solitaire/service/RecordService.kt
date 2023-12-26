@@ -11,12 +11,14 @@ import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.IBinder
-import androidx.lifecycle.AndroidViewModel
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.repository.MovieRepositoryImpl
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.RECORD_RESULT_DATA
-import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 class RecordService : Service() {
@@ -24,6 +26,7 @@ class RecordService : Service() {
     private lateinit var mediaProjection: MediaProjection
     private lateinit var mediaRecorder: MediaRecorder
     private lateinit var virtualDisplay: VirtualDisplay
+    private lateinit var file: File
 
     companion object {
         private const val TAG = "RecordService"
@@ -84,8 +87,7 @@ class RecordService : Service() {
             MediaRecorder()
         }.apply {
             val repository = MovieRepositoryImpl(applicationContext)
-            val file = repository.getSaveFile()
-            repository.deleteOldestFile()
+            file = repository.getSaveFile()
             L.d(TAG, "#File = ${file.path}")
             setVideoSource(MediaRecorder.VideoSource.SURFACE)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -118,5 +120,10 @@ class RecordService : Service() {
         mediaRecorder.release()
         virtualDisplay.release()
         mediaProjection.stop()
+        CoroutineScope(Dispatchers.IO).launch {
+            val repository = MovieRepositoryImpl(applicationContext)
+            repository.saveMovieInfo(Movie(0, file.name, file.path))
+            repository.deleteOldestMovie()
+        }
     }
 }

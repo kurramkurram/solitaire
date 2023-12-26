@@ -5,32 +5,29 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.repository.MovieRepositoryImpl
 import io.github.kurramkurram.solitaire.util.Event
 import java.io.File
 
 
-class PlayMovieViewModel(private val application: Application) : AndroidViewModel(application) {
+class PlayMovieViewModel(application: Application) : AndroidViewModel(application) {
     private val movieRepository = MovieRepositoryImpl(application.applicationContext)
 
     private val _navigation = MutableLiveData<Event<String>>()
     val navigation: LiveData<Event<String>>
         get() = _navigation
 
-    private val _movieItems = MutableLiveData(movieRepository.getAllFile())
-    val movieItems: LiveData<List<File>>
-        get() = _movieItems
+    var selectFilePath: String = ""
+        private set
 
-    var selectFile: File? = null
+    val movieInfo: LiveData<MutableList<Movie>> = movieRepository.getAllMovie()
 
     fun showMovie(fileName: String) {
-        selectFile = movieItems.value!!.find { file -> file.name == fileName }
-        selectFile?.let {
+        selectFilePath = movieRepository.getMovieFilePath(fileName)
+        if (selectFilePath.isNotBlank()) {
             _navigation.value = Event("ShowMovie")
         }
-    }
-
-    fun updateMovie() {
-        _movieItems.value = movieRepository.getAllFile()
     }
 }

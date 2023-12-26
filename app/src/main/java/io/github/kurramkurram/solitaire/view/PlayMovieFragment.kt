@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.databinding.FragmentPlayMovieBinding
@@ -38,23 +39,20 @@ class PlayMovieFragment : Fragment() {
             adapter = movieAdapter
         }
         playMovieViewModel.run {
-            movieItems.observe(viewLifecycleOwner) {
+            movieInfo.observe(viewLifecycleOwner) {
                 movieAdapter.submitList(it)
+                empty_text.visibility = if (it.size > 0) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
             }
             navigation.observe(viewLifecycleOwner) {
                 it.getContentIfNotHandled()?.let {
-                    val dialog = DialogPlayMovieFragment.newInstance(this.selectFile!!.path)
+                    val dialog = DialogPlayMovieFragment.newInstance(selectFilePath)
                     dialog.show(requireActivity().supportFragmentManager, SHOW_DIALOG_KEY)
                 }
             }
-        }
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        Log.d(TAG, "#onHiddenChanged hidden = $hidden")
-        if (!hidden) {
-            playMovieViewModel.updateMovie()
         }
     }
 

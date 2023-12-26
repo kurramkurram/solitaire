@@ -8,45 +8,46 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.databinding.PreviewViewBinding
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
+import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 
-private object MovieDiffCallback : DiffUtil.ItemCallback<File>() {
-    override fun areItemsTheSame(oldItem: File, newItem: File): Boolean =
-        oldItem.name == newItem.name
+private object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+        oldItem.fileName == newItem.fileName
 
-    override fun areContentsTheSame(oldItem: File, newItem: File): Boolean =
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
         oldItem == newItem
 }
 
 class MovieAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val viewModel: PlayMovieViewModel
-) : ListAdapter<File, MovieAdapter.MovieViewHolder>(MovieDiffCallback) {
+) : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     class MovieViewHolder(private val binding: PreviewViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SimpleDateFormat")
         fun bind(
-            item: File,
+            item: Movie,
             viewLifecycleOwner: LifecycleOwner,
             viewModel: PlayMovieViewModel
         ) {
             binding.run {
                 lifecycleOwner = viewLifecycleOwner
                 this.viewModel = viewModel
-                Date()
                 val date =
-                    SimpleDateFormat(DATE_PATTERN_HH_MM).format(Date(item.name.split(".")[0].toLong()))
-                fileName = item.name
+                    SimpleDateFormat(DATE_PATTERN_HH_MM).format(Date(item.fileName.split(".")[0].toLong()))
+                fileName = item.fileName
                 this.date = date
 
                 val retriever = MediaMetadataRetriever()
+                L.d(TAG, "#bind path = ${item.path}")
                 retriever.setDataSource(item.path)
                 val durationString: String? =
                     retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)

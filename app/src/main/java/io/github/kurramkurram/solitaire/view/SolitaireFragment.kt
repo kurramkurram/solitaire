@@ -152,15 +152,6 @@ class SolitaireFragment : Fragment() {
         }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        Log.d(TAG, "#onHiddenChanged hidden = $hidden")
-        if (hidden) {
-            val intent = Intent(requireContext(), RecordService::class.java)
-            requireContext().stopService(intent)
-        }
-    }
-
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "#onPause ")
