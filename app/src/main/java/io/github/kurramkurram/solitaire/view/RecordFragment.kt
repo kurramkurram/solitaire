@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentRecordBinding
 import io.github.kurramkurram.solitaire.util.*
 import io.github.kurramkurram.solitaire.viewmodel.RecordViewModel
@@ -35,7 +36,10 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         reset_button.setOnClickListener {
-            val fragment = DialogResetFragment()
+            val fragment = DialogResetFragment.newInstance(
+                requireContext().resources.getString(R.string.reset_dialog_title),
+                requireContext().resources.getString(R.string.reset_dialog_text)
+            )
             fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
         }
 

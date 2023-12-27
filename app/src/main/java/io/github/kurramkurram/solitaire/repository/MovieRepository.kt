@@ -34,6 +34,11 @@ abstract class MovieRepository {
      * 最も動画を削除する.
      */
     abstract fun deleteOldestMovie(): Boolean
+
+    /**
+     * すべての動画を削除する.
+     */
+    abstract fun deleteAllMovie(): Boolean
 }
 
 class MovieRepositoryImpl(
@@ -63,6 +68,20 @@ class MovieRepositoryImpl(
         if (count < 7) return true
         val fileName = dao.selectDeleteMovie()
         dao.deleteOldest(fileName)
-        return movieDataSource.deleteOldestFile(fileName)
+        return movieDataSource.deleteMovieFile(fileName)
+    }
+
+    override fun deleteAllMovie(): Boolean {
+        val dao = db.movieDao()
+        val fileNames = dao.selectAllFileName()
+        dao.deleteAll()
+        var result = true
+        fileNames.forEach {
+            val ret = movieDataSource.deleteMovieFile(it)
+            if (!ret) {
+                result = false
+            }
+        }
+        return result
     }
 }

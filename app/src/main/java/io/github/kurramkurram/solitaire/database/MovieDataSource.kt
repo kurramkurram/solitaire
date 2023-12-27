@@ -2,12 +2,8 @@ package io.github.kurramkurram.solitaire.database
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
 import java.util.*
-import kotlin.io.path.name
 
 abstract class MovieDataSource {
 
@@ -22,9 +18,9 @@ abstract class MovieDataSource {
     abstract fun getSaveFile(): File
 
     /**
-     * もっとも古い動画を削除する.
+     * 指定された動画を削除する.
      */
-    abstract fun deleteOldestFile(name: String): Boolean
+    abstract fun deleteMovieFile(name: String): Boolean
 }
 
 class MovieDataSourceImpl(private val context: Context) : MovieDataSource() {
@@ -38,7 +34,7 @@ class MovieDataSourceImpl(private val context: Context) : MovieDataSource() {
         return File(filePath)
     }
 
-    override fun deleteOldestFile(name: String): Boolean {
+    override fun deleteMovieFile(name: String): Boolean {
         val filePath = "${context.getExternalFilesDir(null)!!.path}/$name.mp4"
         return File(filePath).delete()
     }
