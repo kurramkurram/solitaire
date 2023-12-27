@@ -10,7 +10,8 @@ import io.github.kurramkurram.solitaire.repository.MovieRepositoryImpl
 import io.github.kurramkurram.solitaire.util.CLICKED_MOVIE_ITEM
 import io.github.kurramkurram.solitaire.util.CLICKED_RESET_BUTTON
 import io.github.kurramkurram.solitaire.util.Event
-
+import androidx.lifecycle.viewModelScope
+import java.io.File
 
 class PlayMovieViewModel(application: Application) : AndroidViewModel(application) {
     private val movieRepository = MovieRepositoryImpl(application.applicationContext)
