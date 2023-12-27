@@ -60,4 +60,8 @@
 
     <dimen name="analysis_margin_top">10dp</dimen>
     <dimen name="analysis_value_margin_end">10dp</dimen>
+
+    <dimen name="movie_recycler_view_margin_horizontal">20dp</dimen>
+    <dimen name="movie_recycler_view_margin_top">10dp</dimen>
+    <dimen name="movie_recycler_view_margin_bottom">20dp</dimen>
 </resources>

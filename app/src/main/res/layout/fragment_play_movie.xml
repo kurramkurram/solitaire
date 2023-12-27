@@ -5,23 +5,47 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_green"
-        android:padding="10dp">
+        android:background="@color/background_green">
 
         <TextView
             android:id="@+id/empty_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:text="@string/record_rank_no_data"
             android:textColor="@android:color/darker_gray"
             android:visibility="@{viewModel.movieInfo.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/reset_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/restart_button_margin"
+            android:background="@drawable/reset_button_background"
+            android:elevation="@dimen/record_reset_button_elevation"
+            android:onClick="@{() -> viewModel.showResetDialog()}"
+            android:paddingHorizontal="@dimen/record_reset_button_padding_horizontal"
+            android:paddingVertical="@dimen/record_reset_button_padding_vertical"
+            android:text="@string/record_reset_button"
+            android:textColor="@color/background_green"
+            android:textSize="@dimen/record_reset_button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/movie_recycler_view_margin_bottom"
+            android:layout_marginHorizontal="@dimen/movie_recycler_view_margin_horizontal"
+            android:layout_marginTop="@dimen/movie_recycler_view_margin_top"
+            app:layout_constraintBottom_toTopOf="@id/reset_movie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
