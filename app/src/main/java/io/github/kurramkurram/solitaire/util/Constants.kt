@@ -55,3 +55,6 @@ const val DATE_PATTERN = "yyyy/MM/dd"
 const val DATE_PATTERN_HH_MM = "yyyy/MM/dd HH:mm"
 
 const val RECORD_RESULT_DATA = "record_result_data"
+
+const val CLICKED_MOVIE_ITEM = "clicked_movie_item"
+const val CLICKED_RESET_BUTTON = "clicked_reset_button"

@@ -1,6 +1,7 @@
 package io.github.kurramkurram.solitaire.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -17,6 +18,9 @@ interface MovieDao {
 
     @Query("SELECT * FROM t_movie ORDER BY id DESC")
     fun selectAll(): LiveData<MutableList<Movie>>
+
+    @Query("SELECT fileName FROM t_movie")
+    fun selectAllFileName(): MutableList<String>
 
     @Query("DELETE FROM t_movie")
     fun deleteAll()
