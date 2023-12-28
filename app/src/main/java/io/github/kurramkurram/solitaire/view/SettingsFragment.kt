@@ -19,10 +19,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.databinding.FragmentSettingsBinding
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.SettingViewModel
+import kotlinx.android.synthetic.main.dialog_reset.view.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -88,16 +90,19 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View = FragmentSettingsBinding.inflate(inflater, container, false).apply {
+        this.lifecycleOwner = viewLifecycleOwner
+    }.run { root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.app_version_name_tv.text = BuildConfig.VERSION_NAME
+        view.app_version.setDescription(BuildConfig.VERSION_NAME)
 
-        view.open_source_software_container.setOnClickListener(this)
-        view.application_privacy_policy_container.setOnClickListener(this)
+        view.open_source_software.setOnClickListener(this)
+        view.application_privacy_policy.setOnClickListener(this)
         view.question.setOnClickListener(this)
+        view.app_share.setOnClickListener(this)
 
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -112,16 +117,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            open_source_software_container -> {
+            application_privacy_policy -> {
+                Intent(requireContext(), AppActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
+
+            open_source_software -> {
                 Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
                     putExtra(EXTRA_TITLE, resources.getString(R.string.setting_oss))
                     startActivity(this)
                 }
             }
 
-            application_privacy_policy_container -> {
-                Intent(requireContext(), AppActivity::class.java).apply {
-                    startActivity(this)
+            app_share -> {
+                Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.setting_share_text))
+                    startActivity(Intent.createChooser(this, null))
                 }
             }
 
@@ -166,7 +179,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
      * @return メールの本文
      */
     @SuppressLint("SimpleDateFormat")
-    private fun createContactText(): String = requireContext().resources.getString(
+    private fun createContactText(): String = resources.getString(
         R.string.setting_question_text,
         BuildConfig.VERSION_NAME,
         Build.VERSION.SDK_INT,
