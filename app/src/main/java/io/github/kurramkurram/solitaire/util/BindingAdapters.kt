@@ -2,6 +2,8 @@ package io.github.kurramkurram.solitaire.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -16,6 +18,7 @@ import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
+import io.github.kurramkurram.solitaire.view.SettingItem
 import kotlinx.android.synthetic.main.dialog_restart.view.*
 
 object BindingAdapters {
@@ -120,6 +123,19 @@ object BindingAdapters {
         }
         view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, id, null))
     }
+
+    @BindingAdapter(
+        value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow"],
+        requireAll = false
+    )
+    @JvmStatic
+    fun setSettingItem(
+        view: SettingItem,
+        icon: Drawable? = null,
+        title: String = "",
+        description: String? = "",
+        hasArrow: Boolean = false
+    ) = view.setValue(icon, title, description, hasArrow)
 
     @BindingAdapter("visibility")
     @JvmStatic
