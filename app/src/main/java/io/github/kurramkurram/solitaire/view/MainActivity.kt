@@ -14,7 +14,7 @@ import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * ベースのダイアログ.
+ * ベースのActivity.
  */
 class MainActivity : AppCompatActivity() {
 
