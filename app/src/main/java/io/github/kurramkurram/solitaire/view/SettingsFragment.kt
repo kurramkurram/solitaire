@@ -143,14 +143,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 val manager = ReviewManagerFactory.create(requireContext())
                 val request = manager.requestReviewFlow()
                 request.addOnCompleteListener {
-                    if(it.isSuccessful) {
+                    if (it.isSuccessful) {
                         val info = it.result
-                        val flow = manager.launchReviewFlow(requireActivity(), info)
-                        flow.addOnCanceledListener {
-                            Log.d(TAG, "#onClick onComplete")
+                        manager.launchReviewFlow(requireActivity(), info).apply {
+                            addOnCompleteListener { Log.d(TAG, "#onClick onComplete") }
+                            addOnSuccessListener { Log.d(TAG, "#onClick onSuccess") }
+                            addOnCanceledListener { Log.d(TAG, "#onClick onCancel") }
+                            addOnFailureListener { Log.d(TAG, "#onClick onFailure") }
                         }
                     } else {
-                        L.d(TAG, "#onClick app_assessment task = $it")
+                        Log.d(TAG, "#onClick app_assessment task = $it")
                     }
                 }
             }
