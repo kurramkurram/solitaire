@@ -5,6 +5,9 @@ import io.github.kurramkurram.solitaire.util.NUMBER
 import io.github.kurramkurram.solitaire.util.PATTERN
 import io.github.kurramkurram.solitaire.util.SIDE
 
+/**
+ * トランプカード.
+ */
 data class TrumpCard(
     val number: NUMBER,
     val pattern: PATTERN,

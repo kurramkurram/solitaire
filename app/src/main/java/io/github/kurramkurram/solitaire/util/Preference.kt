@@ -13,6 +13,9 @@ val NO_MORE_CHECKBOX_KEY = booleanPreferencesKey("key_no_more_checkbox")
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
+/**
+ * DataStoreへの保存.
+ */
 suspend fun setPreference(
     context: Context,
     key: Preferences.Key<Boolean>,
@@ -21,6 +24,9 @@ suspend fun setPreference(
     it[key] = value
 }
 
+/**
+ * DataStoreからの取得.
+ */
 fun getPreference(
     context: Context,
     key: Preferences.Key<Boolean>,

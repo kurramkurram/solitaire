@@ -1,7 +1,6 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,9 @@ import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
 import kotlinx.android.synthetic.main.fragment_play_movie.*
 
+/**
+ * 動画一覧画面.
+ */
 class PlayMovieFragment : Fragment() {
 
     private val playMovieViewModel: PlayMovieViewModel by activityViewModels()
@@ -29,7 +31,6 @@ class PlayMovieFragment : Fragment() {
         this.viewModel = playMovieViewModel
         this.lifecycleOwner = viewLifecycleOwner
     }.run { root }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

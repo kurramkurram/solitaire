@@ -13,6 +13,9 @@ import com.google.android.gms.ads.MobileAds
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * ベースのダイアログ.
+ */
 class MainActivity : AppCompatActivity() {
 
     private var current: Fragment? = null

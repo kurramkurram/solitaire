@@ -7,6 +7,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import io.github.kurramkurram.solitaire.util.L
 
+/**
+ * Firebase認証ユースケース.
+ *
+ * @param intent [Intent]
+ * @param onSuccess 成功の処理
+ * @param onFailure 失敗の処理
+ */
 class FirebaseAuthenticationUseCase(
     private val intent: Intent,
     private val onSuccess: () -> Unit,

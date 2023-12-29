@@ -10,6 +10,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import io.github.kurramkurram.solitaire.data.Record
 
+/**
+ * 復元ユースケース.
+ *
+ * @param context [Context]
+ * @param user Firebaseユーザ
+ * @param archiveRepository データの保存・復元リポジトリ
+ * @param recordRepository 記録のリポジトリ
+ * @param tmpRecordRepository 記録の復元リポジトリ
+ * @param onSuccess 成功時の処理
+ * @param onFailure 失敗時の処理
+ */
 class RestoreUseCase(
     private val context: Context,
     private val user: FirebaseUser,

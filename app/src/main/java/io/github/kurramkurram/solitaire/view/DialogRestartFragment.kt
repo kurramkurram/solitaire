@@ -8,6 +8,9 @@ import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESTART
 import kotlinx.android.synthetic.main.dialog_restart.*
 
+/**
+ * 新規ゲームダイアログ.
+ */
 class DialogRestartFragment : DialogBaseFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =

@@ -7,6 +7,15 @@ import com.google.firebase.storage.FirebaseStorage
 import io.github.kurramkurram.solitaire.database.RecordDatabase
 import io.github.kurramkurram.solitaire.repository.*
 
+/**
+ * 保存ユースケース.
+ *
+ * @param context [Context]
+ * @param user Firebaseユーザ
+ * @param archiveRepository データの保存・復元リポジトリ
+ * @param onSuccess 成功時の処理
+ * @param onFailure 失敗時の処理
+ */
 class BackupUseCase(
     private val context: Context,
     private val user: FirebaseUser,

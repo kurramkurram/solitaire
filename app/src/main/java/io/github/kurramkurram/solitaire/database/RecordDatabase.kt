@@ -10,6 +10,9 @@ import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.migration.MIGRATION_1_2
 
+/**
+ * メインのDatabase.
+ */
 @Database(entities = [Record::class, Movie::class], version = 2, exportSchema = false)
 abstract class RecordDatabase : RoomDatabase() {
 
@@ -23,6 +26,12 @@ abstract class RecordDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: RecordDatabase? = null
 
+        /**
+         * インスタンスを取得する.
+         *
+         * @param context [Context]
+         * @return [RecordDatabase]
+         */
         fun getDatabases(context: Context): RecordDatabase {
             val tmpInstance = INSTANCE
             if (tmpInstance != null) return tmpInstance

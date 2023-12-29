@@ -20,18 +20,30 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
     private lateinit var stockList: MutableList<TrumpCard>
 
+    /**
+     * スペードの組札.
+     */
     private val _spadeFound = MutableLiveData<TrumpCard>()
     val spadeFound: LiveData<TrumpCard>
         get() = _spadeFound
 
+    /**
+     * ハートの組札.
+     */
     private val _heartFound = MutableLiveData<TrumpCard>()
     val heartFound: LiveData<TrumpCard>
         get() = _heartFound
 
+    /**
+     * クローバーの組札.
+     */
     private val _cloverFound = MutableLiveData<TrumpCard>()
     val cloverFound: LiveData<TrumpCard>
         get() = _cloverFound
 
+    /**
+     * ダイヤモンドの組札.
+     */
     private val _diamondFound = MutableLiveData<TrumpCard>()
     val diamondFound: LiveData<TrumpCard>
         get() = _diamondFound
@@ -39,6 +51,9 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     private val listFound: List<MutableLiveData<TrumpCard>> =
         listOf(_spadeFound, _heartFound, _cloverFound, _diamondFound)
 
+    /**
+     * 場札.
+     */
     private val _listLayout = MutableLiveData<MutableList<MutableList<TrumpCard>>>(mutableListOf())
     val listLayout: LiveData<MutableList<MutableList<TrumpCard>>>
         get() = _listLayout
@@ -46,37 +61,61 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     private var stockIndex: Int = -1
     private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
 
+    /**
+     * 表になっている山札.
+     */
     private val _openCard = MutableLiveData<TrumpCard>()
     val openCard: LiveData<TrumpCard>
         get() = _openCard
 
+    /**
+     * 裏になっている山札.
+     */
     private val _closeCard = MutableLiveData<TrumpCard?>()
     val closeCard: LiveData<TrumpCard?>
         get() = _closeCard
 
     private val backCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.BACK))
 
+    /**
+     * カードの移動回数.
+     */
     private val _count = MutableLiveData(0)
     val count: LiveData<Int>
         get() = _count
 
+    /**
+     * 経過時間.
+     */
     private var timer: Timer? = null
     private val _time = MutableLiveData(0L)
     val time: LiveData<Long>
         get() = _time
 
+    /**
+     * 成否判定.
+     */
     private val _complete = MutableLiveData(false)
     val complete: LiveData<Boolean>
         get() = _complete
 
     private var checkCardIndex = 0
 
+    /**
+     * 完了させることができるか判定.
+     */
     private val _canComplete = MutableLiveData(false)
     val canComplete: LiveData<Boolean>
         get() = _canComplete
 
+    /**
+     * 「以後表示しない」チェック状態
+     */
     val isChecked = MutableLiveData(false)
 
+    /**
+     * 撮影中フラグ.
+     */
     val recording = MutableLiveData(false)
 
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)

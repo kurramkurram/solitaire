@@ -4,11 +4,13 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
 import kotlinx.android.synthetic.main.dialog_reset.*
 
+/**
+ * リセットダイアログ.
+ */
 class DialogResetFragment : DialogBaseFragment() {
 
     companion object {

@@ -23,6 +23,11 @@ class PlayMovieViewModel(application: Application) : AndroidViewModel(applicatio
 
     val movieInfo: LiveData<MutableList<Movie>> = movieRepository.getAllMovie()
 
+    /**
+     * 動画を表示する.
+     *
+     * @param fileName ファイル名
+     */
     fun showMovie(fileName: String) {
         selectFilePath = movieRepository.getMovieFilePath(fileName)
         if (selectFilePath.isNotBlank()) {
@@ -30,6 +35,9 @@ class PlayMovieViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    /**
+     * リセットダイアログを表示する.
+     */
     fun showResetDialog() {
         Log.d("PlayMovieViewModel", "#showResetDialog")
         _navigation.value = Event(CLICKED_RESET_BUTTON)

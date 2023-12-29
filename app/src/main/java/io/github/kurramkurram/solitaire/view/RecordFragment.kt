@@ -11,10 +11,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentRecordBinding
-import io.github.kurramkurram.solitaire.util.*
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_KEY
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
+import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.RecordViewModel
 import kotlinx.android.synthetic.main.fragment_record.*
 
+/**
+ * 成功記録画面.
+ */
 class RecordFragment : Fragment() {
 
     private val recordViewModel: RecordViewModel by activityViewModels()
@@ -24,13 +30,10 @@ class RecordFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-
-        return FragmentRecordBinding.inflate(inflater, container, false).apply {
-            this.viewModel = recordViewModel
-            this.lifecycleOwner = viewLifecycleOwner
-        }.run { root }
-    }
+    ): View = FragmentRecordBinding.inflate(inflater, container, false).apply {
+        this.viewModel = recordViewModel
+        this.lifecycleOwner = viewLifecycleOwner
+    }.run { root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

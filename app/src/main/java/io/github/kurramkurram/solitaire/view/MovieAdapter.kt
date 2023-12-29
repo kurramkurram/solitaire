@@ -24,6 +24,9 @@ private object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
         oldItem == newItem
 }
 
+/**
+ * 動画のリストアダプター.
+ */
 class MovieAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val viewModel: PlayMovieViewModel

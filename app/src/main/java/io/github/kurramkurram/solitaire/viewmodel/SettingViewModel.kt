@@ -11,6 +11,13 @@ import io.github.kurramkurram.solitaire.usecase.RestoreUseCase
 
 class SettingViewModel(private val application: Application) : AndroidViewModel(application) {
 
+    /**
+     * データのバックアップを開始.
+     *
+     * @param intent [Intent]
+     * @param onSuccess 成功時の処理
+     * @param onFailure 失敗時の処理
+     */
     fun startBackUpData(
         intent: Intent,
         onSuccess: () -> Unit,
@@ -29,6 +36,13 @@ class SettingViewModel(private val application: Application) : AndroidViewModel(
         ).invoke()
     }
 
+    /**
+     * 復元を開始する.
+     *
+     * @param intent [Intent]
+     * @param onSuccess 成功時の処理
+     * @param onFailure 失敗時の処理
+     */
     fun startRestoreData(
         intent: Intent,
         onSuccess: () -> Unit,

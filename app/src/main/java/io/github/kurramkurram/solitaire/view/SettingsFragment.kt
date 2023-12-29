@@ -35,6 +35,9 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * 設定画面.
+ */
 class SettingsFragment : Fragment(), View.OnClickListener {
 
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -135,7 +138,11 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.setting_share_text))
-                    startActivity(Intent.createChooser(this, null))
+                    try {
+                        startActivity(Intent.createChooser(this, null))
+                    } catch (e: Exception) {
+                        L.e(TAG, "#onClick $e")
+                    }
                 }
             }
 

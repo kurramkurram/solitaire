@@ -10,6 +10,9 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
+/**
+ * データの保存・復元のデータソース.
+ */
 abstract class ArchiveDataSource {
 
     /**
@@ -109,9 +112,7 @@ class ArchiveDataSourceImpl(
         }
     }
 
-    override fun deleteFile(file: File): Boolean {
-        return file.delete()
-    }
+    override fun deleteFile(file: File): Boolean = file.delete()
 
     companion object {
         private const val TAG = "ArchiveDataSourceImpl"

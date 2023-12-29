@@ -8,35 +8,51 @@ import io.github.kurramkurram.solitaire.database.MovieDataSourceImpl
 import io.github.kurramkurram.solitaire.database.RecordDatabase
 import java.io.File
 
+/**
+ * 動画のリポジトリ.
+ */
 abstract class MovieRepository {
 
     /**
      * 動画のパスを取得する.
+     *
+     * @param fileName ファイル名
+     * @return ファイルパス
      */
     abstract fun getMovieFilePath(fileName: String): String
 
     /**
      * 保存する動画ファイルを取得する.
+     *
+     * @return 動画ファイル
      */
     abstract fun getSaveFile(): File
 
     /**
      * すべての動画の情報を取得する.
+     *
+     * @return 動画情報
      */
     abstract fun getAllMovie(): LiveData<MutableList<Movie>>
 
     /**
      * 動画の情報を保存する.
+     *
+     * @param movie 動画情報
      */
     abstract fun saveMovieInfo(movie: Movie)
 
     /**
      * 最も動画を削除する.
+     *
+     * @return 削除の成否
      */
     abstract fun deleteOldestMovie(): Boolean
 
     /**
      * すべての動画を削除する.
+     *
+     * @return 削除の成否
      */
     abstract fun deleteAllMovie(): Boolean
 }

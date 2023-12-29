@@ -5,20 +5,30 @@ import android.content.Context
 import java.io.File
 import java.util.*
 
+/**
+ * 動画のデータソース.
+ */
 abstract class MovieDataSource {
 
     /**
      * 動画のパスを取得する.
+     *
+     * @param fileName ファイル名
+     * @return ファイルのパス
      */
     abstract fun getMovieFilePath(fileName: String): String
 
     /**
      * 保存する動画ファイルを取得する.
+     *
+     * @return ファイル
      */
     abstract fun getSaveFile(): File
 
     /**
      * 指定された動画を削除する.
+     *
+     * @return 成功の真偽
      */
     abstract fun deleteMovieFile(name: String): Boolean
 }
