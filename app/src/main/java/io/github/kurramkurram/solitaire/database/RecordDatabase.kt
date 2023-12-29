@@ -10,7 +10,7 @@ import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.migration.MIGRATION_1_2
 
-@Database(entities = [Record::class, Movie::class], version = 1, exportSchema = false)
+@Database(entities = [Record::class, Movie::class], version = 2, exportSchema = false)
 abstract class RecordDatabase : RoomDatabase() {
 
     abstract fun recordDao(): RecordDao
