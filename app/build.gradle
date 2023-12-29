@@ -15,9 +15,10 @@ android {
     defaultConfig {
         applicationId "io.github.kurramkurram.solitaire"
         minSdk 26
+        minSdk 26
         targetSdk 34
-        versionCode 4
-        versionName "1.2.1"
+        versionCode 5
+        versionName "1.2.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
