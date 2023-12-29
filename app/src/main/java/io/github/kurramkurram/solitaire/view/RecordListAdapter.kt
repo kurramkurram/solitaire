@@ -9,6 +9,9 @@ import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.databinding.RecordItemBinding
 import io.github.kurramkurram.solitaire.viewmodel.RecordViewModel
 
+/**
+ * 成功記録のカードアダプター.
+ */
 class RecordListAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val viewModel: RecordViewModel

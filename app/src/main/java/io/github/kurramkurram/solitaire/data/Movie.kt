@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * 動画のデータ.
+ */
 @Entity(tableName = "t_movie")
 data class Movie(
     @PrimaryKey(autoGenerate = true) val id: Int,

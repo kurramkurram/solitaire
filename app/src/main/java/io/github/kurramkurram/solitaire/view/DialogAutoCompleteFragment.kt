@@ -11,6 +11,9 @@ import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_auto_complete.*
 
+/**
+ * 自動回収ダイアログ.
+ */
 class DialogAutoCompleteFragment : DialogBaseFragment() {
 
     private val solitaireViewModel: SolitaireViewModel by activityViewModels()

@@ -21,6 +21,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * 録画用のサービス.
+ */
 class RecordService : Service() {
 
     private lateinit var mediaProjection: MediaProjection

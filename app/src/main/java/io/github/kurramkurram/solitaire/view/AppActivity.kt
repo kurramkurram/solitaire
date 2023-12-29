@@ -5,6 +5,9 @@ import android.os.Bundle
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_app.*
 
+/**
+ * アプリケーションプライバシーポリシー画面.
+ */
 class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

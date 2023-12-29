@@ -25,6 +25,9 @@ import kotlinx.android.synthetic.main.fragment_solitaire.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
+/**
+ * ゲーム画面.
+ */
 class SolitaireFragment : Fragment() {
 
     private val solitaireViewModel: SolitaireViewModel by activityViewModels()

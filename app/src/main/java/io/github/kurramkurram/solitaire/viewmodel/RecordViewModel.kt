@@ -13,8 +13,14 @@ class RecordViewModel(application: Application) : AndroidViewModel(application) 
 
     private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
+    /**
+     * 表示する記録情報.
+     */
     val recordList: LiveData<MutableList<Record>> = recordRepository.getAllSuccess()
 
+    /**
+     * 削除する.
+     */
     fun deleteAll() {
         CoroutineScope(Dispatchers.IO).launch {
             recordRepository.deleteAll()

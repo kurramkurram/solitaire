@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.dialog_progress.*
 
+/**
+ * ローディングダイアログ.
+ */
 class DialogProgressFragment : DialogBaseFragment() {
 
     companion object {

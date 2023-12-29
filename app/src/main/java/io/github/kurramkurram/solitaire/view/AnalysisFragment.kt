@@ -9,6 +9,9 @@ import androidx.fragment.app.activityViewModels
 import io.github.kurramkurram.solitaire.databinding.FragmentAnalysisBinding
 import io.github.kurramkurram.solitaire.viewmodel.AnalysisViewModel
 
+/**
+ * 統計画面.
+ */
 class AnalysisFragment : Fragment() {
 
     private val analysisViewModel: AnalysisViewModel by activityViewModels()

@@ -2,13 +2,12 @@
 buildscript {
 
     repositories {
-        // なければ追加
         google()
         mavenCentral()
     }
 
     dependencies {
-        // 追加
+        // OSS
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.6'
 
         // Firebase

@@ -23,6 +23,12 @@ import kotlinx.android.synthetic.main.dialog_restart.view.*
 
 object BindingAdapters {
 
+    /**
+     * 場札のカードの高さ指定.
+     *
+     * @param view 対象のView
+     * @param height 高さ
+     */
     @BindingAdapter("layout_height")
     @JvmStatic
     fun setLayoutHeight(view: View, height: Int) {
@@ -31,6 +37,12 @@ object BindingAdapters {
         view.layoutParams = layoutParams
     }
 
+    /**
+     * 経過時刻を表示.
+     *
+     * @param view 対象のTextView
+     * @param time 時刻
+     */
     @SuppressLint("SetTextI18n")
     @BindingAdapter("text")
     @JvmStatic
@@ -40,6 +52,13 @@ object BindingAdapters {
         view.text = "${String.format("%02d", minute)}:${String.format("%02d", second)}"
     }
 
+    /**
+     * 記録画面の順位の色を決める.
+     *
+     * @param view 対象のTextView
+     * @param context [Context]
+     * @param rank 順位
+     */
     @BindingAdapter(value = ["context", "rank"], requireAll = true)
     @JvmStatic
     fun setRankColor(view: TextView, context: Context, rank: Int) {
@@ -53,6 +72,14 @@ object BindingAdapters {
         view.setTextColor(color)
     }
 
+    /**
+     * カードを表示する.
+     *
+     * @param view 対象のImageView
+     * @param context [Context]
+     * @param card [TrumpCard]
+     * @param side [SIDE]
+     */
     @BindingAdapter(value = ["context", "card", "side"], requireAll = true)
     @JvmStatic
     fun setCardSrc(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
@@ -78,6 +105,13 @@ object BindingAdapters {
         view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, drawableId, null))
     }
 
+    /**
+     * カードのpaddingを指定する.
+     *
+     * @param view 対象のImageView
+     * @param card [TrumpCard]
+     * @param side [SIDE]
+     */
     @BindingAdapter(value = ["padding_card", "padding_side"], requireAll = true)
     @JvmStatic
     fun setFoundationPadding(view: ImageView, card: TrumpCard?, side: SIDE?) {
@@ -89,6 +123,14 @@ object BindingAdapters {
         view.setPadding(padding)
     }
 
+    /**
+     * 表になっている山札を指定する.
+     *
+     * @param view 対象のImageView
+     * @param context [Context]
+     * @param card [TrumpCard]
+     * @param side [SIDE]
+     */
     @BindingAdapter(value = ["open_context", "open_card", "open_side"], requireAll = true)
     @JvmStatic
     fun setStockOpenCard(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
@@ -111,6 +153,13 @@ object BindingAdapters {
         view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, drawableId, null))
     }
 
+    /**
+     * 裏になっている山札を指定する.
+     *
+     * @param view 対象のImageView
+     * @param context [Context]
+     * @param card [TrumpCard]
+     */
     @BindingAdapter(value = ["close_context", "close_card"], requireAll = true)
     @JvmStatic
     fun setStockCloseCard(view: ImageView, context: Context, card: TrumpCard?) {
@@ -124,6 +173,15 @@ object BindingAdapters {
         view.setImageDrawable(ResourcesCompat.getDrawable(context.resources, id, null))
     }
 
+    /**
+     * 設定画面の項目に値を指定.
+     *
+     * @param view 設定画面の項目
+     * @param icon 表示するアイコン
+     * @param title タイトル
+     * @param description 説明
+     * @param hasArrow 矢印の有無
+     */
     @BindingAdapter(
         value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow"],
         requireAll = false
@@ -137,11 +195,15 @@ object BindingAdapters {
         hasArrow: Boolean = false
     ) = view.setValue(icon, title, description, hasArrow)
 
+    /**
+     * 完了テキストの表示アニメーション.
+     *
+     * @param view
+     * @param visibility 表示・非表示
+     */
     @BindingAdapter("visibility")
     @JvmStatic
     fun setVisibility(view: TextView, visibility: Int) {
-        L.d("BindingAdapter", "#setVisibilityWithAnimation $visibility")
-
         if (view.visibility == visibility) return
         if (visibility == View.GONE) {
             view.visibility = visibility

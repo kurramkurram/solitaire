@@ -18,6 +18,9 @@ private object DiffCallback : DiffUtil.ItemCallback<TrumpCard>() {
         oldItem == newItem
 }
 
+/**
+ * 場札のカードアダプター.
+ */
 class CardAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val viewModel: SolitaireViewModel

@@ -12,6 +12,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import io.github.kurramkurram.solitaire.databinding.FragmentBaseRecordBinding
 import kotlinx.android.synthetic.main.fragment_base_record.*
 
+/**
+ * 記録画面のベース.
+ */
 class BaseRecordFragment : Fragment() {
 
     override fun onCreateView(

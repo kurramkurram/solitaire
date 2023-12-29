@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * 記録のデータ.
+ */
 @Entity(tableName = "t_record")
 data class Record(
     @PrimaryKey(autoGenerate = true) var id: Int,

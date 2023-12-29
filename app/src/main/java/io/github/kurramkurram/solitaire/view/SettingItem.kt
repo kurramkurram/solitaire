@@ -9,7 +9,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.settings_item.view.*
 
-
+/**
+ * 設定画面の項目.
+ */
 class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 

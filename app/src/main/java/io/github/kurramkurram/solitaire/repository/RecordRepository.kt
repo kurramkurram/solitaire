@@ -6,60 +6,85 @@ import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
 import kotlinx.coroutines.*
 
+/**
+ * 記録のリポジトリ.
+ */
 abstract class RecordRepository {
 
     /**
      * 成功率を取得.
+     *
+     * @return 成功率
      */
     abstract fun getSuccessRate(): LiveData<Int>
 
     /**
      * 成功数を取得.
+     *
+     * @return 成功件数
      */
     abstract fun getSuccessCount(): LiveData<Int>
 
     /**
      * 全件取得する.
+     *
+     * @return 記録情報
      */
     abstract fun getAllSuccess(): LiveData<MutableList<Record>>
 
     /**
      * 最新の成功を取得する.
+     *
+     * @return 記録情報
      */
     abstract fun selectLatest(): LiveData<Record>
 
     /**
      * 最古の成功を取得する.
+     *
+     * @return 記録情報
      */
     abstract fun selectOldest(): LiveData<Record>
 
     /**
      * 移動回数が最小.
+     *
+     * @return 記録情報
      */
     abstract fun selectSmallest(): LiveData<Record>
 
     /**
      * 移動回数が最多.
+     *
+     * @return 記録情報
      */
     abstract fun selectLargest(): LiveData<Record>
 
     /**
      * プレイ時間が最短.
+     *
+     * @return 記録情報
      */
     abstract fun selectShortest(): LiveData<Record>
 
     /**
      * プレイ時間が最長.
+     *
+     * @return 記録情報
      */
     abstract fun selectLongest(): LiveData<Record>
 
     /**
      * 保存する.
+     *
+     * @param record 記録情報
      */
     abstract fun saveRecord(record: Record)
 
     /**
      * 保存する（複数レコード）.
+     *
+     * @param record 記録情報
      */
     abstract suspend fun saveRecord(record: List<Record>)
 

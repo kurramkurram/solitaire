@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.dialog_play_movie.*
 
+/**
+ * 動画再生画面ダイアログ.
+ */
 class DialogPlayMovieFragment : DialogBaseFragment() {
 
     companion object {
