@@ -93,6 +93,10 @@ dependencies {
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:21.5.0'
 
+    // Review
+    implementation 'com.google.android.play:review:2.0.1'
+    implementation 'com.google.android.play:review-ktx:2.0.1'
+
     // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

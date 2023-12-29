@@ -29,6 +29,7 @@
     <string name="setting_oss">オープンソースライセンス</string>
     <string name="setting_app_version">アプリバージョン</string>
     <string name="setting_app_share">アプリを共有する</string>
+    <string name="setting_app_assessment">アプリを評価する</string>
     <string name="setting_question_title">お問い合わせ</string>
     <string name="setting_question">お問い合わせはこちら</string>
     <string name="setting_question_mail_subject">Solitaireについての問い合わせ</string>

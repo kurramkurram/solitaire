@@ -21,20 +21,12 @@ class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         View.inflate(context, R.layout.settings_item, this)
     }
 
-    fun setDescription(description: String) {
-        description_view.apply {
-            visibility = View.VISIBLE
-            text = description
-        }
-    }
-
     fun setValue(
         icon: Drawable? = null,
         title: String = "",
         description: String? = "",
         hasArrow: Boolean = false,
     ) {
-        Log.d("SettingsItem", "#setValue icon = $icon")
         icon?.let {
             icon_view.apply {
                 visibility = View.VISIBLE

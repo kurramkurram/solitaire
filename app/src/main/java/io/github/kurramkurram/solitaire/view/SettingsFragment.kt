@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentSettingsBinding
@@ -97,12 +99,11 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.app_version.setDescription(BuildConfig.VERSION_NAME)
-
         view.open_source_software.setOnClickListener(this)
         view.application_privacy_policy.setOnClickListener(this)
         view.question.setOnClickListener(this)
         view.app_share.setOnClickListener(this)
+        view.app_assessment.setOnClickListener(this)
 
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -135,6 +136,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.setting_share_text))
                     startActivity(Intent.createChooser(this, null))
+                }
+            }
+
+            app_assessment -> {
+                val manager = ReviewManagerFactory.create(requireContext())
+                val request = manager.requestReviewFlow()
+                request.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val info = it.result
+                        manager.launchReviewFlow(requireActivity(), info).apply {
+                            addOnCompleteListener { Log.d(TAG, "#onClick onComplete") }
+                            addOnSuccessListener { Log.d(TAG, "#onClick onSuccess") }
+                            addOnCanceledListener { Log.d(TAG, "#onClick onCancel") }
+                            addOnFailureListener { Log.d(TAG, "#onClick onFailure") }
+                        }
+                    } else {
+                        Log.d(TAG, "#onClick app_assessment task = $it")
+                    }
                 }
             }
 
