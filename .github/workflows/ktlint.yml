@@ -22,6 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: set up AD_UNIT_ID
+        run: echo "AD_UNIT_ID=``" >> local.properties
+
+      - name: set up AD_APPLICATION_ID
+        run: echo "AD_APPLICATION_ID=``" >> local.properties
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
