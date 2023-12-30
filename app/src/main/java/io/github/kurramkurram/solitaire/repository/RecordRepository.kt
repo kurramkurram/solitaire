@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 記録のリポジトリ.

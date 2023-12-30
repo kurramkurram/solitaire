@@ -1,6 +1,10 @@
 package io.github.kurramkurram.solitaire.service
 
-import android.app.*
+import android.app.Activity
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -16,10 +20,10 @@ import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.repository.MovieRepositoryImpl
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.RECORD_RESULT_DATA
+import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 
 /**
  * 録画用のサービス.

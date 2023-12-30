@@ -4,12 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_main.*
 

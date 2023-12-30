@@ -18,12 +18,12 @@ data class TrumpCard(
 
     override fun toString(): String {
         return "--------------" +
-                " \n$TAG " +
-                " \n id = " + id +
-                " \n number = " + number.ordinal +
-                " \n pattern = " + pattern.ordinal +
-                " \n side = " + side.value!!.ordinal +
-                " \n --------------"
+            " \n$TAG " +
+            " \n id = " + id +
+            " \n number = " + number.ordinal +
+            " \n pattern = " + pattern.ordinal +
+            " \n side = " + side.value!!.ordinal +
+            " \n --------------"
     }
 
     override fun equals(other: Any?): Boolean {

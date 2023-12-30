@@ -1,0 +1,33 @@
+name: cloc CI
+
+on:
+  push:
+    branches:
+      - "master"
+      - "docs/actions"
+    paths-ignore:
+      - README.md
+      - xd/**
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - xd/**
+
+jobs:
+  lines-of-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup cloc
+        run: sudo apt install cloc
+
+      - name: Run cloc
+        run: cloc ./ --by-file --exclude-dir=build --include-ext=java,kt --xml --out=cloc_result.xml
+
+      - uses: actions/upload-artifact@v2
+        name: Archive
+        with:
+          name: result
+          path: cloc_result.xml

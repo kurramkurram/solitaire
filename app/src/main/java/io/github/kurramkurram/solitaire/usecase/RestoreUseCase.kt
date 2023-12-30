@@ -3,12 +3,17 @@ package io.github.kurramkurram.solitaire.usecase
 import android.content.Context
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
+import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
-import io.github.kurramkurram.solitaire.repository.*
+import io.github.kurramkurram.solitaire.repository.ArchiveRepository
+import io.github.kurramkurram.solitaire.repository.ArchiveRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.RecordRepository
+import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.TmpRecordRepository
+import io.github.kurramkurram.solitaire.repository.TmpRecordRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import io.github.kurramkurram.solitaire.data.Record
 
 /**
  * 復元ユースケース.

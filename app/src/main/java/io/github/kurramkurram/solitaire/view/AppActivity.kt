@@ -1,7 +1,7 @@
 package io.github.kurramkurram.solitaire.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import io.github.kurramkurram.solitaire.R
 import kotlinx.android.synthetic.main.activity_app.*
 

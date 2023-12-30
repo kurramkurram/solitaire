@@ -5,7 +5,8 @@ import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.storage.FirebaseStorage
 import io.github.kurramkurram.solitaire.database.RecordDatabase
-import io.github.kurramkurram.solitaire.repository.*
+import io.github.kurramkurram.solitaire.repository.ArchiveRepository
+import io.github.kurramkurram.solitaire.repository.ArchiveRepositoryImpl
 
 /**
  * 保存ユースケース.

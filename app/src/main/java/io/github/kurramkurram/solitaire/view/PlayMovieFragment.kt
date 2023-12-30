@@ -11,7 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentPlayMovieBinding
-import io.github.kurramkurram.solitaire.util.*
+import io.github.kurramkurram.solitaire.util.CLICKED_MOVIE_ITEM
+import io.github.kurramkurram.solitaire.util.CLICKED_RESET_BUTTON
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_KEY
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
 import kotlinx.android.synthetic.main.fragment_play_movie.*
