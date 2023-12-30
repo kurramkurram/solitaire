@@ -27,7 +27,8 @@ class SettingViewModel(private val application: Application) : AndroidViewModel(
             application.applicationContext,
             user,
             onSuccess = { onSuccess() },
-            onFailure = { onFailure() }).invoke()
+            onFailure = { onFailure() }
+        ).invoke()
 
         FirebaseAuthenticationUseCase(
             intent,
@@ -52,7 +53,8 @@ class SettingViewModel(private val application: Application) : AndroidViewModel(
             application.applicationContext,
             user,
             onSuccess = { onSuccess() },
-            onFailure = { onFailure() }).invoke()
+            onFailure = { onFailure() }
+        ).invoke()
 
         FirebaseAuthenticationUseCase(
             intent,

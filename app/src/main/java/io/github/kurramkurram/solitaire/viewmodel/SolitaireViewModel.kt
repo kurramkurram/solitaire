@@ -10,11 +10,21 @@ import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
-import io.github.kurramkurram.solitaire.util.*
+import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
+import io.github.kurramkurram.solitaire.util.L
+import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
+import io.github.kurramkurram.solitaire.util.NUMBER
+import io.github.kurramkurram.solitaire.util.PATTERN
+import io.github.kurramkurram.solitaire.util.POSITION
+import io.github.kurramkurram.solitaire.util.SIDE
+import io.github.kurramkurram.solitaire.util.setPreference
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.collections.ArrayList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SolitaireViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -354,9 +364,11 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             }
         } else {
             val last = list.last()
-            if (selectCard.number.ordinal == (last.number.ordinal - 1)
-                && ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1)
-                        || (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0))
+            if (selectCard.number.ordinal == (last.number.ordinal - 1) &&
+                (
+                    (selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
+                        (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
+                    )
             ) return true
         }
 
@@ -464,11 +476,14 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
      */
     private fun startTimer() = timer ?: run {
         timer = Timer().apply {
-            schedule(object : TimerTask() {
-                override fun run() {
-                    _time.postValue((_time.value ?: 0) + 1)
-                }
-            }, 1000, 1000)
+            schedule(
+                object : TimerTask() {
+                    override fun run() {
+                        _time.postValue((_time.value ?: 0) + 1)
+                    }
+                },
+                1000, 1000
+            )
         }
     }
 
@@ -610,7 +625,6 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                             val open = openStock()
                             if (open) delay(DELAY_TIME)
                         }
-
                     } else {
                         L.d(TAG, "startAutoComplete -- [9] --")
 
@@ -700,7 +714,6 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                 if (number != NUMBER.KING) {
                     ret = Pair(NUMBER.getNumber(number.ordinal + 1), PATTERN.HEART)
                 }
-
             }
             PATTERN.CLOVER.ordinal -> {
                 val number = _cloverFound.value!!.number
@@ -753,4 +766,3 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         private const val DELAY_TIME = 250L
     }
 }
-

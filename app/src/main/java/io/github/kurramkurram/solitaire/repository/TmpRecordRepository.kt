@@ -1,8 +1,8 @@
 package io.github.kurramkurram.solitaire.repository
 
 import android.content.Context
-import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
 import io.github.kurramkurram.solitaire.data.Record
+import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
 
 /**
  * 記録の復元リポジトリ.

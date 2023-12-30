@@ -1,0 +1,25 @@
+name: ktlint CI
+
+on:
+  push:
+    branches:
+      - "master"
+      - "docs/actions"
+    paths-ignore:
+      - README.md
+      - xd/**
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - README.md
+      - xd/**
+
+jobs:
+  ktlint:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ktlint
+        run: ./gradlew ktlint

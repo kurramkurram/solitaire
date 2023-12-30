@@ -26,14 +26,14 @@ import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.SettingViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 import kotlinx.android.synthetic.main.dialog_reset.view.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * 設定画面.

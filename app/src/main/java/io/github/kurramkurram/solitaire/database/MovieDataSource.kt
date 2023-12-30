@@ -3,7 +3,6 @@ package io.github.kurramkurram.solitaire.database
 import android.annotation.SuppressLint
 import android.content.Context
 import java.io.File
-import java.util.*
 
 /**
  * 動画のデータソース.

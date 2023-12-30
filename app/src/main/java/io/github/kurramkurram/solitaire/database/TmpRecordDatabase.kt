@@ -47,5 +47,4 @@ abstract class TmpRecordDatabase : RoomDatabase() {
             }
         }
     }
-
 }

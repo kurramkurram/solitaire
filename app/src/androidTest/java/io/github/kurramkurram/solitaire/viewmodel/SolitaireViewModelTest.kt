@@ -26,7 +26,6 @@ class SolitaireViewModelTest {
         L.d(TAG, "#testCreateLayout = $list")
     }
 
-
     companion object {
         private const val TAG = "SolitaireViewModelTest"
     }
