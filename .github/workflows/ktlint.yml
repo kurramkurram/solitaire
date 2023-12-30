@@ -18,8 +18,12 @@ jobs:
   ktlint:
 
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v2
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Run ktlint
         run: ./gradlew ktlint
