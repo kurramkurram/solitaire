@@ -37,7 +37,7 @@ jobs:
       - name: set up google-service.json
         env:
           GOOGLE_SERVICE: ${{ secrets.GOOGLE_SERVICE_JSON }}
-          run: echo $GOOGLE_SERVICE | base64 --decode --ignore-garbage > app/google-services.json
+        run: echo $GOOGLE_SERVICE | base64 --decode --ignore-garbage > app/google-services.json
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
