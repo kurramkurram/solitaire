@@ -8,6 +8,9 @@ import io.github.kurramkurram.solitaire.database.TmpRecordDatabase
 import io.github.kurramkurram.solitaire.repository.ArchiveRepository
 import io.github.kurramkurram.solitaire.repository.ArchiveRepositoryImpl
 import io.github.kurramkurram.solitaire.repository.RecordRepository
+import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.TmpRecordRepository
+import io.github.kurramkurram.solitaire.repository.TmpRecordRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
