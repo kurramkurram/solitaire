@@ -6,14 +6,11 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
-import io.github.kurramkurram.solitaire.util.CLICKED_START_MOVIE_POSITIVE
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
-import io.github.kurramkurram.solitaire.util.Event
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_MOVIE_KEY
@@ -375,9 +372,9 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             val last = list.last()
             if (selectCard.number.ordinal == (last.number.ordinal - 1) &&
                 (
-                        (selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
-                                (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
-                        )
+                    (selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
+                        (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
+                    )
             ) return true
         }
 
