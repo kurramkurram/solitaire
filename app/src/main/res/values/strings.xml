@@ -49,6 +49,11 @@
     <string name="auto_complete_dialog_positive">自動回収する</string>
     <string name="auto_complete_dialog_negative">キャンセル</string>
 
+    <string name="start_movie_dialog_title">動画撮影について</string>
+    <string name="start_movie_dialog_text">動画の撮影を行いますか？\n動画は最新のものが6つだけ保存され、古いものは削除されていきます。</string>
+    <string name="start_movie_dialog_positive">同意して撮影する</string>
+    <string name="start_movie_dialog_negative">キャンセル</string>
+
     <string name="analysis_success_count">成功回数</string>
     <string name="analysis_success_rate">成功率</string>
     <string name="analysis_success_latest">一番新しい成功記録</string>
