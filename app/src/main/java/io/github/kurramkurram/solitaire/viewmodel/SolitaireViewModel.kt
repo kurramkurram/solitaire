@@ -13,6 +13,7 @@ import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
+import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_MOVIE_KEY
 import io.github.kurramkurram.solitaire.util.NUMBER
 import io.github.kurramkurram.solitaire.util.PATTERN
 import io.github.kurramkurram.solitaire.util.POSITION
@@ -119,9 +120,14 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _canComplete
 
     /**
-     * 「以後表示しない」チェック状態
+     * 自動回収の「以後表示しない」チェック状態.
      */
     val isChecked = MutableLiveData(false)
+
+    /**
+     * 動画の「以後表示しない」チェック状態.
+     */
+    val isCheckedMovie = MutableLiveData(false)
 
     /**
      * 撮影中フラグ.
@@ -502,6 +508,20 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     fun stopTimer() {
         timer?.cancel()
         timer = null
+    }
+
+    fun onStartMovieDialogPositiveClicked() {
+        viewModelScope.launch {
+            isCheckedMovie.value?.let {
+                if (it) {
+                    setPreference(
+                        getApplication<Application>().applicationContext,
+                        NO_MORE_CHECKBOX_MOVIE_KEY,
+                        true
+                    )
+                }
+            }
+        }
     }
 
     /**

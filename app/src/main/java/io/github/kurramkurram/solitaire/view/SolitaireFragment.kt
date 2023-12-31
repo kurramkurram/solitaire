@@ -23,9 +23,11 @@ import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_AUTO_COMPLETE
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_KEY
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESTART
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_START_MOVIE
 import io.github.kurramkurram.solitaire.util.getPreference
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
+import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_MOVIE_KEY
 import io.github.kurramkurram.solitaire.util.RECORD_RESULT_DATA
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
@@ -110,7 +112,6 @@ class SolitaireFragment : Fragment() {
                 getPreference(requireContext(), NO_MORE_CHECKBOX_KEY, false).first()
             }
 
-            L.d(TAG, "#onViewCreated ret = $ret")
             if (ret) {
                 solitaireViewModel.startAutoCompleteAsync()
             } else {
@@ -129,22 +130,22 @@ class SolitaireFragment : Fragment() {
         }
 
         recording_button.setOnClickListener {
-            if (solitaireViewModel.recording.value!!) {
-                val intent = Intent(requireContext(), RecordService::class.java)
-                requireContext().stopService(intent)
-                solitaireViewModel.recording.value = false
+            val ret = runBlocking {
+                getPreference(requireContext(), NO_MORE_CHECKBOX_MOVIE_KEY, false).first()
+            }
+            if (ret) {
+                startMovie()
             } else {
-                val projectionManager =
-                    requireContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    startRecordPermission.launch(
-                        projectionManager.createScreenCaptureIntent(
-                            MediaProjectionConfig.createConfigForUserChoice()
-                        )
-                    )
-                } else {
-                    startRecordPermission.launch(projectionManager.createScreenCaptureIntent())
-                }
+                val fragment = DialogStartMovieFragment()
+                fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+            }
+        }
+
+        setFragmentResultListener(DIALOG_RESULT_START_MOVIE) { _, data ->
+            val result = data.getInt(DIALOG_RESULT_KEY, -1)
+            if (result == DIALOG_RESULT_OK) {
+                solitaireViewModel.onStartMovieDialogPositiveClicked()
+                startMovie()
             }
         }
     }
@@ -172,10 +173,29 @@ class SolitaireFragment : Fragment() {
         }
     }
 
+    private fun startMovie() {
+        if (solitaireViewModel.recording.value!!) {
+            val intent = Intent(requireContext(), RecordService::class.java)
+            requireContext().stopService(intent)
+            solitaireViewModel.recording.value = false
+        } else {
+            val projectionManager =
+                requireContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                startRecordPermission.launch(
+                    projectionManager.createScreenCaptureIntent(
+                        MediaProjectionConfig.createConfigForUserChoice()
+                    )
+                )
+            } else {
+                startRecordPermission.launch(projectionManager.createScreenCaptureIntent())
+            }
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "#onPause ")
-
         val intent = Intent(requireContext(), RecordService::class.java)
         requireContext().stopService(intent)
         solitaireViewModel.recording.value = false
