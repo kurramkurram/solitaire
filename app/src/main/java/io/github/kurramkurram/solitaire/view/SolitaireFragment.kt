@@ -130,14 +130,20 @@ class SolitaireFragment : Fragment() {
         }
 
         recording_button.setOnClickListener {
-            val ret = runBlocking {
-                getPreference(requireContext(), NO_MORE_CHECKBOX_MOVIE_KEY, false).first()
-            }
-            if (ret) {
-                startMovie()
+            if (solitaireViewModel.recording.value!!) {
+                val intent = Intent(requireContext(), RecordService::class.java)
+                requireContext().stopService(intent)
+                solitaireViewModel.recording.value = false
             } else {
-                val fragment = DialogStartMovieFragment()
-                fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                val ret = runBlocking {
+                    getPreference(requireContext(), NO_MORE_CHECKBOX_MOVIE_KEY, false).first()
+                }
+                if (ret) {
+                    startMovie()
+                } else {
+                    val fragment = DialogStartMovieFragment()
+                    fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                }
             }
         }
 
@@ -174,22 +180,16 @@ class SolitaireFragment : Fragment() {
     }
 
     private fun startMovie() {
-        if (solitaireViewModel.recording.value!!) {
-            val intent = Intent(requireContext(), RecordService::class.java)
-            requireContext().stopService(intent)
-            solitaireViewModel.recording.value = false
-        } else {
-            val projectionManager =
-                requireContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                startRecordPermission.launch(
-                    projectionManager.createScreenCaptureIntent(
-                        MediaProjectionConfig.createConfigForUserChoice()
-                    )
+        val projectionManager =
+            requireContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startRecordPermission.launch(
+                projectionManager.createScreenCaptureIntent(
+                    MediaProjectionConfig.createConfigForUserChoice()
                 )
-            } else {
-                startRecordPermission.launch(projectionManager.createScreenCaptureIntent())
-            }
+            )
+        } else {
+            startRecordPermission.launch(projectionManager.createScreenCaptureIntent())
         }
     }
 
