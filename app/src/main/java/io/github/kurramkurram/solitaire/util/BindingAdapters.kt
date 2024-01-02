@@ -15,10 +15,13 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.view.SettingItem
 import kotlinx.android.synthetic.main.dialog_restart.view.*
+import kotlinx.android.synthetic.main.settings_item.view.switch_button
 
 object BindingAdapters {
 
@@ -180,9 +183,10 @@ object BindingAdapters {
      * @param title タイトル
      * @param description 説明
      * @param hasArrow 矢印の有無
+     * @param switch トグルスイッチ
      */
     @BindingAdapter(
-        value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow"],
+        value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow", "setting_switch"],
         requireAll = false
     )
     @JvmStatic
@@ -191,8 +195,9 @@ object BindingAdapters {
         icon: Drawable? = null,
         title: String = "",
         description: String? = "",
-        hasArrow: Boolean = false
-    ) = view.setValue(icon, title, description, hasArrow)
+        hasArrow: Boolean = false,
+        switch: Boolean?
+    ) = view.setValue(icon, title, description, hasArrow, switch)
 
     /**
      * 完了テキストの表示アニメーション.

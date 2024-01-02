@@ -3,6 +3,7 @@ package io.github.kurramkurram.solitaire.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import io.github.kurramkurram.solitaire.R
@@ -27,6 +28,7 @@ class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         title: String = "",
         description: String? = "",
         hasArrow: Boolean = false,
+        switch: Boolean?
     ) {
         icon?.let {
             icon_view.apply {
@@ -47,5 +49,10 @@ class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         }
 
         if (hasArrow) arrow_view.visibility = View.VISIBLE
+
+        switch?.let {
+            switch_button.visibility = View.VISIBLE
+            switch_button.isChecked = switch
+        }
     }
 }

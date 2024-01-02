@@ -12,8 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -25,12 +27,14 @@ import io.github.kurramkurram.solitaire.databinding.FragmentSettingsBinding
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
+import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
 import io.github.kurramkurram.solitaire.viewmodel.SettingViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlinx.android.synthetic.main.dialog_reset.view.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import kotlinx.android.synthetic.main.settings_item.view.switch_button
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +46,9 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private val settingViewModel: SettingViewModel by activityViewModels()
+    private val mainViewModel by lazy {
+        ViewModelProvider(requireActivity())[MainViewModel::class.java]
+    }
 
     private val startBackupSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -96,6 +103,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = FragmentSettingsBinding.inflate(inflater, container, false).apply {
+        this.viewModel = mainViewModel
         this.lifecycleOwner = viewLifecycleOwner
     }.run { root }
 
@@ -107,6 +115,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         view.question.setOnClickListener(this)
         view.app_share.setOnClickListener(this)
         view.app_assessment.setOnClickListener(this)
+        view.app_music.switch_button.setOnClickListener(this)
 
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -190,6 +199,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             restore -> {
                 val signInIntent = googleSignInClient.signInIntent
                 startRestoreSignInForResult.launch(signInIntent)
+            }
+
+            app_music.switch_button -> {
+                if (v is SwitchCompat) {
+                    mainViewModel.onMusicCheckChanged(v.isChecked)
+                }
             }
 
             sign_out -> {

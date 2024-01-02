@@ -168,4 +168,9 @@
     <style name="Theme.TranslucentBackground" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="SwitchButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/dark_green</item>
+        <item name="android:colorForeground">@color/white</item>
+    </style>
 </resources>
