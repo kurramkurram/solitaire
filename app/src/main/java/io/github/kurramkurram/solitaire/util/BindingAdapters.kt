@@ -180,9 +180,10 @@ object BindingAdapters {
      * @param title タイトル
      * @param description 説明
      * @param hasArrow 矢印の有無
+     * @param switch トグルスイッチ
      */
     @BindingAdapter(
-        value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow"],
+        value = ["setting_icon", "setting_title", "setting_description", "setting_hasArrow", "setting_switch"],
         requireAll = false
     )
     @JvmStatic
@@ -191,8 +192,9 @@ object BindingAdapters {
         icon: Drawable? = null,
         title: String = "",
         description: String? = "",
-        hasArrow: Boolean = false
-    ) = view.setValue(icon, title, description, hasArrow)
+        hasArrow: Boolean = false,
+        switch: Boolean?
+    ) = view.setValue(icon, title, description, hasArrow, switch)
 
     /**
      * 完了テキストの表示アニメーション.

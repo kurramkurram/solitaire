@@ -1,9 +1,11 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.content.Context
+import android.media.AudioManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import io.github.inflationx.calligraphy3.CalligraphyConfig
@@ -11,6 +13,7 @@ import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -19,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var current: Fragment? = null
+    private val mainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,8 @@ class MainActivity : AppCompatActivity() {
                 .build()
         )
         setContentView(R.layout.activity_main)
+
+        volumeControlStream = AudioManager.STREAM_MUSIC
 
         val solitaireFragment = SolitaireFragment()
         supportFragmentManager.beginTransaction()
@@ -79,6 +85,16 @@ class MainActivity : AppCompatActivity() {
 
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.startMusic()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mainViewModel.releaseMusic()
     }
 
     override fun attachBaseContext(newBase: Context) {

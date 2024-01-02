@@ -370,12 +370,13 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             }
         } else {
             val last = list.last()
-            if (selectCard.number.ordinal == (last.number.ordinal - 1) &&
-                (
-                    (selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
-                        (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
-                    )
-            ) return true
+            if (selectCard.number.ordinal == (last.number.ordinal - 1)) {
+                if ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
+                    (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
+                ) {
+                    return true
+                }
+            }
         }
 
         return false
