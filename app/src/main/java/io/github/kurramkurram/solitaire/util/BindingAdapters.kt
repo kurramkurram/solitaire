@@ -15,13 +15,10 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.view.SettingItem
 import kotlinx.android.synthetic.main.dialog_restart.view.*
-import kotlinx.android.synthetic.main.settings_item.view.switch_button
 
 object BindingAdapters {
 

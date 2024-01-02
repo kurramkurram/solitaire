@@ -2,7 +2,6 @@ package io.github.kurramkurram.solitaire.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.media.MediaPlayer
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -10,9 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
-import io.github.kurramkurram.solitaire.repository.MusicRepositoryImpl
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
-import io.github.kurramkurram.solitaire.usecase.PlayBgmUseCase
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
@@ -373,12 +370,13 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             }
         } else {
             val last = list.last()
-            if (selectCard.number.ordinal == (last.number.ordinal - 1) &&
-                (
-                        (selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
-                                (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
-                        )
-            ) return true
+            if (selectCard.number.ordinal == (last.number.ordinal - 1)) {
+                if ((selectCard.pattern.ordinal % 2 == 0 && last.pattern.ordinal % 2 == 1) ||
+                    (selectCard.pattern.ordinal % 2 == 1 && last.pattern.ordinal % 2 == 0)
+                ) {
+                    return true
+                }
+            }
         }
 
         return false

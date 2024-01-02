@@ -3,7 +3,6 @@ package io.github.kurramkurram.solitaire.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import io.github.kurramkurram.solitaire.R

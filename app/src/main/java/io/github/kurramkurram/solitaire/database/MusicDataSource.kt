@@ -2,7 +2,6 @@ package io.github.kurramkurram.solitaire.database
 
 import android.content.Context
 import android.content.res.AssetFileDescriptor
-import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.MUSIC_PLAY_CHECK_KEY
 import io.github.kurramkurram.solitaire.util.MusicType
 import io.github.kurramkurram.solitaire.util.getPreference
@@ -38,10 +37,7 @@ class MusicDataSourceImpl(private val context: Context) : MusicDataSource() {
     override suspend fun getPlayChecked(): Boolean =
         getPreference(context, MUSIC_PLAY_CHECK_KEY, true).first()
 
-
     override suspend fun setPlayChecked(state: Boolean) {
-        L.d("MusicDataSourceImpl", "#setPlayChecked state = $state")
         setPreference(context, MUSIC_PLAY_CHECK_KEY, state)
     }
 }
-
