@@ -6,6 +6,7 @@ import io.github.kurramkurram.solitaire.data.Movie
 import io.github.kurramkurram.solitaire.database.MovieDataSource
 import io.github.kurramkurram.solitaire.database.MovieDataSourceImpl
 import io.github.kurramkurram.solitaire.database.RecordDatabase
+import io.github.kurramkurram.solitaire.util.MOVIE_SAVE_COUNT
 import java.io.File
 
 /**
@@ -81,7 +82,7 @@ class MovieRepositoryImpl(
     override fun deleteOldestMovie(): Boolean {
         val dao = db.movieDao()
         val count = dao.selectCount()
-        if (count < 7) return true
+        if (count <= MOVIE_SAVE_COUNT) return true
         val fileName = dao.selectDeleteMovie()
         dao.deleteOldest(fileName)
         return movieDataSource.deleteMovieFile(fileName)

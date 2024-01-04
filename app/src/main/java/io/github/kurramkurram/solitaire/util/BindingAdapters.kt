@@ -127,24 +127,25 @@ object BindingAdapters {
      *
      * @param view 対象のImageView
      * @param context [Context]
-     * @param card [TrumpCard]
-     * @param side [SIDE]
+     * @param cardList [TrumpCard]のリスト
+     * @param index 表になっているカードのインデックス
      */
-    @BindingAdapter(value = ["open_context", "open_card", "open_side"], requireAll = true)
+    @BindingAdapter(value = ["open_context", "open_card_list", "open_index"], requireAll = true)
     @JvmStatic
-    fun setStockOpenCard(view: ImageView, context: Context, card: TrumpCard?, side: SIDE?) {
+    fun setStockOpenCard(
+        view: ImageView,
+        context: Context,
+        cardList: List<TrumpCard>?,
+        index: Int
+    ) {
         val drawableId = when {
-            card == null || side == null || side == SIDE.BACK -> R.drawable.trump_background
-
-            card.number == NUMBER.NONE -> {
-                view.setPadding(50)
-                R.mipmap.ic_launcher_round
-            }
+            cardList == null || cardList.size <= index || cardList.isEmpty() ||
+                cardList[cardList.size - index - 1].number == NUMBER.NONE -> R.color.background_green
 
             else -> {
                 view.setPadding(0)
                 val array = context.resources.obtainTypedArray(R.array.trump_card_array)
-                val id = array.getResourceId(card.id, 0)
+                val id = array.getResourceId(cardList[cardList.size - index - 1].id, 0)
                 array.recycle()
                 id
             }
@@ -163,7 +164,7 @@ object BindingAdapters {
     @JvmStatic
     fun setStockCloseCard(view: ImageView, context: Context, card: TrumpCard?) {
         val id = if (card == null) {
-            view.setPadding(50)
+            view.setPadding(25)
             R.drawable.restart_sotck_button
         } else {
             view.setPadding(0)
