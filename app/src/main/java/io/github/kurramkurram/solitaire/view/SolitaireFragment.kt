@@ -7,7 +7,6 @@ import android.media.projection.MediaProjectionConfig
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -195,7 +194,7 @@ class SolitaireFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "#onPause ")
+        L.d(TAG, "#onPause ")
         val intent = Intent(requireContext(), RecordService::class.java)
         requireContext().stopService(intent)
         solitaireViewModel.recording.value = false

@@ -122,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
+            android:padding="@dimen/stock_and_found_padding"
             app:layout_constraintHeight_percent="@dimen/stock_and_found_height_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header">
@@ -188,28 +189,58 @@
                 app:layout_constraintWidth_percent="@dimen/stock_width_percent">
 
                 <ImageView
-                    android:id="@+id/stock_front"
+                    android:id="@+id/stock_front2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.moveStock()}"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toEndOf="@id/stock_front1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent"
-                    app:open_card="@{viewModel.openCard}"
+                    app:open_card_list="@{viewModel.openCardList}"
                     app:open_context="@{context}"
-                    app:open_side="@{viewModel.openCard.side}" />
+                    app:open_index="@{0}" />
 
                 <ImageView
                     android:id="@+id/stock_back"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.openStock()}"
+                    android:paddingBottom="5dp"
                     android:src="@drawable/trump_background"
                     app:close_card="@{viewModel.closeCard}"
                     app:close_context="@{context}"
-                    app:layout_constraintStart_toEndOf="@id/stock_front"
+                    app:layout_constraintStart_toEndOf="@id/stock_front2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent" />
+
+                <io.github.kurramkurram.solitaire.view.LeftCropImageView
+                    android:id="@+id/stock_front0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="5dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="@dimen/stock_overlap_card_width_percent"
+                    app:open_card_list="@{viewModel.openCardList}"
+                    app:open_context="@{context}"
+                    app:open_index="@{2}" />
+
+                <io.github.kurramkurram.solitaire.view.LeftCropImageView
+                    android:id="@+id/stock_front1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="5dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/stock_front0"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="@dimen/stock_overlap_card_width_percent"
+                    app:open_card_list="@{viewModel.openCardList}"
+                    app:open_context="@{context}"
+                    app:open_index="@{1}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

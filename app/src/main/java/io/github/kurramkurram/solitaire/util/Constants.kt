@@ -86,3 +86,8 @@ const val RECORD_RESULT_DATA = "record_result_data"
  */
 const val CLICKED_MOVIE_ITEM = "clicked_movie_item"
 const val CLICKED_RESET_BUTTON = "clicked_reset_button"
+
+/**
+ * 動画撮影件数.
+ */
+const val MOVIE_SAVE_COUNT = 6

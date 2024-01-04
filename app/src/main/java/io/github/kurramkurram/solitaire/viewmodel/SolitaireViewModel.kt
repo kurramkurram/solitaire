@@ -70,14 +70,13 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
         get() = _listLayout
 
     private var stockIndex: Int = -1
-    private val initialCard = TrumpCard(NUMBER.NONE, PATTERN.CLOVER, MutableLiveData(SIDE.FRONT))
 
     /**
      * 表になっている山札.
      */
-    private val _openCard = MutableLiveData<TrumpCard>()
-    val openCard: LiveData<TrumpCard>
-        get() = _openCard
+    private val _openCardList = MutableLiveData<MutableList<TrumpCard>>(mutableListOf())
+    val openCardList: LiveData<MutableList<TrumpCard>>
+        get() = _openCardList
 
     /**
      * 裏になっている山札.
@@ -154,7 +153,8 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
 
         createLayout(shuffleList)
         stockIndex = -1
-        _openCard.value = initialCard
+        _openCardList.value?.clear()
+        _openCardList.value = _openCardList.value
         _closeCard.value = backCard
         _count.value = 0
         _complete.value = false
@@ -200,9 +200,12 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                         stockList.removeAt(index)
                         stockIndex--
                         if (stockIndex >= 0 && stockList.size > 0) {
-                            _openCard.value = stockList[stockIndex]
+                            val openList = _openCardList.value
+                            openList?.remove(card)
+                            _openCardList.value = openList!!
                         } else {
-                            _openCard.value = initialCard
+                            _openCardList.value?.clear()
+                            _openCardList.value = _openCardList.value
                         }
                         ret = true
                         break
@@ -248,9 +251,12 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                                 removeAt(index)
                                 stockIndex--
                                 if (stockIndex >= 0 && stockList.size > 0) {
-                                    _openCard.value = stockList[stockIndex]
+                                    val openList = _openCardList.value
+                                    openList?.remove(card)
+                                    _openCardList.value = openList!!
                                 } else {
-                                    _openCard.value = initialCard
+                                    _openCardList.value?.clear()
+                                    _openCardList.value = _openCardList.value
                                 }
                             }
                         }
@@ -289,7 +295,9 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                 // 表に変更
                 if (stockIndex >= 0) {
                     stockList[stockIndex].side.value = SIDE.FRONT
-                    _openCard.value = stockList[stockIndex]
+                    val openList = _openCardList.value
+                    openList?.add(stockList[stockIndex])
+                    _openCardList.value = openList!!
                     countUp()
                     startTimer()
                 }
@@ -303,14 +311,16 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
             }
 
             stockList.size == 0 -> {
-                _openCard.value = initialCard
+                _openCardList.value?.clear()
+                _openCardList.value = _openCardList.value
                 _closeCard.value = null
                 false
             }
 
             stockIndex == stockList.size -> {
                 stockIndex = -1
-                _openCard.value = initialCard
+                _openCardList.value?.clear()
+                _openCardList.value = _openCardList.value
                 _closeCard.value = backCard
                 true
             }
@@ -327,6 +337,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
      * めくった山札を移動する.
      */
     fun moveStock() {
+        L.d(TAG, "#moveStock stockIndex = $stockIndex stockList.size = ${stockList.size}")
         if (stockIndex >= 0 && stockList.size > stockIndex) {
             val data = SelectData(stockList[stockIndex], POSITION.STOCK, 0, stockIndex)
             move(data)
@@ -347,10 +358,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     /**
      * 組札へ移動できるかの判定.
      */
-    private fun canMoveToFound(
-        selectCard: TrumpCard,
-        item: MutableLiveData<TrumpCard>
-    ): Boolean {
+    private fun canMoveToFound(selectCard: TrumpCard, item: MutableLiveData<TrumpCard>): Boolean {
         val last = item.value ?: return false
         if (selectCard.pattern != last.pattern) return false
         if (selectCard.number.ordinal == (last.number.ordinal + 1)) return true
@@ -360,10 +368,7 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
     /**
      * 場札で移動できるかの判定.
      */
-    private fun canMoveToLayout(
-        selectCard: TrumpCard,
-        list: MutableList<TrumpCard>
-    ): Boolean {
+    private fun canMoveToLayout(selectCard: TrumpCard, list: MutableList<TrumpCard>): Boolean {
         if (list.size == 0) {
             if (selectCard.number == NUMBER.KING) {
                 return true
@@ -378,7 +383,6 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
                 }
             }
         }
-
         return false
     }
 
@@ -699,8 +703,13 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
      * 山札の表になっているカードに存在しているか.
      */
     private fun isExistOpen(number: NUMBER, pattern: PATTERN): Boolean {
-        val open = _openCard.value!!
-        return open.number == number && open.pattern == pattern
+        val openList = _openCardList.value
+        return if (openList!!.size >= 1) {
+            val open = openList.last()
+            open.number == number && open.pattern == pattern
+        } else {
+            false
+        }
     }
 
     /**
