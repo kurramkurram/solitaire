@@ -1,5 +1,6 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.net.Uri
 import android.os.Bundle
@@ -7,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.kurramkurram.solitaire.R
-import kotlinx.android.synthetic.main.dialog_play_movie.*
+import io.github.kurramkurram.solitaire.databinding.DialogPlayMovieBinding
 
 /**
  * 動画再生画面ダイアログ.
@@ -26,11 +27,14 @@ class DialogPlayMovieFragment : DialogBaseFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        Dialog(requireContext(), R.style.Theme_TranslucentBackground).apply {
-            setContentView(R.layout.dialog_play_movie)
-            close.setOnClickListener { dismiss() }
-            video_view.apply {
+    private lateinit var binding: DialogPlayMovieBinding
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = DialogPlayMovieBinding.inflate(layoutInflater)
+        val builder = AlertDialog.Builder(activity, R.style.Theme_TranslucentBackground).apply {
+            setView(binding.root)
+            binding.close.setOnClickListener { dismiss() }
+            binding.videoView.apply {
                 val uri = requireArguments().getString(KEY_FILE_URI)
                 setVideoURI(Uri.parse(uri))
                 setOnPreparedListener {
@@ -39,6 +43,8 @@ class DialogPlayMovieFragment : DialogBaseFragment() {
                 }
             }
         }
+        return builder.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

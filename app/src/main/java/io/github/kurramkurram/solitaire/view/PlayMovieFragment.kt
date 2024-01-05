@@ -18,7 +18,6 @@ import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.PlayMovieViewModel
-import kotlinx.android.synthetic.main.fragment_play_movie.*
 
 /**
  * 動画一覧画面.
@@ -26,15 +25,19 @@ import kotlinx.android.synthetic.main.fragment_play_movie.*
 class PlayMovieFragment : Fragment() {
 
     private val playMovieViewModel: PlayMovieViewModel by activityViewModels()
+    private lateinit var binding: FragmentPlayMovieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentPlayMovieBinding.inflate(inflater, container, false).apply {
-        this.viewModel = playMovieViewModel
-        this.lifecycleOwner = viewLifecycleOwner
-    }.run { root }
+    ): View {
+        binding = FragmentPlayMovieBinding.inflate(inflater, container, false).apply {
+            this.viewModel = playMovieViewModel
+            this.lifecycleOwner = viewLifecycleOwner
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,14 +45,14 @@ class PlayMovieFragment : Fragment() {
             viewLifecycleOwner,
             this@PlayMovieFragment.playMovieViewModel
         )
-        movie_recycler_view.apply {
+        binding.movieRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
             adapter = movieAdapter
         }
         playMovieViewModel.run {
             movieInfo.observe(viewLifecycleOwner) {
                 movieAdapter.submitList(it)
-                empty_text.visibility = if (it.size > 0) {
+                binding.emptyText.visibility = if (it.size > 0) {
                     View.GONE
                 } else {
                     View.VISIBLE

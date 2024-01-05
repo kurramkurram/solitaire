@@ -13,8 +13,8 @@ import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.databinding.ActivityMainBinding
 import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * ベースのActivity.
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private var current: Fragment? = null
     private val mainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity() {
                 )
                 .build()
         )
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         volumeControlStream = AudioManager.STREAM_MUSIC
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .add(R.id.container, SolitaireFragment(), SolitaireFragment.TAG).commit()
 
-        navbar.setOnItemSelectedListener {
+        binding.navbar.setOnItemSelectedListener {
             val tag: String
             val fragment = when (it.itemId) {
                 R.id.navigation_game -> {
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        binding.adView.loadAd(adRequest)
     }
 
     override fun onResume() {

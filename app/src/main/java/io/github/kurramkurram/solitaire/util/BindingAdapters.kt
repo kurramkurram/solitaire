@@ -18,7 +18,6 @@ import androidx.databinding.BindingAdapter
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.view.SettingItem
-import kotlinx.android.synthetic.main.dialog_restart.view.*
 
 object BindingAdapters {
 

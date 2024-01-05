@@ -2,17 +2,20 @@ package io.github.kurramkurram.solitaire.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.github.kurramkurram.solitaire.R
-import kotlinx.android.synthetic.main.activity_app.*
+import io.github.kurramkurram.solitaire.databinding.ActivityAppBinding
 
 /**
  * アプリケーションプライバシーポリシー画面.
  */
 class AppActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityAppBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app)
+        binding = ActivityAppBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        webview.loadUrl("file:///android_asset/app.html")
+        binding.webview.loadUrl("file:///android_asset/app.html")
     }
 }

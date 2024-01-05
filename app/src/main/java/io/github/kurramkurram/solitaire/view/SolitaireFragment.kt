@@ -30,16 +30,6 @@ import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_MOVIE_KEY
 import io.github.kurramkurram.solitaire.util.RECORD_RESULT_DATA
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
-import kotlinx.android.synthetic.main.fragment_solitaire.auto_complete
-import kotlinx.android.synthetic.main.fragment_solitaire.listView0
-import kotlinx.android.synthetic.main.fragment_solitaire.listView1
-import kotlinx.android.synthetic.main.fragment_solitaire.listView2
-import kotlinx.android.synthetic.main.fragment_solitaire.listView3
-import kotlinx.android.synthetic.main.fragment_solitaire.listView4
-import kotlinx.android.synthetic.main.fragment_solitaire.listView5
-import kotlinx.android.synthetic.main.fragment_solitaire.listView6
-import kotlinx.android.synthetic.main.fragment_solitaire.recording_button
-import kotlinx.android.synthetic.main.fragment_solitaire.restart_button
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -49,6 +39,7 @@ import kotlinx.coroutines.runBlocking
 class SolitaireFragment : Fragment() {
 
     private val solitaireViewModel: SolitaireViewModel by activityViewModels()
+    private lateinit var binding: FragmentSolitaireBinding
 
     private lateinit var layoutList: MutableList<RecyclerView>
     private val listAdapterList: MutableList<CardAdapter> = mutableListOf()
@@ -69,88 +60,91 @@ class SolitaireFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return FragmentSolitaireBinding.inflate(inflater, container, false).apply {
+        binding = FragmentSolitaireBinding.inflate(inflater, container, false).apply {
             this.viewModel = solitaireViewModel
             this.lifecycleOwner = viewLifecycleOwner
-        }.run { root }
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         L.d(TAG, "#onViewCreated")
 
-        layoutList = mutableListOf(
-            listView0,
-            listView1,
-            listView2,
-            listView3,
-            listView4,
-            listView5,
-            listView6
-        )
-        initLayout()
+        binding.apply {
+            layoutList = mutableListOf(
+                listView0,
+                listView1,
+                listView2,
+                listView3,
+                listView4,
+                listView5,
+                listView6
+            )
+            initLayout()
 
-        restart_button.setOnClickListener {
-            val fragment = DialogRestartFragment()
-            fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
-            solitaireViewModel.stopTimer()
-        }
-
-        setFragmentResultListener(DIALOG_RESULT_RESTART) { _, data ->
-            val result = data.getInt(DIALOG_RESULT_KEY, -1)
-            if (result == DIALOG_RESULT_OK) {
-                solitaireViewModel.onRestartClick()
-                initLayout()
-            } else {
-                solitaireViewModel.restartTimer()
-            }
-        }
-
-        auto_complete.setOnClickListener {
-            val ret = runBlocking {
-                getPreference(requireContext(), NO_MORE_CHECKBOX_KEY, false).first()
-            }
-
-            if (ret) {
-                solitaireViewModel.startAutoCompleteAsync()
-            } else {
-                val fragment = DialogAutoCompleteFragment()
+            restartButton.setOnClickListener {
+                val fragment = DialogRestartFragment()
                 fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
                 solitaireViewModel.stopTimer()
             }
-        }
 
-        setFragmentResultListener(DIALOG_RESULT_AUTO_COMPLETE) { _, data ->
-            val result = data.getInt(DIALOG_RESULT_KEY, -1)
-            solitaireViewModel.restartTimer()
-            if (result == DIALOG_RESULT_OK) {
-                solitaireViewModel.startAutoCompleteAsync()
-            }
-        }
-
-        recording_button.setOnClickListener {
-            if (solitaireViewModel.recording.value!!) {
-                val intent = Intent(requireContext(), RecordService::class.java)
-                requireContext().stopService(intent)
-                solitaireViewModel.recording.value = false
-            } else {
-                val ret = runBlocking {
-                    getPreference(requireContext(), NO_MORE_CHECKBOX_MOVIE_KEY, false).first()
-                }
-                if (ret) {
-                    startMovie()
+            setFragmentResultListener(DIALOG_RESULT_RESTART) { _, data ->
+                val result = data.getInt(DIALOG_RESULT_KEY, -1)
+                if (result == DIALOG_RESULT_OK) {
+                    solitaireViewModel.onRestartClick()
+                    initLayout()
                 } else {
-                    val fragment = DialogStartMovieFragment()
-                    fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                    solitaireViewModel.restartTimer()
                 }
             }
-        }
 
-        setFragmentResultListener(DIALOG_RESULT_START_MOVIE) { _, data ->
-            val result = data.getInt(DIALOG_RESULT_KEY, -1)
-            if (result == DIALOG_RESULT_OK) {
-                solitaireViewModel.onStartMovieDialogPositiveClicked()
-                startMovie()
+            autoComplete.setOnClickListener {
+                val ret = runBlocking {
+                    getPreference(requireContext(), NO_MORE_CHECKBOX_KEY, false).first()
+                }
+
+                if (ret) {
+                    solitaireViewModel.startAutoCompleteAsync()
+                } else {
+                    val fragment = DialogAutoCompleteFragment()
+                    fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                    solitaireViewModel.stopTimer()
+                }
+            }
+
+            setFragmentResultListener(DIALOG_RESULT_AUTO_COMPLETE) { _, data ->
+                val result = data.getInt(DIALOG_RESULT_KEY, -1)
+                solitaireViewModel.restartTimer()
+                if (result == DIALOG_RESULT_OK) {
+                    solitaireViewModel.startAutoCompleteAsync()
+                }
+            }
+
+            recordingButton.setOnClickListener {
+                if (solitaireViewModel.recording.value!!) {
+                    val intent = Intent(requireContext(), RecordService::class.java)
+                    requireContext().stopService(intent)
+                    solitaireViewModel.recording.value = false
+                } else {
+                    val ret = runBlocking {
+                        getPreference(requireContext(), NO_MORE_CHECKBOX_MOVIE_KEY, false).first()
+                    }
+                    if (ret) {
+                        startMovie()
+                    } else {
+                        val fragment = DialogStartMovieFragment()
+                        fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+                    }
+                }
+            }
+
+            setFragmentResultListener(DIALOG_RESULT_START_MOVIE) { _, data ->
+                val result = data.getInt(DIALOG_RESULT_KEY, -1)
+                if (result == DIALOG_RESULT_OK) {
+                    solitaireViewModel.onStartMovieDialogPositiveClicked()
+                    startMovie()
+                }
             }
         }
     }

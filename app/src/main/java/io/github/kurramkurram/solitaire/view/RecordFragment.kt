@@ -16,7 +16,6 @@ import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
 import io.github.kurramkurram.solitaire.util.SHOW_DIALOG_KEY
 import io.github.kurramkurram.solitaire.viewmodel.RecordViewModel
-import kotlinx.android.synthetic.main.fragment_record.*
 
 /**
  * 成功記録画面.
@@ -24,21 +23,25 @@ import kotlinx.android.synthetic.main.fragment_record.*
 class RecordFragment : Fragment() {
 
     private val recordViewModel: RecordViewModel by activityViewModels()
+    private lateinit var binding: FragmentRecordBinding
     private lateinit var recordListAdapter: RecordListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentRecordBinding.inflate(inflater, container, false).apply {
-        this.viewModel = recordViewModel
-        this.lifecycleOwner = viewLifecycleOwner
-    }.run { root }
+    ): View {
+        binding = FragmentRecordBinding.inflate(inflater, container, false).apply {
+            this.viewModel = recordViewModel
+            this.lifecycleOwner = viewLifecycleOwner
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reset_button.setOnClickListener {
+        binding.resetButton.setOnClickListener {
             val fragment = DialogResetFragment.newInstance(
                 requireContext().resources.getString(R.string.reset_dialog_title),
                 requireContext().resources.getString(R.string.reset_dialog_text)
@@ -53,7 +56,7 @@ class RecordFragment : Fragment() {
             }
         }
 
-        record_list.run {
+        binding.recordList.run {
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 

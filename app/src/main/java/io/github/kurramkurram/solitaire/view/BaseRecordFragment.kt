@@ -10,26 +10,30 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import io.github.kurramkurram.solitaire.databinding.FragmentBaseRecordBinding
-import kotlinx.android.synthetic.main.fragment_base_record.*
 
 /**
  * 記録画面のベース.
  */
 class BaseRecordFragment : Fragment() {
 
+    private lateinit var binding: FragmentBaseRecordBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentBaseRecordBinding.inflate(inflater, container, false).root
+    ): View {
+        binding = FragmentBaseRecordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val pagerAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
-        view_pager.adapter = pagerAdapter
+        binding.viewPager.adapter = pagerAdapter
 
-        TabLayoutMediator(tab_layout, view_pager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = pagerAdapter.getTabTitle(position)
         }.attach()
     }
