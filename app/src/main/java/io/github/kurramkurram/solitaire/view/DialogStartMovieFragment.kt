@@ -1,5 +1,6 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,23 +9,23 @@ import androidx.fragment.app.activityViewModels
 import io.github.kurramkurram.solitaire.databinding.DialogStartMovieBinding
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_START_MOVIE
 import io.github.kurramkurram.solitaire.viewmodel.SolitaireViewModel
-import kotlinx.android.synthetic.main.activity_main.container
-import kotlinx.android.synthetic.main.dialog_start_movie.negative_button
-import kotlinx.android.synthetic.main.dialog_start_movie.positive_button
 
 class DialogStartMovieFragment : DialogBaseFragment() {
 
     private val solitaireViewModel: SolitaireViewModel by activityViewModels()
+    private lateinit var binding: DialogStartMovieBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = DialogStartMovieBinding.inflate(layoutInflater, container, false).apply {
+        binding = DialogStartMovieBinding.inflate(layoutInflater).apply {
             this.viewModel = solitaireViewModel
         }
-        return Dialog(requireContext()).apply {
-            setContentView(binding.root)
+        val builder = AlertDialog.Builder(activity).apply {
+            setView(binding.root)
+            binding.positiveButton.setOnClickListener { onPositiveClick(DIALOG_RESULT_START_MOVIE) }
+            binding.negativeButton.setOnClickListener { onNegativeClick(DIALOG_RESULT_START_MOVIE) }
+        }
+        return builder.create().apply {
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            positive_button.setOnClickListener { onPositiveClick(DIALOG_RESULT_START_MOVIE) }
-            negative_button.setOnClickListener { onNegativeClick(DIALOG_RESULT_START_MOVIE) }
         }
     }
 }

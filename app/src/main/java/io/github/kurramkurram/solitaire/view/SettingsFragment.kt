@@ -31,10 +31,6 @@ import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
 import io.github.kurramkurram.solitaire.viewmodel.SettingViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
-import kotlinx.android.synthetic.main.dialog_reset.view.*
-import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.fragment_settings.view.*
-import kotlinx.android.synthetic.main.settings_item.view.switch_button
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,6 +45,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private val mainViewModel by lazy {
         ViewModelProvider(requireActivity())[MainViewModel::class.java]
     }
+
+    private lateinit var binding: FragmentSettingsBinding
 
     private val startBackupSignInForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -102,48 +100,51 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentSettingsBinding.inflate(inflater, container, false).apply {
-        this.viewModel = mainViewModel
-        this.lifecycleOwner = viewLifecycleOwner
-    }.run { root }
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false).apply {
+            this.viewModel = mainViewModel
+            this.lifecycleOwner = viewLifecycleOwner
+        }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.open_source_software.setOnClickListener(this)
-        view.application_privacy_policy.setOnClickListener(this)
-        view.question.setOnClickListener(this)
-        view.app_share.setOnClickListener(this)
-        view.app_assessment.setOnClickListener(this)
-        view.app_music.switch_button.setOnClickListener(this)
-
+        binding.apply {
+            openSourceSoftware.setOnClickListener(this@SettingsFragment)
+            applicationPrivacyPolicy.setOnClickListener(this@SettingsFragment)
+            question.setOnClickListener(this@SettingsFragment)
+            appShare.setOnClickListener(this@SettingsFragment)
+            appAssessment.setOnClickListener(this@SettingsFragment)
+            appMusic.binding.switchButton.setOnClickListener(this@SettingsFragment)
+            backup.setOnClickListener(this@SettingsFragment)
+            restore.setOnClickListener(this@SettingsFragment)
+            signOut.setOnClickListener(this@SettingsFragment)
+        }
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
-
-        backup.setOnClickListener(this)
-        restore.setOnClickListener(this)
-        sign_out.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        when (v) {
-            application_privacy_policy -> {
+        when (v?.id) {
+            R.id.application_privacy_policy -> {
                 Intent(requireContext(), AppActivity::class.java).apply {
                     startActivity(this)
                 }
             }
 
-            open_source_software -> {
+            R.id.open_source_software -> {
                 Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
                     putExtra(EXTRA_TITLE, resources.getString(R.string.setting_oss))
                     startActivity(this)
                 }
             }
 
-            app_share -> {
+            R.id.app_share -> {
                 Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.setting_share_text))
@@ -155,7 +156,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
-            app_assessment -> {
+            R.id.app_assessment -> {
                 val manager = ReviewManagerFactory.create(requireContext())
                 val request = manager.requestReviewFlow()
                 request.addOnCompleteListener {
@@ -173,7 +174,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
-            question -> {
+            R.id.question -> {
                 Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
                     putExtra(Intent.EXTRA_EMAIL, arrayOf("kurram.dev@gmail.com"))
@@ -191,23 +192,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
-            backup -> {
+            R.id.backup -> {
                 val signInIntent = googleSignInClient.signInIntent
                 startBackupSignInForResult.launch(signInIntent)
             }
 
-            restore -> {
+            R.id.restore -> {
                 val signInIntent = googleSignInClient.signInIntent
                 startRestoreSignInForResult.launch(signInIntent)
             }
 
-            app_music.switch_button -> {
+            R.id.switch_button -> {
+                L.d(TAG, "#onClick @@@")
                 if (v is SwitchCompat) {
                     mainViewModel.onMusicCheckChanged(v.isChecked)
                 }
             }
 
-            sign_out -> {
+            R.id.sign_out -> {
                 googleSignInClient.signOut()
                 requireContext().showToast(R.string.toast_sign_out)
             }

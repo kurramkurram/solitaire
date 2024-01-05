@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.github.kurramkurram.solitaire.R
-import kotlinx.android.synthetic.main.dialog_progress.*
+import io.github.kurramkurram.solitaire.databinding.DialogProgressBinding
 
 /**
  * ローディングダイアログ.
@@ -25,12 +24,16 @@ class DialogProgressFragment : DialogBaseFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        Dialog(requireContext()).apply {
+    private lateinit var binding: DialogProgressBinding
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = DialogProgressBinding.inflate(layoutInflater)
+        return Dialog(requireContext()).apply {
             val message = requireArguments().getString(KEY_MESSAGE)
-            setContentView(R.layout.dialog_progress)
-            progress_message.text = message
+            setContentView(binding.root)
+            binding.progressMessage.text = message
         }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

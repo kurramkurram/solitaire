@@ -3,10 +3,10 @@ package io.github.kurramkurram.solitaire.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import io.github.kurramkurram.solitaire.R
-import kotlinx.android.synthetic.main.settings_item.view.*
+import io.github.kurramkurram.solitaire.databinding.SettingsItemBinding
 
 /**
  * 設定画面の項目.
@@ -14,13 +14,11 @@ import kotlinx.android.synthetic.main.settings_item.view.*
 class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
+    val binding: SettingsItemBinding = SettingsItemBinding.inflate(LayoutInflater.from(context), this, true)
+
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context) : this(context, null, 0)
-
-    init {
-        View.inflate(context, R.layout.settings_item, this)
-    }
 
     fun setValue(
         icon: Drawable? = null,
@@ -30,28 +28,30 @@ class SettingItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         switch: Boolean?
     ) {
         icon?.let {
-            icon_view.apply {
+            binding.iconView.apply {
                 visibility = View.VISIBLE
                 setImageDrawable(icon)
             }
         }
 
-        if (title.isNotEmpty()) title_view.text = title
+        if (title.isNotEmpty()) binding.titleView.text = title
 
         description?.let {
             if (it.isNotEmpty()) {
-                description_view.apply {
+                binding.descriptionView.apply {
                     visibility = View.VISIBLE
                     text = description
                 }
             }
         }
 
-        if (hasArrow) arrow_view.visibility = View.VISIBLE
+        if (hasArrow) binding.arrowView.visibility = View.VISIBLE
 
         switch?.let {
-            switch_button.visibility = View.VISIBLE
-            switch_button.isChecked = switch
+            binding.switchButton.apply {
+                visibility = View.VISIBLE
+                isChecked = switch
+            }
         }
     }
 }

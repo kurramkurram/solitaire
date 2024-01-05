@@ -1,12 +1,12 @@
 package io.github.kurramkurram.solitaire.view
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import io.github.kurramkurram.solitaire.R
+import io.github.kurramkurram.solitaire.databinding.DialogResetBinding
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_RESET
-import kotlinx.android.synthetic.main.dialog_reset.*
 
 /**
  * リセットダイアログ.
@@ -27,13 +27,19 @@ class DialogResetFragment : DialogBaseFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        Dialog(requireContext()).apply {
-            setContentView(R.layout.dialog_reset)
-            requireArguments().getString(KEY_DIALOG_TITLE)?.let { title.text = it }
-            requireArguments().getString(KEY_DIALOG_TEXT)?.let { text.text = it }
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            positive_button.setOnClickListener { onPositiveClick(DIALOG_RESULT_RESET) }
-            negative_button.setOnClickListener { onNegativeClick(DIALOG_RESULT_RESET) }
+    private lateinit var binding: DialogResetBinding
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = DialogResetBinding.inflate(layoutInflater)
+        val builder = AlertDialog.Builder(activity).apply {
+            setView(binding.root)
+            requireArguments().getString(KEY_DIALOG_TITLE)?.let { binding.title.text = it }
+            requireArguments().getString(KEY_DIALOG_TEXT)?.let { binding.text.text = it }
+            binding.positiveButton.setOnClickListener { onPositiveClick(DIALOG_RESULT_RESET) }
+            binding.negativeButton.setOnClickListener { onNegativeClick(DIALOG_RESULT_RESET) }
         }
+        return builder.create().apply {
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+    }
 }
