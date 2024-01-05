@@ -79,13 +79,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.6"
 
     // Room
-    def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:2.6.1"
     kapt "androidx.room:room-compiler:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:31.2.1')
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
     // Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // Crashlytics
