@@ -3,6 +3,7 @@ package io.github.kurramkurram.solitaire.view
 import android.content.Context
 import android.media.AudioManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.ActivityMainBinding
 import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
@@ -85,8 +87,13 @@ class MainActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
 
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
+        if (!BuildConfig.IS_PRO) {
+            binding.adView.apply {
+                visibility = View.VISIBLE
+                val adRequest = AdRequest.Builder().build()
+                loadAd(adRequest)
+            }
+        }
     }
 
     override fun onResume() {
