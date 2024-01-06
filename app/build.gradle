@@ -38,6 +38,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "plan"
+    productFlavors {
+        pro {
+            dimension "plan"
+            applicationIdSuffix ".pro"
+            buildConfigField "boolean", "IS_PRO", "true"
+        }
+
+        free {
+            dimension "plan"
+            buildConfigField "boolean", "IS_PRO", "false"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -45,7 +60,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
         viewBinding true
     }

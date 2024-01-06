@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         ads:adSize="BANNER"
         ads:layout_constraintBottom_toTopOf="@id/navbar"
         ads:layout_constraintStart_toStartOf="parent"
