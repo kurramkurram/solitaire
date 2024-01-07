@@ -24,6 +24,8 @@
     <string name="reset_movie_dialog_title">動画を削除</string>
     <string name="reset_movie_dialog_text">動画を削除しますか？</string>
 
+    <string name="movie_header_text">動画を再生する</string>
+
     <string name="setting_about_this_app">このアプリについて</string>
     <string name="setting_app">アプリケーションプライバシーポリシー</string>
     <string name="setting_oss">オープンソースライセンス</string>
