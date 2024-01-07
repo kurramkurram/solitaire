@@ -203,7 +203,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.switch_button -> {
-                L.d(TAG, "#onClick @@@")
                 if (v is SwitchCompat) {
                     mainViewModel.onMusicCheckChanged(v.isChecked)
                 }

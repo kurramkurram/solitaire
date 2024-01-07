@@ -38,8 +38,8 @@
     <dimen name="found_width_percent">0.6</dimen>
     <dimen name="stock_width_percent">0.4</dimen>
 
-    <dimen name="stock_card_width_percent">0.3</dimen>
-    <dimen name="stock_overlap_card_width_percent">0.2</dimen>
+    <dimen name="stock_card_width_percent">0.32</dimen>
+    <dimen name="stock_overlap_card_width_percent">0.18</dimen>
 
     <dimen name="restart_button_margin">20dp</dimen>
     <dimen name="restart_button_elevation">1dp</dimen>

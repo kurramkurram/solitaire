@@ -194,6 +194,7 @@
                     android:layout_height="match_parent"
                     android:onClick="@{() -> viewModel.moveStock()}"
                     android:scaleType="fitXY"
+                    android:paddingBottom="5dp"
                     app:layout_constraintStart_toEndOf="@id/stock_front1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="@dimen/stock_card_width_percent"
