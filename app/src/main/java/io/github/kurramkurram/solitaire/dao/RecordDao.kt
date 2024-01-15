@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import io.github.kurramkurram.solitaire.data.BarChartData
 import io.github.kurramkurram.solitaire.data.Record
 
 /**
@@ -91,6 +92,16 @@ interface RecordDao {
      */
     @Query("SELECT * FROM t_record WHERE result = 1 ORDER BY time DESC Limit 1")
     fun getLongest(): LiveData<Record>
+
+    /**
+     * 日別の成功件数を取得.
+     *
+     * @param startDate 開始日
+     * @param endDate 終了日
+     * @return 日別の成功件数
+     */
+    @Query("SELECT substr(date, 0, 11) AS day, count(*) FROM t_record WHERE result = 1 AND day BETWEEN :startDate AND :endDate GROUP BY day")
+    fun getBarChartData(startDate: String, endDate: String): LiveData<MutableList<BarChartData>>
 
     /**
      * 記録の書き込み.

@@ -45,9 +45,8 @@ class BaseRecordFragment : Fragment() {
     internal class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
         FragmentStateAdapter(fm, lifecycle) {
 
-        private val contents = listOf(RecordFragment(), AnalysisFragment())
-        private val title = listOf("移動回数", "統計")
-
+        private val contents = listOf(RecordFragment(), AnalysisFragment(), GraphFragment())
+        private val title = listOf("移動回数", "統計", "グラフ")
         fun getTabTitle(position: Int): CharSequence {
             val index = if (title.size > position) {
                 position

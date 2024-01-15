@@ -2,6 +2,7 @@ package io.github.kurramkurram.solitaire.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import io.github.kurramkurram.solitaire.data.BarChartData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -77,6 +78,14 @@ abstract class RecordRepository {
     abstract fun selectLongest(): LiveData<Record>
 
     /**
+     * 成功数を日別に取得する.
+     */
+    abstract fun selectCountPerDay(
+        startDate: String,
+        endDate: String
+    ): LiveData<MutableList<BarChartData>>
+
+    /**
      * 保存する.
      *
      * @param record 記録情報
@@ -144,6 +153,14 @@ class RecordRepositoryImpl(
     override fun selectLongest(): LiveData<Record> {
         val dao = db.recordDao()
         return dao.getLongest()
+    }
+
+    override fun selectCountPerDay(
+        startDate: String,
+        endDate: String
+    ): LiveData<MutableList<BarChartData>> {
+        val dao = db.recordDao()
+        return dao.getBarChartData(startDate, endDate)
     }
 
     override fun saveRecord(record: Record) {
