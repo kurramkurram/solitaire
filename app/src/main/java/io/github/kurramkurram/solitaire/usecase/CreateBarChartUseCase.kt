@@ -39,6 +39,6 @@ class CreateBarChartUseCase(
             sum += barChartData.count
         }
 
-        return Triple(labelList, entryList, sum)
+        return Triple(labelList, entryList, sum / targetDays.size)
     }
 }

@@ -66,11 +66,13 @@
     <string name="analysis_success_shortest">最短の成功記録</string>
     <string name="analysis_success_longest">最長の成功記録</string>
 
-    <string name="graph_title_success">成功数</string>
+    <string name="graph_title_success_count">成功数</string>
+    <string name="graph_title_success_time">成功時間</string>
 
     <string name="graph_average_title">平均</string>
     <string name="graph_average_value">%s回</string>
     <string name="graph_duration">%1s ~ %2s</string>
+    <string name="graph_time_value">%s秒台</string>
 
     <string name="toast_backup_success">バックアップに成功しました</string>
     <string name="toast_backup_failure">バックアップに失敗しました</string>

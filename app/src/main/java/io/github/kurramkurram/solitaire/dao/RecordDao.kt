@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import io.github.kurramkurram.solitaire.data.BarChartData
+import io.github.kurramkurram.solitaire.data.PieChartData
 import io.github.kurramkurram.solitaire.data.Record
 
 /**
@@ -102,6 +103,16 @@ interface RecordDao {
      */
     @Query("SELECT substr(date, 0, 11) AS day, count(*) FROM t_record WHERE result = 1 AND day BETWEEN :startDate AND :endDate GROUP BY day")
     fun getBarChartData(startDate: String, endDate: String): LiveData<MutableList<BarChartData>>
+
+    /**
+     * 10秒単位の成功件数を取得.
+     *
+     * @param startDate 開始日
+     * @param endDate 終了日
+     * @return 10秒単位の成功件数
+     */
+    @Query("SELECT substr(date, 0, 11) AS day, time / 10 * 10 AS t, count(*) FROM t_record WHERE result = 1 AND day BETWEEN :startDate AND :endDate GROUP BY t")
+    fun getPieChartData(startDate: String, endDate: String): LiveData<MutableList<PieChartData>>
 
     /**
      * 記録の書き込み.
