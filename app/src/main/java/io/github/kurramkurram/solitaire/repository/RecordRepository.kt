@@ -3,8 +3,10 @@ package io.github.kurramkurram.solitaire.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import io.github.kurramkurram.solitaire.data.BarChartData
+import io.github.kurramkurram.solitaire.data.PieChartData
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.database.RecordDatabase
+import io.github.kurramkurram.solitaire.util.L
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -86,6 +88,14 @@ abstract class RecordRepository {
     ): LiveData<MutableList<BarChartData>>
 
     /**
+     * 成功数を10秒単位で取得する.
+     */
+    abstract fun selectCountPerTime(
+        startDate: String,
+        endDate: String
+    ): LiveData<MutableList<PieChartData>>
+
+    /**
      * 保存する.
      *
      * @param record 記録情報
@@ -159,8 +169,17 @@ class RecordRepositoryImpl(
         startDate: String,
         endDate: String
     ): LiveData<MutableList<BarChartData>> {
+        L.d("RecordRepository", "#selectCountPerDay")
         val dao = db.recordDao()
         return dao.getBarChartData(startDate, endDate)
+    }
+
+    override fun selectCountPerTime(
+        startDate: String,
+        endDate: String
+    ): LiveData<MutableList<PieChartData>> {
+        val dao = db.recordDao()
+        return dao.getPieChartData(startDate, endDate)
     }
 
     override fun saveRecord(record: Record) {

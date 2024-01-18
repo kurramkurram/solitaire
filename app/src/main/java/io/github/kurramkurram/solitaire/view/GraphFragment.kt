@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,6 +12,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.FragmentGraphBinding
+import io.github.kurramkurram.solitaire.util.CHART_SUCCESS_COUNT_BAR
+import io.github.kurramkurram.solitaire.util.CHART_SUCCESS_TIME_PIE
+import io.github.kurramkurram.solitaire.util.applyChartStyle
 import io.github.kurramkurram.solitaire.viewmodel.GraphViewModel
 
 /**
@@ -35,38 +37,30 @@ class GraphFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.chartSpinner.apply {
-            val array = arrayOf(resources.getString(R.string.graph_title_success))
+            val array = arrayOf(
+                resources.getString(R.string.graph_title_success_count),
+                resources.getString(R.string.graph_title_success_time)
+            )
             adapter = ArrayAdapter(requireContext(), R.layout.custom_spinner, array).apply {
                 setDropDownViewResource(R.layout.custom_spinner_dropdown)
             }
-
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, p3: Long) {
-                    if (pos == 0) {
-                        setSuccessBarChart()
-                    } else {
-                        binding.barChart.visibility = View.GONE
-                    }
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+        graphViewModel.spinnerItemLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                CHART_SUCCESS_COUNT_BAR -> setSuccessCountBarChart()
+                CHART_SUCCESS_TIME_PIE -> setSuccessTimePieChart()
             }
         }
     }
 
-    private fun setSuccessBarChart() {
+    private fun setSuccessCountBarChart() {
         graphViewModel.run {
             barData.observe(viewLifecycleOwner) {
                 binding.barChart.apply {
-                    visibility = View.VISIBLE
-                    legend.textColor = Color.WHITE
-                    description.isEnabled = false
-                    animateY(1000)
-
+                    applyChartStyle()
                     data = it
 
                     xAxis.apply {
@@ -88,12 +82,26 @@ class GraphFragment : Fragment() {
 
                     axisRight.isEnabled = false
 
-                    setTouchEnabled(false)
                     invalidate()
                 }
             }
             barChartData.observe(viewLifecycleOwner) {
                 graphViewModel.createBarChartData(it)
+            }
+        }
+    }
+
+    private fun setSuccessTimePieChart() {
+        graphViewModel.run {
+            pieData.observe(viewLifecycleOwner) {
+                binding.pieChart.apply {
+                    applyChartStyle()
+                    data = it
+                    invalidate()
+                }
+            }
+            pieChartData.observe(viewLifecycleOwner) {
+                graphViewModel.createPieChartData(it)
             }
         }
     }

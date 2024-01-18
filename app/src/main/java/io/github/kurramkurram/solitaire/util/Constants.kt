@@ -91,3 +91,9 @@ const val CLICKED_RESET_BUTTON = "clicked_reset_button"
  * 動画撮影件数.
  */
 const val MOVIE_SAVE_COUNT = 6
+
+/**
+ * 表示するグラフのインデックス.
+ */
+const val CHART_SUCCESS_COUNT_BAR = 0
+const val CHART_SUCCESS_TIME_PIE = 1
