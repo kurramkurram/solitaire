@@ -32,6 +32,7 @@
     <string name="setting_app_version">アプリバージョン</string>
     <string name="setting_app_share">アプリを共有する</string>
     <string name="setting_app_assessment">アプリを評価する</string>
+    <string name="setting_other_app">ほかのアプリ</string>
     <string name="setting_app_music">音楽をかける</string>
     <string name="setting_question_title">お問い合わせ</string>
     <string name="setting_question">お問い合わせはこちら</string>

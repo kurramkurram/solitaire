@@ -142,9 +142,17 @@
                     tools:ignore="MissingConstraints" />
 
                 <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/app_music"
+                    android:id="@+id/other_app"
                     style="@style/SolitaireSettings.Container"
                     app:layout_constraintTop_toBottomOf="@id/app_assessment"
+                    app:setting_hasArrow="@{true}"
+                    app:setting_title="@{@string/setting_other_app}"
+                    tools:ignore="MissingConstraints" />
+
+                <io.github.kurramkurram.solitaire.view.SettingItem
+                    android:id="@+id/app_music"
+                    style="@style/SolitaireSettings.Container"
+                    app:layout_constraintTop_toBottomOf="@id/other_app"
                     app:setting_switch="@{viewModel.musicState}"
                     app:setting_title="@{@string/setting_app_music}"
                     tools:ignore="MissingConstraints" />
