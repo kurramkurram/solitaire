@@ -117,6 +117,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             question.setOnClickListener(this@SettingsFragment)
             appShare.setOnClickListener(this@SettingsFragment)
             appAssessment.setOnClickListener(this@SettingsFragment)
+            otherApp.setOnClickListener(this@SettingsFragment)
             appMusic.binding.switchButton.setOnClickListener(this@SettingsFragment)
             backup.setOnClickListener(this@SettingsFragment)
             restore.setOnClickListener(this@SettingsFragment)
@@ -184,6 +185,17 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     val text = createContactText()
                     putExtra(Intent.EXTRA_TEXT, text)
 
+                    try {
+                        startActivity(this)
+                    } catch (e: ActivityNotFoundException) {
+                        L.e(TAG, "#onClick $e")
+                    }
+                }
+            }
+
+            R.id.other_app -> {
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("https://play.google.com/store/apps/developer?id=Kurram")
                     try {
                         startActivity(this)
                     } catch (e: ActivityNotFoundException) {
