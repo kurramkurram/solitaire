@@ -11,7 +11,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.github.mikephil.charting.utils.ColorTemplate
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.BarChartData
 import io.github.kurramkurram.solitaire.data.PieChartData
@@ -112,10 +111,22 @@ class GraphViewModel(private val application: Application) : AndroidViewModel(ap
             resources.getString(R.string.graph_duration, targetDays.last(), targetDays[0])
         val labelText = resources.getString(R.string.graph_title_success_time)
         val pieDataSet = PieDataSet(entryList, labelText).apply {
-            colors = ColorTemplate.COLORFUL_COLORS.toList()
+            colors = createColorsList(data.size)
             setDrawValues(false)
             valueTextSize = resources.getDimension(R.dimen.graph_value_text_size)
         }
         _pieData.value = PieData(pieDataSet)
+    }
+
+    private fun createColorsList(size: Int): List<Int> {
+        val colorList = mutableListOf<Int>()
+        for (i in 1..size) {
+            val r = (0..255).random()
+            val g = (0..255).random()
+            val b = (0..255).random()
+            val color = Color.rgb(r, g, b)
+            colorList.add(color)
+        }
+        return colorList
     }
 }
