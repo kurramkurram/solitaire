@@ -69,7 +69,7 @@ class GraphFragment : Fragment() {
 
     private fun setSuccessCountBarChart() {
         removeObserver()
-        
+
         graphViewModel.run {
             barData.observe(viewLifecycleOwner) {
                 binding.barChart.apply {
