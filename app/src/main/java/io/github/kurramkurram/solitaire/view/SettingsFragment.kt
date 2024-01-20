@@ -122,6 +122,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             backup.setOnClickListener(this@SettingsFragment)
             restore.setOnClickListener(this@SettingsFragment)
             signOut.setOnClickListener(this@SettingsFragment)
+            deleteAd.setOnClickListener(this@SettingsFragment)
         }
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -202,6 +203,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         L.e(TAG, "#onClick $e")
                     }
                 }
+            }
+
+            R.id.delete_ad -> {
+                startActivity(Intent(requireContext(), NavigateProActivity::class.java))
             }
 
             R.id.backup -> {

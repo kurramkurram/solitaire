@@ -33,6 +33,7 @@
     <string name="setting_app_share">アプリを共有する</string>
     <string name="setting_app_assessment">アプリを評価する</string>
     <string name="setting_other_app">ほかのアプリ</string>
+    <string name="setting_navigate_pro">広告を表示しない</string>
     <string name="setting_app_music">音楽をかける</string>
     <string name="setting_question_title">お問い合わせ</string>
     <string name="setting_question">お問い合わせはこちら</string>
@@ -87,4 +88,9 @@
     <string name="notification_channel_recoding">録画中の通知</string>
     <string name="notification_recoding_title">録画中</string>
     <string name="notification_recoding_description">画面録画中をしています</string>
+
+    <string name="navigate_pro">有償版のアプリを利用する</string>
+    <string name="navigate_pro_description">Google Playストアから有償版をご購入いただけます。\n有償版アプリを利用することで広告を表示しないアプリを利用できます。\n記録を保存して復元することで記録を引き継ぐことができます。</string>
+
+    <string name="content_description_arrow">次の画面へ進みます</string>
 </resources>
