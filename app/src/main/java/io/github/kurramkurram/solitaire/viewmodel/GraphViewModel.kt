@@ -105,7 +105,7 @@ class GraphViewModel(private val application: Application) : AndroidViewModel(ap
             sum += it.t
         }
 
-        val average = (sum / 10 / data.size * 10).toString() // 10秒単位で計算するため先に10で割る
+        val average = (sum / 10 / targetDays.size * 10).toString() // 10秒単位で計算するため先に10で割る
         _textAverageValue.value = resources.getString(R.string.graph_time_value, average)
         _textDuration.value =
             resources.getString(R.string.graph_duration, targetDays.last(), targetDays[0])
