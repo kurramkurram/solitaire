@@ -4,29 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.databinding.ActivityNavigateProBinding
 import io.github.kurramkurram.solitaire.view.composable.component.DefaultText
@@ -53,6 +41,7 @@ class NavigateProActivity : AppCompatActivity() {
             setContent {
                 MaterialTheme {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
+                        // TODO アプリの遷移先を有償版に変更する
                         data =
                             Uri.parse("https://play.google.com/store/apps/details?id=io.github.kurramkurram.solitaire")
                     }
