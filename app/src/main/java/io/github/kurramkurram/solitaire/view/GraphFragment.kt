@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.BarChartData
 import io.github.kurramkurram.solitaire.data.PieChartData
@@ -23,6 +24,7 @@ import io.github.kurramkurram.solitaire.viewmodel.GraphViewModel
 /**
  * グラフ表示画面.
  */
+@AndroidEntryPoint
 class GraphFragment : Fragment() {
 
     private lateinit var binding: FragmentGraphBinding

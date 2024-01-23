@@ -6,17 +6,21 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import io.github.kurramkurram.solitaire.repository.MusicRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.kurramkurram.solitaire.repository.MusicRepository
 import io.github.kurramkurram.solitaire.usecase.PlayBgmUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 /**
- * MainActivityに共通のViewModel
+ * MainActivityに共通のViewModel.
  */
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val musicRepository = MusicRepositoryImpl(application.applicationContext)
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    application: Application,
+    private val musicRepository: MusicRepository
+) : AndroidViewModel(application) {
 
     /**
      * 「音楽をかける」の状態.

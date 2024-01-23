@@ -3,6 +3,7 @@ package io.github.kurramkurram.solitaire.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import io.github.kurramkurram.solitaire.data.TrumpCard
+import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NUMBER
 import io.github.kurramkurram.solitaire.util.PATTERN
@@ -21,7 +22,10 @@ class SolitaireViewModelTest {
             }
         }
 
-        val solitaireViewModel = SolitaireViewModel(Mockito.mock(Application::class.java))
+        val solitaireViewModel = SolitaireViewModel(
+            Mockito.mock(Application::class.java),
+            RecordRepositoryImpl(Mockito.mock(Application::class.java))
+        )
         val list = solitaireViewModel.createLayout(initList)
         L.d(TAG, "#testCreateLayout = $list")
     }
