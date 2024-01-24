@@ -18,7 +18,6 @@ import io.github.kurramkurram.solitaire.data.PieChartData
 import io.github.kurramkurram.solitaire.repository.DateRepository
 import io.github.kurramkurram.solitaire.repository.RecordRepository
 import io.github.kurramkurram.solitaire.usecase.CreateBarChartUseCase
-import io.github.kurramkurram.solitaire.util.L
 import javax.inject.Inject
 
 /**
