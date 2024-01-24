@@ -11,19 +11,24 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.kurramkurram.solitaire.R
 import io.github.kurramkurram.solitaire.data.BarChartData
 import io.github.kurramkurram.solitaire.data.PieChartData
-import io.github.kurramkurram.solitaire.repository.DateRepositoryImpl
-import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.DateRepository
+import io.github.kurramkurram.solitaire.repository.RecordRepository
 import io.github.kurramkurram.solitaire.usecase.CreateBarChartUseCase
+import javax.inject.Inject
 
 /**
  * グラフのViewModel
  */
-class GraphViewModel(private val application: Application) : AndroidViewModel(application) {
-    private val recordRepository = RecordRepositoryImpl(application.applicationContext)
-    private val dateRepository = DateRepositoryImpl()
+@HiltViewModel
+class GraphViewModel @Inject constructor(
+    private val application: Application,
+    dateRepository: DateRepository,
+    recordRepository: RecordRepository
+) : AndroidViewModel(application) {
 
     private val endDate = dateRepository.getToday()
     private val targetDays = dateRepository.getAWeekDays(endDate)

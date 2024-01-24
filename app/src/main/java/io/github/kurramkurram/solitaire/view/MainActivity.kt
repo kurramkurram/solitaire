@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -21,6 +22,7 @@ import io.github.kurramkurram.solitaire.viewmodel.MainViewModel
 /**
  * ベースのActivity.
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var current: Fragment? = null

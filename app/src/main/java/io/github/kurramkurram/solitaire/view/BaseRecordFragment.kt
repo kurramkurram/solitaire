@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.kurramkurram.solitaire.databinding.FragmentBaseRecordBinding
 
 /**
  * 記録画面のベース.
  */
+@AndroidEntryPoint
 class BaseRecordFragment : Fragment() {
 
     private lateinit var binding: FragmentBaseRecordBinding

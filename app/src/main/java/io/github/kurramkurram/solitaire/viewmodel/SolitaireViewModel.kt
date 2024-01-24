@@ -7,9 +7,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
-import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.RecordRepository
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
@@ -26,8 +27,16 @@ import java.util.TimerTask
 import kotlin.collections.ArrayList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SolitaireViewModel(application: Application) : AndroidViewModel(application) {
+/**
+ * Solitaire画面のViewModel
+ */
+@HiltViewModel
+class SolitaireViewModel @Inject constructor(
+    application: Application,
+    private val recordRepository: RecordRepository
+) : AndroidViewModel(application) {
 
     private lateinit var stockList: MutableList<TrumpCard>
 
@@ -132,8 +141,6 @@ class SolitaireViewModel(application: Application) : AndroidViewModel(applicatio
      * 撮影中フラグ.
      */
     val recording = MutableLiveData(false)
-
-    private val recordRepository = RecordRepositoryImpl(application.applicationContext)
 
     init {
         initCard()

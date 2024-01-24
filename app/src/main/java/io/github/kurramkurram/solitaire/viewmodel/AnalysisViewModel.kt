@@ -3,11 +3,19 @@ package io.github.kurramkurram.solitaire.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.kurramkurram.solitaire.data.Record
-import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
+import io.github.kurramkurram.solitaire.repository.RecordRepository
+import javax.inject.Inject
 
-class AnalysisViewModel(application: Application) : AndroidViewModel(application) {
-    private val recordRepository = RecordRepositoryImpl(application.applicationContext)
+/**
+ * 統計画面のViewModel.
+ */
+@HiltViewModel
+class AnalysisViewModel @Inject constructor(
+    application: Application,
+    recordRepository: RecordRepository
+) : AndroidViewModel(application) {
 
     /**
      * 成功回数.
