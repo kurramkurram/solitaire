@@ -104,13 +104,20 @@ class GraphViewModel @Inject constructor(
 
         val entryList = mutableListOf<PieEntry>()
         var sum = 0
+        var success = 0
         data.forEach {
             val label = resources.getString(R.string.graph_time_value, it.t.toString())
-            entryList.add(PieEntry(it.count.toFloat(), label))
-            sum += it.t
+            val count = it.count
+            entryList.add(PieEntry(count.toFloat(), label))
+            sum += it.t * count
+            success += count
         }
 
-        val average = (sum / 10 / targetDays.size * 10).toString() // 10秒単位で計算するため先に10で割る
+        val average = if (data.size > 0) {
+            sum / 10 / success * 10 // 10秒単位で計算するため先に10で割る
+        } else {
+            0
+        }.toString()
         _textAverageValue.value = resources.getString(R.string.graph_time_value, average)
         _textDuration.value =
             resources.getString(R.string.graph_duration, targetDays.last(), targetDays[0])
