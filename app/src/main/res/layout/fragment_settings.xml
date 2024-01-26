@@ -36,7 +36,7 @@
                     android:id="@+id/delete_ad_container"
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginTop="30dp"
-                    android:visibility="@{BuildConfig.IS_PRO ? View.GONE: View.VISIBLE}"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/restore"
                     tools:ignore="MissingConstraints">
 
@@ -122,7 +122,7 @@
                 <io.github.kurramkurram.solitaire.view.SettingItem
                     android:id="@+id/delete_ad"
                     style="@style/SolitaireSettings.Container"
-                    android:visibility="@{BuildConfig.IS_PRO ? View.GONE: View.VISIBLE}"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/delete_ad_container"
                     app:setting_hasArrow="@{true}"
                     app:setting_icon="@{@drawable/ad_off}"
