@@ -72,4 +72,8 @@
     <dimen name="setting_item_height">50dp</dimen>
     <dimen name="setting_item_text_view_margin_start">20dp</dimen>
     <dimen name="setting_item_margin">10dp</dimen>
+
+    <dimen name="start_other_app_activity_margin">20dp</dimen>
+    <dimen name="start_other_app_activity_question_text_size">20sp</dimen>
+    <dimen name="start_other_app_activity_description_text_size">14sp</dimen>
 </resources>

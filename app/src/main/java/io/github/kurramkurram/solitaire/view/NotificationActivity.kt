@@ -1,8 +1,8 @@
 package io.github.kurramkurram.solitaire.view
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,23 +14,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import io.github.kurramkurram.solitaire.R
-import io.github.kurramkurram.solitaire.databinding.ActivityNavigateProBinding
+import io.github.kurramkurram.solitaire.databinding.ActivityNotificationBinding
 import io.github.kurramkurram.solitaire.view.composable.component.DefaultText
 import io.github.kurramkurram.solitaire.view.composable.component.DividerHorizontal
 import io.github.kurramkurram.solitaire.view.composable.component.ListItem
 
 /**
- * 有償版を案内する画面.
+ * 通知を有効にする画面.
  */
-class NavigateProActivity : AppCompatActivity() {
+class NotificationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityNavigateProBinding
+    private lateinit var binding: ActivityNotificationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNavigateProBinding.inflate(layoutInflater)
+        binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.composeView.apply {
@@ -40,17 +41,30 @@ class NavigateProActivity : AppCompatActivity() {
 
             setContent {
                 MaterialTheme {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data =
-                            Uri.parse("https://play.google.com/store/apps/details?id=io.github.kurramkurram.solitaire.pro")
+                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
                     }
+
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally, // 横方向
                         verticalArrangement = Arrangement.Top // 縦方向
                     ) {
+                        DefaultText(
+                            text = stringResource(id = R.string.notification_on_question),
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.start_other_app_activity_margin)),
+                            textAlign = TextAlign.Center,
+                            fontSize = dimensionResource(id = R.dimen.start_other_app_activity_question_text_size).value.sp
+                        )
+
+                        DividerHorizontal()
+
                         ListItem(
-                            title = stringResource(id = R.string.navigate_pro),
+                            icon = Pair(
+                                R.drawable.notifications,
+                                stringResource(id = R.string.notification_on_title)
+                            ),
+                            title = stringResource(id = R.string.notification_on_title),
                             hasArrow = true,
                             onClick = { startActivity(intent) }
                         )
@@ -58,7 +72,12 @@ class NavigateProActivity : AppCompatActivity() {
                         DividerHorizontal()
 
                         DefaultText(
-                            text = stringResource(id = R.string.navigate_pro_description),
+                            text = stringResource(
+                                id = R.string.notification_on_description,
+                                stringResource(
+                                    id = R.string.app_name
+                                ),
+                            ),
                             modifier = Modifier.padding(dimensionResource(id = R.dimen.start_other_app_activity_margin)),
                             fontSize = dimensionResource(id = R.dimen.start_other_app_activity_description_text_size).value.sp
                         )
