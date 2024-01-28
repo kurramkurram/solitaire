@@ -123,6 +123,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             restore.setOnClickListener(this@SettingsFragment)
             signOut.setOnClickListener(this@SettingsFragment)
             deleteAd.setOnClickListener(this@SettingsFragment)
+            notification.setOnClickListener(this@SettingsFragment)
         }
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -205,25 +206,21 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 }
             }
 
-            R.id.delete_ad -> {
+            R.id.delete_ad ->
                 startActivity(Intent(requireContext(), NavigateProActivity::class.java))
-            }
 
-            R.id.backup -> {
-                val signInIntent = googleSignInClient.signInIntent
-                startBackupSignInForResult.launch(signInIntent)
-            }
+            R.id.backup -> startBackupSignInForResult.launch(googleSignInClient.signInIntent)
 
-            R.id.restore -> {
-                val signInIntent = googleSignInClient.signInIntent
-                startRestoreSignInForResult.launch(signInIntent)
-            }
+            R.id.restore -> startRestoreSignInForResult.launch(googleSignInClient.signInIntent)
 
             R.id.switch_button -> {
-                if (v is SwitchCompat) {
+                if (v is SwitchCompat && v == binding.appMusic.binding.switchButton) {
                     mainViewModel.onMusicCheckChanged(v.isChecked)
                 }
             }
+
+            R.id.notification ->
+                startActivity(Intent(requireContext(), NotificationActivity::class.java))
 
             R.id.sign_out -> {
                 googleSignInClient.signOut()

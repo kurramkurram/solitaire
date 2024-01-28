@@ -25,11 +25,28 @@
 
                     <ImageView
                         style="@style/SolitaireSettings.Divider"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/backup" />
 
                     <TextView
                         style="@style/SolitaireSettings.Header"
-                        android:text="@string/setting_backup_and_restore" />
+                        android:text="@string/setting_backup_and_restore"
+                        app:layout_constraintBottom_toTopOf="@id/backup" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/backup"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/restore"
+                        app:setting_icon="@{@drawable/backup}"
+                        app:setting_title="@{@string/setting_backup}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/restore"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_icon="@{@drawable/restore}"
+                        app:setting_title="@{@string/setting_restore}"
+                        tools:ignore="MissingConstraints" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,16 +54,80 @@
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginTop="30dp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/restore"
+                    app:layout_constraintTop_toBottomOf="@id/backup_container"
                     tools:ignore="MissingConstraints">
 
                     <ImageView
                         style="@style/SolitaireSettings.Divider"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/delete_ad" />
 
                     <TextView
                         style="@style/SolitaireSettings.Header"
-                        android:text="@string/setting_navigate_pro" />
+                        android:text="@string/setting_navigate_pro"
+                        app:layout_constraintBottom_toTopOf="@id/delete_ad" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/delete_ad"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/ad_off}"
+                        app:setting_title="@{@string/setting_navigate_pro}"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/music_container"
+                    style="@style/SolitaireSettings.Container"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/delete_ad_container"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        style="@style/SolitaireSettings.Divider"
+                        app:layout_constraintTop_toTopOf="@id/app_music" />
+
+                    <TextView
+                        style="@style/SolitaireSettings.Header"
+                        android:text="@string/setting_music"
+                        app:layout_constraintBottom_toTopOf="@id/app_music" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/app_music"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_icon="@{@drawable/music}"
+                        app:setting_switch="@{viewModel.musicState}"
+                        app:setting_title="@{@string/setting_app_music}"
+                        tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/notification_container"
+                    style="@style/SolitaireSettings.Container"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/music_container"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        style="@style/SolitaireSettings.Divider"
+                        app:layout_constraintTop_toTopOf="@id/notification" />
+
+                    <TextView
+                        style="@style/SolitaireSettings.Header"
+                        android:text="@string/setting_notification"
+                        app:layout_constraintBottom_toTopOf="@id/notification" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/notification"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/notifications}"
+                        app:setting_title="@{@string/setting_notification_on}"
+                        tools:ignore="MissingConstraints" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,16 +135,71 @@
                     android:id="@+id/about_this_app_container"
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@id/delete_ad"
+                    app:layout_constraintTop_toBottomOf="@id/notification_container"
                     tools:ignore="MissingConstraints">
 
                     <ImageView
                         style="@style/SolitaireSettings.Divider"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/application_privacy_policy" />
 
                     <TextView
                         style="@style/SolitaireSettings.Header"
-                        android:text="@string/setting_about_this_app" />
+                        android:text="@string/setting_about_this_app"
+                        app:layout_constraintBottom_toTopOf="@id/application_privacy_policy" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/application_privacy_policy"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/open_source_software"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/description}"
+                        app:setting_title="@{@string/setting_app}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/open_source_software"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/app_version"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/content_copy}"
+                        app:setting_title="@{@string/setting_oss}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/app_version"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/app_share"
+                        app:setting_description="@{BuildConfig.VERSION_NAME}"
+                        app:setting_icon="@{@drawable/family_history}"
+                        app:setting_title="@{@string/setting_app_version}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/app_share"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/app_assessment"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/share}"
+                        app:setting_title="@{@string/setting_app_share}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/app_assessment"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toTopOf="@id/other_app"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/reviews}"
+                        app:setting_title="@{@string/setting_app_assessment}"
+                        tools:ignore="MissingConstraints" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/other_app"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/apps}"
+                        app:setting_title="@{@string/setting_other_app}"
+                        tools:ignore="MissingConstraints" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -71,23 +207,33 @@
                     android:id="@+id/question_container"
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginTop="30dp"
-                    app:layout_constraintTop_toBottomOf="@id/app_music"
+                    app:layout_constraintTop_toBottomOf="@id/about_this_app_container"
                     tools:ignore="MissingConstraints">
 
                     <ImageView
                         style="@style/SolitaireSettings.Divider"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="@id/question" />
 
                     <TextView
                         style="@style/SolitaireSettings.Header"
-                        android:text="@string/setting_question_title" />
+                        android:text="@string/setting_question_title"
+                        app:layout_constraintBottom_toTopOf="@id/question" />
+
+                    <io.github.kurramkurram.solitaire.view.SettingItem
+                        android:id="@+id/question"
+                        style="@style/SolitaireSettings.Container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:setting_hasArrow="@{true}"
+                        app:setting_icon="@{@drawable/ic_baseline_info}"
+                        app:setting_title="@{@string/setting_question}"
+                        tools:ignore="MissingConstraints" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/sign_out_container"
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginVertical="30dp"
-                    app:layout_constraintTop_toBottomOf="@id/question"
+                    app:layout_constraintTop_toBottomOf="@id/question_container"
                     tools:ignore="MissingConstraints">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,104 +248,6 @@
                             app:layout_constraintStart_toStartOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/backup"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/backup_container"
-                    app:setting_icon="@{@drawable/backup}"
-                    app:setting_title="@{@string/setting_backup}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/restore"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/backup"
-                    app:setting_icon="@{@drawable/restore}"
-                    app:setting_title="@{@string/setting_restore}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/delete_ad"
-                    style="@style/SolitaireSettings.Container"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/delete_ad_container"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/ad_off}"
-                    app:setting_title="@{@string/setting_navigate_pro}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/application_privacy_policy"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/about_this_app_container"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/description}"
-                    app:setting_title="@{@string/setting_app}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/open_source_software"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/application_privacy_policy"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/content_copy}"
-                    app:setting_title="@{@string/setting_oss}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/app_version"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/open_source_software"
-                    app:setting_description="@{BuildConfig.VERSION_NAME}"
-                    app:setting_icon="@{@drawable/family_history}"
-                    app:setting_title="@{@string/setting_app_version}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/app_share"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/app_version"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/share}"
-                    app:setting_title="@{@string/setting_app_share}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/app_assessment"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/app_share"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/reviews}"
-                    app:setting_title="@{@string/setting_app_assessment}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/other_app"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/app_assessment"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/apps}"
-                    app:setting_title="@{@string/setting_other_app}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/app_music"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/other_app"
-                    app:setting_icon="@{@drawable/music}"
-                    app:setting_switch="@{viewModel.musicState}"
-                    app:setting_title="@{@string/setting_app_music}"
-                    tools:ignore="MissingConstraints" />
-
-                <io.github.kurramkurram.solitaire.view.SettingItem
-                    android:id="@+id/question"
-                    style="@style/SolitaireSettings.Container"
-                    app:layout_constraintTop_toBottomOf="@id/question_container"
-                    app:setting_hasArrow="@{true}"
-                    app:setting_icon="@{@drawable/ic_baseline_info}"
-                    app:setting_title="@{@string/setting_question}"
-                    tools:ignore="MissingConstraints" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

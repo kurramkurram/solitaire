@@ -46,6 +46,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".view.NotificationActivity"
+            android:exported="false" />
+
+        <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/ApplicationPrivacyPolicyTheme" />
 
@@ -53,15 +57,20 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_application_id" />
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/dark_green" />
+
         <service
             android:name=".service.RecordService"
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

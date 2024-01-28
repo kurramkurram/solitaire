@@ -34,7 +34,10 @@
     <string name="setting_app_assessment">アプリを評価する</string>
     <string name="setting_other_app">ほかのアプリ</string>
     <string name="setting_navigate_pro">広告を表示しない</string>
+    <string name="setting_music">音楽</string>
     <string name="setting_app_music">音楽をかける</string>
+    <string name="setting_notification">通知</string>
+    <string name="setting_notification_on">通知を有効にする</string>
     <string name="setting_question_title">お問い合わせ</string>
     <string name="setting_question">お問い合わせはこちら</string>
     <string name="setting_question_mail_subject">Solitaireについての問い合わせ</string>
@@ -91,6 +94,10 @@
 
     <string name="navigate_pro">有償版のアプリを利用する</string>
     <string name="navigate_pro_description">Google Playストアから有償版をご購入いただけます。\n有償版アプリを利用することで広告を表示しないアプリを利用できます。\n記録を保存して復元することで記録を引き継ぐことができます。</string>
+
+    <string name="notification_on_question">通知を有効にしますか？</string>
+    <string name="notification_on_title">設定から通知を有効にする</string>
+    <string name="notification_on_description">通知を有効にするには設定からONにする必要があります。\n通知を有効にすることで%1sからのお知らせを受け取ることができます。</string>
 
     <string name="content_description_arrow">次の画面へ進みます</string>
 </resources>
