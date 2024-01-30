@@ -2,6 +2,7 @@ package io.github.kurramkurram.solitaire.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import androidx.test.core.app.ApplicationProvider
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepositoryImpl
 import io.github.kurramkurram.solitaire.util.L
@@ -23,7 +24,7 @@ class SolitaireViewModelTest {
         }
 
         val solitaireViewModel = SolitaireViewModel(
-            Mockito.mock(Application::class.java),
+            ApplicationProvider.getApplicationContext(),
             RecordRepositoryImpl(Mockito.mock(Application::class.java))
         )
         val list = solitaireViewModel.createLayout(initList)
