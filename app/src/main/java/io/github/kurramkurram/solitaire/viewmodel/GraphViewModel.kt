@@ -27,7 +27,8 @@ import javax.inject.Inject
 class GraphViewModel @Inject constructor(
     private val application: Application,
     dateRepository: DateRepository,
-    recordRepository: RecordRepository
+    recordRepository: RecordRepository,
+    private val createBarChartUseCase: CreateBarChartUseCase,
 ) : AndroidViewModel(application) {
 
     private val endDate = dateRepository.getToday()
@@ -70,7 +71,7 @@ class GraphViewModel @Inject constructor(
      * @param data グラフ表示用のデータ
      */
     fun createBarChartData(data: MutableList<BarChartData>) {
-        val (label, barChartDataList, average) = CreateBarChartUseCase(data, targetDays).invoke()
+        val (label, barChartDataList, average) = createBarChartUseCase.invoke(data, targetDays)
 
         val resources = application.applicationContext.resources
 

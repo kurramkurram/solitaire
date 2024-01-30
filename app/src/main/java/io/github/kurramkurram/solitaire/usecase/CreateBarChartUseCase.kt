@@ -5,16 +5,20 @@ import io.github.kurramkurram.solitaire.data.BarChartData
 
 /**
  * 成功数の棒グラフを作成するユースケース.
- *
- * @param barChartData 保存済みのデータ
- * @param targetDays 表示する機関のリスト
  */
-class CreateBarChartUseCase(
-    private val barChartData: MutableList<BarChartData>,
-    private val targetDays: List<String>
-) {
+abstract class CreateBarChartUseCase {
+    abstract fun invoke(
+        barChartData: MutableList<BarChartData>,
+        targetDays: List<String>
+    ): Triple<MutableList<String>, MutableList<BarEntry>, Int>
+}
 
-    fun invoke(): Triple<MutableList<String>, MutableList<BarEntry>, Int> {
+class CreateBarChartUseCaseImpl : CreateBarChartUseCase() {
+
+    override fun invoke(
+        barChartData: MutableList<BarChartData>,
+        targetDays: List<String>
+    ): Triple<MutableList<String>, MutableList<BarEntry>, Int> {
         if (barChartData.size != targetDays.size) {
             targetDays.forEach { date ->
                 var isContain = false
