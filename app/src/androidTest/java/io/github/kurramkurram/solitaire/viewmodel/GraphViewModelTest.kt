@@ -16,7 +16,7 @@ import io.github.kurramkurram.solitaire.usecase.CreateBarChartUseCase
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
+import java.util.Calendar
 
 @RunWith(AndroidJUnit4::class)
 class GraphViewModelTest {
@@ -68,8 +68,6 @@ class GraphViewModelTest {
         Assert.assertEquals("2024/01/29 ~ 2024/02/04", graphViewModel.textDuration.value)
         Assert.assertEquals("10回", graphViewModel.textAverageValue.value)
     }
-
-
 }
 
 class MockDateRepository : DateRepository() {
@@ -137,7 +135,6 @@ class MockRecordRepository : RecordRepository() {
 
     override suspend fun saveRecord(record: List<Record>) {
         throw NotImplementedError()
-
     }
 
     override suspend fun deleteAll() {
