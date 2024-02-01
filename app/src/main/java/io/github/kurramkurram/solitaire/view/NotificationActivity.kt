@@ -74,9 +74,7 @@ class NotificationActivity : AppCompatActivity() {
                         DefaultText(
                             text = stringResource(
                                 id = R.string.notification_on_description,
-                                stringResource(
-                                    id = R.string.app_name
-                                ),
+                                stringResource(id = R.string.app_name),
                             ),
                             modifier = Modifier.padding(dimensionResource(id = R.dimen.start_other_app_activity_margin)),
                             fontSize = dimensionResource(id = R.dimen.start_other_app_activity_description_text_size).value.sp

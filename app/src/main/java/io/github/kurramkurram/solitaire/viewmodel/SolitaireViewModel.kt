@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.kurramkurram.solitaire.data.Record
 import io.github.kurramkurram.solitaire.data.TrumpCard
 import io.github.kurramkurram.solitaire.repository.RecordRepository
+import io.github.kurramkurram.solitaire.util.APP_CONFIRM
 import io.github.kurramkurram.solitaire.util.DATE_PATTERN_HH_MM
 import io.github.kurramkurram.solitaire.util.L
 import io.github.kurramkurram.solitaire.util.NO_MORE_CHECKBOX_KEY
@@ -522,6 +523,9 @@ class SolitaireViewModel @Inject constructor(
         timer = null
     }
 
+    /**
+     * 動画録画開始のダイアログ許可.
+     */
     fun onStartMovieDialogPositiveClicked() {
         viewModelScope.launch {
             isCheckedMovie.value?.let {
@@ -533,6 +537,15 @@ class SolitaireViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    /**
+     * アプリケーションプライバシーポリシーへの同意.
+     */
+    fun onSaveAppConfirm() {
+        viewModelScope.launch {
+            setPreference(getApplication(), APP_CONFIRM, true)
         }
     }
 

@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.kurramkurram.solitaire.databinding.FragmentSolitaireBinding
 import io.github.kurramkurram.solitaire.service.RecordService
+import io.github.kurramkurram.solitaire.util.APP_CONFIRM
+import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_APP_CONFIRM
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_AUTO_COMPLETE
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_KEY
 import io.github.kurramkurram.solitaire.util.DIALOG_RESULT_OK
@@ -144,6 +146,20 @@ class SolitaireFragment : Fragment() {
                 if (result == DIALOG_RESULT_OK) {
                     solitaireViewModel.onStartMovieDialogPositiveClicked()
                     startMovie()
+                }
+            }
+
+            val isAppConfirm = runBlocking {
+                getPreference(requireContext(), APP_CONFIRM, false).first()
+            }
+            if (!isAppConfirm) {
+                val fragment = DialogAppFragment()
+                fragment.show(parentFragmentManager, SHOW_DIALOG_KEY)
+            }
+            setFragmentResultListener(DIALOG_RESULT_APP_CONFIRM) { _, data ->
+                val result = data.getInt(DIALOG_RESULT_KEY, -1)
+                if (result == DIALOG_RESULT_OK) {
+                    solitaireViewModel.onSaveAppConfirm()
                 }
             }
         }

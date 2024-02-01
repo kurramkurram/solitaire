@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.map
 val NO_MORE_CHECKBOX_KEY = booleanPreferencesKey("key_no_more_checkbox")
 val NO_MORE_CHECKBOX_MOVIE_KEY = booleanPreferencesKey("key_no_more_checkbox_movie")
 val MUSIC_PLAY_CHECK_KEY = booleanPreferencesKey("key_music_play_check")
+val APP_CONFIRM = booleanPreferencesKey("key_app_confirm")
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 

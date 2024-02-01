@@ -100,4 +100,9 @@
     <string name="notification_on_description">通知を有効にするには設定からONにする必要があります。\n通知を有効にすることで%1sからのお知らせを受け取ることができます。</string>
 
     <string name="content_description_arrow">次の画面へ進みます</string>
+
+    <string name="app_confirm_dialog_description1">%1sを利用するには</string>
+    <string name="app_confirm_dialog_description2">アプリケーションプライバシーポリシー</string>
+    <string name="app_confirm_dialog_description3">に同意する必要があります</string>
+    <string name="app_confirm_dialog_agree_button">同意する</string>
 </resources>
