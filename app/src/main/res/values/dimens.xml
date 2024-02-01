@@ -76,4 +76,7 @@
     <dimen name="start_other_app_activity_margin">20dp</dimen>
     <dimen name="start_other_app_activity_question_text_size">20sp</dimen>
     <dimen name="start_other_app_activity_description_text_size">14sp</dimen>
+
+    <dimen name="app_confirm_dialog_description_text_size">14sp</dimen>
+    <dimen name="app_confirm_dialog_agree_text_size">16sp</dimen>
 </resources>

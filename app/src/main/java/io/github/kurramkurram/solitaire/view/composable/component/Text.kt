@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DefaultText(
     text: String,
+    textColor: Color = Color.White,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
     fontSize: TextUnit = TextUnit.Unspecified
@@ -29,7 +30,7 @@ fun DefaultText(
     Text(
         text = text,
         modifier = modifier,
-        color = Color.White,
+        color = textColor,
         fontSize = fontSize,
         textAlign = textAlign
     )
