@@ -43,10 +43,12 @@
 
         <activity
             android:name=".view.NavigateProActivity"
+            android:theme="@style/ApplicationPrivacyPolicyTheme"
             android:exported="false" />
 
         <activity
             android:name=".view.NotificationActivity"
+            android:theme="@style/ApplicationPrivacyPolicyTheme"
             android:exported="false" />
 
         <activity

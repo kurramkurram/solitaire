@@ -14,8 +14,9 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ApplicationPrivacyPolicyTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="ApplicationPrivacyPolicyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/background_green</item>
+        <item name="colorPrimaryDark">@color/background_green</item>
         <item name="android:statusBarColor">@color/background_green</item>
     </style>
 
