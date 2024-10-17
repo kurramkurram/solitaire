@@ -18,7 +18,7 @@ jobs:
   lines-of-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup cloc
         run: sudo apt install cloc
@@ -26,7 +26,7 @@ jobs:
       - name: Run cloc
         run: cloc ./ --by-file --exclude-dir=build --include-ext=java,kt --xml --out=cloc_result.xml
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         name: Archive
         with:
           name: result
