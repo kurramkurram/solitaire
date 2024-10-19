@@ -21,6 +21,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: microsoft
+          java-version: 17
 
       - name: set up AD_UNIT_ID
         run: echo "AD_UNIT_ID=``" >> local.properties

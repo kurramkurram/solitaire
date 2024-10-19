@@ -43,13 +43,13 @@
 
         <activity
             android:name=".view.NavigateProActivity"
-            android:theme="@style/ApplicationPrivacyPolicyTheme"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ApplicationPrivacyPolicyTheme" />
 
         <activity
             android:name=".view.NotificationActivity"
-            android:theme="@style/ApplicationPrivacyPolicyTheme"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ApplicationPrivacyPolicyTheme" />
 
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
@@ -62,6 +62,11 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/dark_green" />
+
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
 
         <service
             android:name=".service.RecordService"
