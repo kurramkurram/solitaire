@@ -34,6 +34,7 @@ class NotificationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        disableEdgeToEdge(binding.root)
 
         binding.composeView.apply {
             setViewCompositionStrategy(

@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.kurramkurram.solitaire.BuildConfig
 import io.github.kurramkurram.solitaire.R
@@ -141,8 +140,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.open_source_software -> {
-                Intent(requireContext(), OssLicensesMenuActivity::class.java).apply {
-                    putExtra(EXTRA_TITLE, resources.getString(R.string.setting_oss))
+                Intent(requireContext(), LicenseActivity::class.java).apply {
                     startActivity(this)
                 }
             }

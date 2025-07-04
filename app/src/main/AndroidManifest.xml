@@ -55,6 +55,11 @@
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/ApplicationPrivacyPolicyTheme" />
 
+        <activity
+            android:name=".view.LicenseActivity"
+            android:exported="false"
+            android:theme="@style/ApplicationPrivacyPolicyTheme" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_application_id" />

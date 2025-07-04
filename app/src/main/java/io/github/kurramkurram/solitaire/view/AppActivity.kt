@@ -17,6 +17,8 @@ class AppActivity : AppCompatActivity() {
         binding = ActivityAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        disableEdgeToEdge(binding.root)
+
         binding.webview.loadUrl("file:///android_asset/app.html")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
