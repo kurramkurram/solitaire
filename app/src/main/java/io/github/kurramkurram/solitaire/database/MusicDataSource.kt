@@ -35,7 +35,7 @@ class MusicDataSourceImpl(private val context: Context) : MusicDataSource() {
         context.assets.openFd("music/${musicType.fileName}")
 
     override suspend fun getPlayChecked(): Boolean =
-        getPreference(context, MUSIC_PLAY_CHECK_KEY, true).first()
+        getPreference(context, MUSIC_PLAY_CHECK_KEY, false).first()
 
     override suspend fun setPlayChecked(state: Boolean) {
         setPreference(context, MUSIC_PLAY_CHECK_KEY, state)
