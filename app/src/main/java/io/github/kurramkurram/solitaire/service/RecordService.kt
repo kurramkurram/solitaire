@@ -30,9 +30,9 @@ import kotlinx.coroutines.launch
  */
 class RecordService : Service() {
 
-    private lateinit var mediaProjection: MediaProjection
+    private var mediaProjection: MediaProjection? = null
     private lateinit var mediaRecorder: MediaRecorder
-    private lateinit var virtualDisplay: VirtualDisplay
+    private var virtualDisplay: VirtualDisplay? = null
     private lateinit var file: File
 
     companion object {
@@ -82,7 +82,7 @@ class RecordService : Service() {
         val projectionManager =
             applicationContext.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         mediaProjection = projectionManager.getMediaProjection(Activity.RESULT_OK, data)
-        mediaProjection.registerCallback(object : MediaProjection.Callback() {}, null)
+        mediaProjection?.registerCallback(object : MediaProjection.Callback() {}, null)
 
         val metrics = applicationContext.resources.displayMetrics
         val width = metrics.widthPixels
@@ -106,7 +106,7 @@ class RecordService : Service() {
             prepare()
         }
 
-        virtualDisplay = mediaProjection.createVirtualDisplay(
+        virtualDisplay = mediaProjection?.createVirtualDisplay(
             VIRTUAL_DISPLAY_NAME,
             width,
             height,
@@ -125,8 +125,8 @@ class RecordService : Service() {
         super.onDestroy()
         mediaRecorder.stop()
         mediaRecorder.release()
-        virtualDisplay.release()
-        mediaProjection.stop()
+        virtualDisplay?.release()
+        mediaProjection?.stop()
         CoroutineScope(Dispatchers.IO).launch {
             val repository = MovieRepositoryImpl(applicationContext)
             repository.saveMovieInfo(Movie(0, file.name, file.path))

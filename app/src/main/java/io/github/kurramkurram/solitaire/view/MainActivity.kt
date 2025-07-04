@@ -28,19 +28,12 @@ class MainActivity : AppCompatActivity() {
     private var current: Fragment? = null
     private val mainViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     private lateinit var binding: ActivityMainBinding
+    private val viewPump: ViewPump = ViewPump.builder().addInterceptor(
+        CalligraphyInterceptor(CalligraphyConfig.Builder().build())
+    ).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        ViewPump.init(
-            ViewPump.builder()
-                .addInterceptor(
-                    CalligraphyInterceptor(
-                        CalligraphyConfig.Builder().build()
-                    )
-                )
-                .build()
-        )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -57,18 +50,22 @@ class MainActivity : AppCompatActivity() {
                     tag = SolitaireFragment.TAG
                     solitaireFragment
                 }
+
                 R.id.navigation_record -> {
                     tag = BaseRecordFragment.TAG
                     BaseRecordFragment()
                 }
+
                 R.id.navigation_movie -> {
                     tag = PlayMovieFragment.TAG
                     PlayMovieFragment()
                 }
+
                 R.id.navigation_settings -> {
                     tag = SettingsFragment.TAG
                     SettingsFragment()
                 }
+
                 else -> return@setOnItemSelectedListener false
             }
 
@@ -109,6 +106,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase, viewPump))
     }
 }
