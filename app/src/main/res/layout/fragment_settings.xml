@@ -20,6 +20,7 @@
                     android:id="@+id/backup_container"
                     style="@style/SolitaireSettings.Container"
                     android:layout_marginTop="30dp"
+                    android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="MissingConstraints">
 
@@ -239,7 +240,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/sign_out"
                         style="@style/SolitaireSettings.Item"
-                        android:background="?android:attr/selectableItemBackground">
+                        android:background="?android:attr/selectableItemBackground"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/SolitaireSettings.TextView"
