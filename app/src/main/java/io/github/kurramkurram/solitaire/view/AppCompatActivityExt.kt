@@ -12,8 +12,7 @@ fun AppCompatActivity.disableEdgeToEdge(view: View) {
             view
         ) { v, insets ->
             val systemBars = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars()
-                        or WindowInsetsCompat.Type.displayCutout()
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
             )
             v.setPadding(
                 systemBars.left,

@@ -37,33 +37,32 @@ fun LinkText(
     val uriHandler = LocalUriHandler.current
     Text(
         modifier = modifier,
-        text =
-            buildAnnotatedString {
-                append(preText)
-                val l =
-                    LinkAnnotation.Url(
-                        link,
-                        TextLinkStyles(
-                            SpanStyle(
-                                color = linkColor,
-                                textDecoration = TextDecoration.Underline,
-                            ),
+        text = buildAnnotatedString {
+            append(preText)
+            val l =
+                LinkAnnotation.Url(
+                    link,
+                    TextLinkStyles(
+                        SpanStyle(
+                            color = linkColor,
+                            textDecoration = TextDecoration.Underline,
                         ),
-                    ) {
-                        if (onClickLink == null) {
-                            try {
-                                val url = (it as LinkAnnotation.Url).url
-                                uriHandler.openUri(url)
-                            } catch (e: IllegalArgumentException) {
-                                Log.e("LinkText#LicenseScreenLinkText ", "$e")
-                            }
-                        } else {
-                            onClickLink()
+                    ),
+                ) {
+                    if (onClickLink == null) {
+                        try {
+                            val url = (it as LinkAnnotation.Url).url
+                            uriHandler.openUri(url)
+                        } catch (e: IllegalArgumentException) {
+                            Log.e("LinkText#LicenseScreenLinkText ", "$e")
                         }
+                    } else {
+                        onClickLink()
                     }
-                withLink(l) { append(linkText.ifEmpty { link }) }
-                append(suffixText)
-            },
+                }
+            withLink(l) { append(linkText.ifEmpty { link }) }
+            append(suffixText)
+        },
     )
 }
 
