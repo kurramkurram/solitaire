@@ -82,7 +82,7 @@ class ArchiveDataSourceImpl(
         return try {
             ZipInputStream(
                 Files.newInputStream(Paths.get(zipFile.path)),
-                Charset.forName("Shift_JIS")
+                Charset.forName("Shift_JIS"),
             ).use { f ->
                 var zipEntry: ZipEntry?
                 val buffer = ByteArray(1024 * 1024)

@@ -36,7 +36,7 @@ abstract class TmpRecordDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TmpRecordDatabase::class.java,
-                    DB_NAME
+                    DB_NAME,
                 ).apply {
                     allowMainThreadQueries()
                     addMigrations(MIGRATION_1_2)
