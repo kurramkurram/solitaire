@@ -25,7 +25,7 @@ class SolitaireViewModelTest {
 
         val solitaireViewModel = SolitaireViewModel(
             ApplicationProvider.getApplicationContext(),
-            RecordRepositoryImpl(Mockito.mock(Application::class.java))
+            RecordRepositoryImpl(Mockito.mock(Application::class.java)),
         )
         val list = solitaireViewModel.createLayout(initList)
         L.d(TAG, "#testCreateLayout = $list")

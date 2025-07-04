@@ -33,7 +33,7 @@ class GraphViewModelTest {
                 "2024/02/01",
                 "2024/01/31",
                 "2024/01/30",
-                "2024/01/29"
+                "2024/01/29",
             )
         }
         val mockRecordRepository = MockRecordRepository().apply {
@@ -46,15 +46,15 @@ class GraphViewModelTest {
                     BarChartData("2024/02/01", 3),
                     BarChartData("2024/02/02", 4),
                     BarChartData("2024/02/03", 5),
-                    BarChartData("2024/02/04", 6)
-                )
+                    BarChartData("2024/02/04", 6),
+                ),
             )
         }
         val mockCreateBarChartUseCase = MockCreateBarChartUseCase().apply {
             result = Triple(
                 mutableListOf("AAA", "BBB"),
                 mutableListOf(BarEntry(1f, 10f), BarEntry(2f, 20f)),
-                10
+                10,
             )
         }
 
@@ -62,7 +62,7 @@ class GraphViewModelTest {
             application,
             mockDateRepository,
             mockRecordRepository,
-            mockCreateBarChartUseCase
+            mockCreateBarChartUseCase,
         )
         graphViewModel.createBarChartData(mockRecordRepository.selectCountPerDay("", "").value!!)
         Assert.assertEquals("2024/01/29 ~ 2024/02/04", graphViewModel.textDuration.value)

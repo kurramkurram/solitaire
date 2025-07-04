@@ -39,7 +39,7 @@ abstract class RecordDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     RecordDatabase::class.java,
-                    DB_NAME
+                    DB_NAME,
                 ).apply {
                     allowMainThreadQueries()
                     addMigrations(MIGRATION_1_2)

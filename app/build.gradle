@@ -6,17 +6,18 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'dagger.hilt.android.plugin'
+    id "org.jetbrains.kotlin.plugin.compose"
 }
 
 android {
     namespace 'io.github.kurramkurram.solitaire'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "io.github.kurramkurram.solitaire"
         minSdk 26
         minSdk 26
-        targetSdk 35
+        targetSdk 36
         versionCode 11
         versionName "1.5.1"
 
@@ -69,7 +70,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
@@ -88,31 +89,31 @@ check.dependsOn ktlint
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6"
-    implementation "androidx.fragment:fragment-ktx:1.8.4"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1"
+    implementation "androidx.fragment:fragment-ktx:1.8.8"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.8.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.9.1"
 
     // Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    kapt "androidx.room:room-compiler:2.6.1"
-    implementation "androidx.room:room-ktx:2.6.1"
+    implementation "androidx.room:room-runtime:2.7.2"
+    kapt "androidx.room:room-compiler:2.7.2"
+    implementation "androidx.room:room-ktx:2.7.2"
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:33.4.0')
+    implementation platform('com.google.firebase:firebase-bom:33.16.0')
     // Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     // Authentication
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
     // Storage
     implementation 'com.google.firebase:firebase-storage'
     // CloudMessaging
@@ -123,13 +124,13 @@ dependencies {
 
     // font
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
-    implementation 'io.github.inflationx:viewpump:2.0.3'
+    implementation 'io.github.inflationx:viewpump:2.1.1'
 
     // datastore
-    implementation "androidx.datastore:datastore-preferences:1.1.1"
+    implementation "androidx.datastore:datastore-preferences:1.1.7"
 
     // AdMob
-    implementation 'com.google.android.gms:play-services-ads:23.4.0'
+    implementation 'com.google.android.gms:play-services-ads:24.4.0'
 
     // Review
     implementation 'com.google.android.play:review:2.0.2'
@@ -139,7 +140,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // Jetpack Compose
-    def composeBom = platform('androidx.compose:compose-bom:2024.10.00')
+    def composeBom = platform('androidx.compose:compose-bom:2025.06.01')
     implementation composeBom
     androidTestImplementation composeBom
 
@@ -153,13 +154,14 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    androidTestImplementation 'org.mockito:mockito-core:2.28.2'
+    androidTestImplementation 'org.mockito:mockito-core:5.18.0'
     androidTestImplementation 'androidx.test:rules:1.6.1'
 
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.50"
-    kapt "com.google.dagger:hilt-android-compiler:2.50"
+    implementation "com.google.dagger:hilt-android:2.56.2"
+    kapt "com.google.dagger:hilt-android-compiler:2.56.2"
 
     // ktlint
+    // 指摘内容が変わってくるので、いったんこのままのバージョン
     ktlint 'com.pinterest:ktlint:0.43.1'
 }

@@ -6,14 +6,14 @@ buildscript {
         mavenCentral()
     }
 
-    ext.hilt_version = '2.50'
+    ext.hilt_version = '2.56.2'
     dependencies {
         // OSS
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.6'
 
         // Firebase
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.google.gms:google-services:4.4.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.4'
 
         // Hilt
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
@@ -21,9 +21,10 @@ buildscript {
 }
 
 plugins {
-    id "com.android.application" version '8.5.2' apply false
-    id 'com.android.library' version '7.4.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.20' apply false
+    id "com.android.application" version '8.11.0' apply false
+    id 'com.android.library' version '8.11.0' apply false
+    id 'org.jetbrains.kotlin.android' version '2.2.0' apply false
+    id "org.jetbrains.kotlin.plugin.compose" version "2.1.10" apply false
 }
 
 allprojects {

@@ -10,7 +10,7 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
                 " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                 " fileName TEXT NOT NULL, " +
                 " path TEXT NOT NULL" +
-                ");"
+                ");",
         )
     }
 }
