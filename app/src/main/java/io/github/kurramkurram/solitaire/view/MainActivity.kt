@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        disableEdgeToEdge(binding.root)
+
         volumeControlStream = AudioManager.STREAM_MUSIC
 
         val solitaireFragment = SolitaireFragment()

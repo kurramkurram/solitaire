@@ -33,6 +33,7 @@ class NavigateProActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNavigateProBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        disableEdgeToEdge(binding.root)
 
         binding.composeView.apply {
             setViewCompositionStrategy(
